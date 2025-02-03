@@ -257,7 +257,7 @@ void RacesNewDlg::loadDatabase() {
   dbLoaded = database.load(path);
 
   if (dbLoaded) {
-    dbPath = path;   memberList.create();   onLoadCurMbrs();
+    dbPath = path;   mbrPic.setRootPath(path);   memberList.create();   onLoadCurMbrs();
 
     addrList.load();   zipList.load();   setPath(dbPath);
     }
@@ -956,7 +956,7 @@ PrepAdrRcd prepRcd;
 
 
 void RacesNewDlg::onPickPicPath() {
-String     rootPath = path;
+String     rootPath = dbPath;
 PathDlgDsc pathDlg;
 String     picPath;
 int        pos;
@@ -973,7 +973,11 @@ int        pos;
 
   pos = rootPath.length();   picPath = picPath.substr(pos);   picPath = _T("..\\") + picPath;
 
-  picPathCtl.SetWindowText(picPath);   mbrPic.set(picPath);
+  picPathCtl.SetWindowText(picPath);
+
+
+
+  mbrPic.set(picPath);
   }
 
 

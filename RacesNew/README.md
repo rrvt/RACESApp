@@ -25,6 +25,11 @@ may be referenced in multiple records.  A dead record is a record that is not re
 records thus it may be marked to be removed later.  Deleting a former member may create some dead
 records so running the "Remove Dead Records" command is usually wise.
 
+The toolbar has an Update DB & Exit command (which is the rightmost icon).  If there have been no
+changes in the application, the command immediately exits.  If there have been changes then a
+dialog box asks if an update to the external database is to be allowed.  Answer no and the app
+exits.  Answer yes and the app will update the file with the changes made within the app.
+
 ## Getting Started
 
 This version was created with Visual Studion 2022 (VS22).  It was compiled with the following properties:

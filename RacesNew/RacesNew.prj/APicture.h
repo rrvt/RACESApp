@@ -2,12 +2,14 @@
 
 
 #pragma once
+#include "FileName.h"
 
 
 
 class APicture {
 
 CStatic& ctl;
+String   dbRootPath;
 String   path;
 bool     visible;
 CDialog& dlg;
@@ -23,7 +25,9 @@ public:
 
   void clear();
 
-  void set(TCchar* picPath) {path = picPath;   visible = true;   set();}
+  void setRootPath(TCchar* path) {dbRootPath = getPath(path);}
+
+  void set(TCchar* picPath) {path = dbRootPath + picPath;   visible = true;   set();}
 
   void check(int w, int h);
 

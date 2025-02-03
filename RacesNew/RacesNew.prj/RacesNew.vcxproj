@@ -63,13 +63,13 @@
       <PreprocessorDefinitions>
         WIN32;_WINDOWS;_DEBUG;DsplyHistoryXXX;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
-      <PrecompiledHeaderFile />
+      <PrecompiledHeaderFile/>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Library\;$(SolutionDir)..\..\Library\Extras\;$(SolutionDir)..\..\Library\AccessDB\;$(SolutionDir)..\..\Library\RACESdb\;$(SolutionDir)..\..\Library\DocView\</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <BasicRuntimeChecks />
+      <BasicRuntimeChecks/>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PrecompiledHeaderOutputFile />
+      <PrecompiledHeaderOutputFile/>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <SupportJustMyCode>false</SupportJustMyCode>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -105,12 +105,12 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile />
+      <PrecompiledHeaderFile/>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Library\;$(SolutionDir)..\..\Library\Extras\;$(SolutionDir)..\..\Library\AccessDB\;$(SolutionDir)..\..\Library\RACESdb\;$(SolutionDir)..\..\Library\DocView\</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <DebugInformationFormat />
-      <BasicRuntimeChecks />
-      <PrecompiledHeaderOutputFile />
+      <DebugInformationFormat/>
+      <BasicRuntimeChecks/>
+      <PrecompiledHeaderOutputFile/>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -121,7 +121,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalDependencies>Htmlhelp.lib;Library.lib;RACESdb.lib;AccessDB.lib</AdditionalDependencies>
-      <ProgramDatabaseFile />
+      <ProgramDatabaseFile/>
       <AdditionalLibraryDirectories>$(Solutiondir)..\..\Library\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -201,6 +201,7 @@
   <ItemGroup>
     <None Include="..\..\Library\Extras\AboutDlg.rc2" />
     <None Include="..\..\Library\Extras\Options.rc2" />
+    <None Include="..\README.md" />
     <None Include="C:\Users\rrvt\AppData\Roaming\RacesNew\RacesNew.ini" />
     <None Include="res\RacesNew.rc2" />
   </ItemGroup>
@@ -211,12 +212,6 @@
     <Image Include="res\Puppy.bmp" />
     <Image Include="res\RacesNew.ico" />
     <Image Include="res\ShortToolbar.bmp" />
-    <Image Include="res\Toolbar01.bmp" />
-    <Image Include="res\Toolbar02.bmp" />
-    <Image Include="res\Toolbar04.bmp" />
-    <Image Include="res\Toolbar05.bmp" />
-    <Image Include="res\Toolbar06.bmp" />
-    <Image Include="res\Toolbar08.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library\Library.vcxproj">
