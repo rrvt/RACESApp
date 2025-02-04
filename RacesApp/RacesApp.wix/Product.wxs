@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+<Product Id="*" UpgradeCode="774B9194-531B-468A-8ED6-22E303A47832" Language="1033"
+                Manufacturer="Bob -- K6RWY" Name="Races Interface App"
+                Version="!(bind.fileVersion.Races_App.cmp)"
+                >
+
+  <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"
+                Manufacturer="Bob -- K6RWY" Description="Installs Races Interface App"
+                Comments="Copyright (c) Bob -- K6RWY"
+                />
+
+  <MajorUpgrade Schedule="afterInstallInitialize"
+                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
+                DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                />
+
+  <MediaTemplate EmbedCab="yes" />
+
+  <UI Id="My_InstallDir.ui">
+    <UIRef Id="WixUI_InstallDir" />
+    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">
+      NOT Installed
+    </Publish>
+    <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">
+      1
+    </Publish>
+  </UI>
+
+  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
+  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
+
+  <Icon     Id="RacesApp_Icon.exe"
+                                  SourceFile="$(var.SolutionDir)..\RacesApp.prj\res\RacesApp.ico"/>
+  <Property Id="ARPPRODUCTICON"  Value="RacesApp_Icon.exe" />
+
+  <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
+    <ComponentGroupRef Id="App.ftr"/>
+    <ComponentGroupRef Id="Uninstall_Races_App.ftr"/>
+  </Feature>
+</Product>
+
+<Fragment>
+  <ComponentGroup Id="App.ftr">
+    <ComponentRef Id="Races_App.cmp"/>
+    <ComponentRef Id="Help.cmp"/>
+  </ComponentGroup>
+  <ComponentGroup Id="Uninstall_Races_App.ftr">
+    <ComponentRef Id="Uninstall_Races_App.cmp"/>
+  </ComponentGroup>
+</Fragment>
+
+<!--Directory structure-->
+<Fragment>
+  <Directory Id="TARGETDIR" Name="SourceDir">
+    <Directory Id="ProgramFilesFolder">
+      <Directory Id="RACESNEW.PFF" Name="RacesApp" />
+    </Directory>
+
+    <Directory Id="ProgramMenuFolder">
+      <Directory Id="RacesApp.pmf" Name="RacesApp" />
+    </Directory>
+
+    <Directory Id="DesktopFolder" />
+  </Directory>
+
+  <Property Id="ApplicationFolderName" Value="RacesApp" />
+  <Property Id="WIXUI_INSTALLDIR"      Value="RACESNEW.PFF"/>
+  <Property Id="WixAppFolder"          Value="WixPerMachineFolder" />
+</Fragment>
+
+<Fragment>
+  <Component Id="Races_App.cmp" Guid="23ECF4DD-FCCB-43FB-B9B0-EC278CBE007D"
+                                                                          Directory="RACESNEW.PFF">
+    <File Id="Races_App.cmp" Source="$(var.SolutionDir)..\Release\RacesApp.exe" KeyPath="yes"/>
+
+    <Shortcut Id               = "RacesApp.shc"
+              Name             = "Races App"
+              Description      = "RACES Database App"
+              Advertise        = "yes"
+              Directory        = "RacesApp.pmf"
+              WorkingDirectory = "RACESNEW.PFF"
+              Icon             = "RacesApp_Icon.exe"
+              />
+
+    <Shortcut Id               = "RacesApp.dsk"
+              Name             = "Races App"
+              Description      = "RACES Database App"
+              Advertise        = "yes"
+              Directory        = "DesktopFolder"
+              WorkingDirectory = "RACESNEW.PFF"
+              Icon             = "RacesApp_Icon.exe"
+              />
+    <Condition>
+      <![CDATA[Installed OR VersionNT >= 601]]>
+    </Condition>
+  </Component>
+
+  <Component Id="Help.cmp" Guid="1B95F59D-C812-49B3-B3E8-39EF4ECED3FD" Directory="RACESNEW.PFF">
+    <File Id="Help.cmp" Source="$(var.SolutionDir)..\Release\RacesApp.chm" KeyPath="yes"/>
+  </Component>
+</Fragment>
+
+<Fragment>
+  <Component Id="Uninstall_Races_App.cmp"
+                              Guid="1CBC4FA6-6157-4480-9C74-24951BB6B086" Directory="RacesApp.pmf">
+
+    <Shortcut Id               = "UninstallRacesApp.shc"
+              Name             = "Uninstall Races App"
+              Description      = "Uninstalls Races App"
+              Target           = "[System64Folder]msiexec.exe"
+              Arguments        = "/x [ProductCode]"
+              Icon             = "RacesApp_Icon.exe"
+              />
+    <RemoveFolder Id="RacesApp.uni" Directory="RacesApp.pmf" On="uninstall"/>
+    <RegistryValue Root="HKCU" Key="Software\Uninstall_Races_App.cmp"
+                                          Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+  </Component>
+</Fragment>
+</Wix>

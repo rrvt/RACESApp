@@ -61,6 +61,12 @@ The "HTML Help Workshop" (google it) must be installed on the PC.
 
 Execute the msi file to install the app.
 
+## Updates
+
+### Update 2/4/25
+
+Change names from RacesNew to RacesApp.
+
 ## Authors
 
 Robert R. Van Tuyl

@@ -1,0 +1,67 @@
+[SolutionInfo]
+RootPath=D:\Sources\RacesApp
+Path=D:\Sources\RacesApp\RacesApp\RacesApp.sln
+Name=RacesApp
+Version=2.100000
+[DefaultPath]
+NPaths=2
+DefKey0=App.ftr
+App.ftr.Path=D:\Sources\RacesApp\Release\
+DefKey1=Icon
+Icon.Path=D:\Sources\RacesApp\RacesApp.prj\res\
+[Icons]
+NoIcons=1
+[Icon00]
+IconID=RacesApp
+WixID=RacesApp_Icon.exe
+IconPath=D:\Sources\RacesApp\RacesApp.prj\res\RacesApp.ico
+[Product]
+ProductName=Races Interface App
+Company=Bob -- K6RWY
+WixName=RacesApp
+WixVersion=1.0.1.0
+UpgradeCode=774B9194-531B-468A-8ED6-22E303A47832
+SaveVerAllowed=0
+LicenseRequired=0
+LicensePath=D:\Sources\RacesApp\RacesApp.prj\res\RacesApp.ico
+IconID=RacesApp
+[PFFDirectories]
+NoDirectories=1
+[PFFDirDesc00]
+ID=RacesApp
+WixID=RACESNEW.PFF
+Parent=
+Name=RacesApp
+HasChildren=0
+[PMFDirectories]
+NoDirectories=1
+[PMFDirDesc00]
+ID=RacesApp
+WixID=RacesApp.pmf
+Parent=
+Name=RacesApp
+HasChildren=0
+[Features]
+Count=1
+CurSel=App
+[Ftr00]
+FeatureID=App
+ProgramID=RacesApp
+StartMenuID=RacesApp
+CurSel=Races App
+NoComponents=2
+[Ftr00Cmp00]
+ID=Races App
+Path=D:\Sources\RacesApp\Release\RacesApp.exe
+Guid=23ECF4DD-FCCB-43FB-B9B0-EC278CBE007D
+Description=RACES Database App
+IconID=RacesApp
+IsStartMenu=1
+IsDeskTop=1
+IsVersionAvail=1
+IsWin7=1
+[Ftr00Cmp01]
+ID=Help
+Path=D:\Sources\RacesApp\Release\RacesApp.chm
+Guid=1B95F59D-C812-49B3-B3E8-39EF4ECED3FD
+IconID=RacesApp

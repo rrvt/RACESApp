@@ -1,0 +1,12 @@
+rem Clean Debug/clean or Release/Clean
+
+set Config=%1
+
+echo off
+
+@echo Config: "%Config%"
+rem /D /P
+
+nmake %Config%/Clean.cln
+@echo quiting
+exit 0
