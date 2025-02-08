@@ -28,10 +28,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Library", "..\..\Library\Li
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AccessDB", "..\..\Library\AccessDB\AccessDB.vcxproj", "{57279F7B-D4B9-47E3-8419-CB9B97C596FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71D1CFB5-A2ED-487B-B473-17EEE02E6F6B} = {71D1CFB5-A2ED-487B-B473-17EEE02E6F6B}
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B} = {CF57F3EC-D3DB-4469-8519-3F9D73785D9B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RACESdb", "..\..\Library\RACESdb\RACESdb.vcxproj", "{12084586-A769-4348-B54D-336FA036A1FB}"
 	ProjectSection(ProjectDependencies) = postProject
-		{57279F7B-D4B9-47E3-8419-CB9B97C596FA} = {57279F7B-D4B9-47E3-8419-CB9B97C596FA}
+		{71D1CFB5-A2ED-487B-B473-17EEE02E6F6B} = {71D1CFB5-A2ED-487B-B473-17EEE02E6F6B}
 	EndProjectSection
 EndProject
 Global
@@ -68,6 +72,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		         SolutionGuid = {72994815-0664-4AC7-A583-00F25941E09F}
+		                                                                         SolutionGuid = {72994815-0664-4AC7-A583-00F25941E09F}
 	EndGlobalSection
 EndGlobal

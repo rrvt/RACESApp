@@ -4,6 +4,7 @@
 #pragma once
 
 
+#include "TBCbxMenu.h"
 #include "ToolBarBase.h"
 
 
@@ -12,12 +13,16 @@ struct CbxItem;
 
 class MyToolBar : public ToolBarBase {
 
+TBCbxMenu rptMenu;
 
 public:
 
   MyToolBar();
  ~MyToolBar() { }
 
+  bool addMenu(uint id, int idr, TCchar* caption);
+  bool addMenu(uint id, CbxItem cbxItem[], int n, TCchar* caption);
+  void dispatch(uint id);
   };
 
 

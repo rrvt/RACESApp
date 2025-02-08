@@ -5,12 +5,15 @@
 #define IDD_AboutBox                    0x0010
 #define IDR_MAINFRAME                   100
 #define IDR_TOOLBAR                     101
-#define IDD_Address                     104
-#define IDD_CityState                   106
-#define IDB_PuppyBitMap                 108
-#define IDB_Delete                     112
+#define IDR_ReportMenu                  102
+#define IDB_PuppyBitMap                 103
+#define IDB_Delete                      104
+
 #define IDD_RacesApp                    200
 #define IDD_CheckList                   201
+#define IDD_Address                     202
+#define IDD_CityState                   203
+
 #define IDC_StatusBar                   300
 #define IDC_MemberList                  301
 #define IDC_MbrFirstName                302
@@ -97,6 +100,7 @@
 #define IDC_NextZip                     395
 #define IDC_PickPicPath                 395
 #define IDC_PicPath                     396
+
 #define ID_LoadDatabase                 400
 #define ID_NewMember                    401
 #define ID_LoadCurMbrs                  402
@@ -104,10 +108,22 @@
 #define ID_EditRecords                  404
 #define ID_UpdateMbr                    405
 #define ID_CheckList                    406
-#define ID_Options                      407
-#define ID_LoadRtrMbrs                  408
-#define ID_RemoveFmr                    409
-#define ID_SanitizeDB                   410
+
+#define ID_ReportMenu                   407
+#define ID_ExcelReport                  408
+#define ID_GoogleRpt                    409
+#define ID_EverBridgeRpt                410
+#define ID_Option04                     411
+#define ID_Option05                     412
+#define ID_Option06                     413
+#define ID_Option07                     414
+#define ID_Option08                     415
+#define ID_Option09                     416
+
+#define ID_Options                      420
+#define ID_LoadRtrMbrs                  421
+#define ID_RemoveFmr                    422
+#define ID_SanitizeDB                   423
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499

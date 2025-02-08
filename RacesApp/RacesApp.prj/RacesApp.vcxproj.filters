@@ -13,6 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="App Reports">
+      <UniqueIdentifier>{2ABB1EE5-4DBA-451A-B088-CFFA4FEBD84A}</UniqueIdentifier>
+      <Extensions>txt;csv</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -43,9 +47,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MyToolBar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExamplesDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MbrInfo.h">
@@ -103,6 +104,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CurMbr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExcelRpt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GoogleRpt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PriorityList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EverBridgeRpt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -179,6 +195,24 @@
     <ClCompile Include="CurMbr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ReportBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExcelRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GoogleRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PriorityList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EverBridgeRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RacesReports\RacesReports.prj\Everbridge.cpp">
+      <Filter>App Reports</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RacesApp.rc">
@@ -197,6 +231,15 @@
     </None>
     <None Include="C:\Users\rrvt\AppData\Roaming\RacesApp\RacesApp.ini" />
     <None Include="..\README.md" />
+    <None Include="res\Toolbar14.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Data\Two.csv">
+      <Filter>App Reports</Filter>
+    </None>
+    <None Include="..\Data\One.csv">
+      <Filter>App Reports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ShortToolbar.bmp">

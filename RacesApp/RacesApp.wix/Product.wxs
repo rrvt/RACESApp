@@ -18,15 +18,9 @@
 
   <MediaTemplate EmbedCab="yes" />
 
-  <UI Id="My_InstallDir.ui">
-    <UIRef Id="WixUI_InstallDir" />
-    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">
-      NOT Installed
-    </Publish>
-    <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">
-      1
-    </Publish>
-  </UI>
+  <WixVariable Id="WixUILicenseRtf"
+                              Value="$(var.SolutionDir)..\..\Library\License\MITLicenseFile.rtf" />
+  <UI Id="My_InstallDir.ui"><UIRef Id="WixUI_InstallDir" /></UI>
 
   <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
   <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
@@ -104,7 +98,7 @@
 
 <Fragment>
   <Component Id="Uninstall_Races_App.cmp"
-                              Guid="1CBC4FA6-6157-4480-9C74-24951BB6B086" Directory="RacesApp.pmf">
+                              Guid="F7557A3D-68A1-47DD-8289-CC86000D06DF" Directory="RacesApp.pmf">
 
     <Shortcut Id               = "UninstallRacesApp.shc"
               Name             = "Uninstall Races App"

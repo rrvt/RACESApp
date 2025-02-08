@@ -14,6 +14,7 @@ class StsRcd;
 
 struct MbrInfo {
 String  key;
+bool    curMbr;                       // Current Member, i.e. status != "Fmr"
 MbrRcd* mbrRcd;
 EntRcd* mbrEnt;
 EntRcd* emplEnt;

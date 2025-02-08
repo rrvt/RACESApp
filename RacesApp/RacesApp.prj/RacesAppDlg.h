@@ -7,6 +7,7 @@
 #include "CtyTbl.h"
 #include "CurMbr.h"
 #include "EntTbl.h"
+#include "ExcelRpt.h"
 #include "MbrAvailability.h"
 #include "MbrGeography.h"
 #include "MbrStatus.h"
@@ -19,6 +20,8 @@
 
 class  StatusBar;
 struct MbrInfo;
+class  PathDlgDsc;
+
 
 enum DlgSource {NilSrc, NewMbrSrc, CurMbrSrc, FmrMbrSrc, RtrMbrSrc};
 
@@ -42,17 +45,7 @@ bool            isInitialized;
 DlgSource       dlgSource;
 bool            readOnly;
 
-#if 0
-MbrInfo*        currentInfo;
-MbrRcd*         mbrRcd;                         // Local copies of pointers
-EntRcd*         mbrEnt;
-EntRcd*         iceEnt;
-EntRcd*         emplEnt;
-bool            dirty;
-
-MbrRcd          nilRcd;
-EntRcd          nilEnt;
-#endif
+String          reportPath;
 
 AdrRcd          nilAdr;
 CtyRcd          nilCty;
@@ -163,12 +156,6 @@ private:
   void            loadMbrs(DlgSource src);
 
   bool            setEntity(EntRcd* ent, AdrRcd*& adr, CtyRcd*& cty);
-  String          expandDate(TCchar* tc);                    // 010203 becomes 01/02/03
-  String          compressDate(TCchar* cs);                // 01/02/03 becomes 010203
-  String          expandPhone(TCchar* tc);                  // 4085551212 becomes 408.555.1212
-  String          compressPhone(TCchar* tc);                // 408.555.1212 becomes 4085551212
-  String          adjFrag(String& frag);
-
   void            saveMember();
 
   void            saveNewMember();
@@ -183,7 +170,6 @@ private:
 
   bool            setField(String& fld, TCchar* tc);        // only if not equal
   bool            setField(int&   fld, int      v);
-//  bool            setPtrs(MbrInfo* info);
 
   void            setDate(CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandDate(txt));}
   void            setZip( CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandZip(txt));}
@@ -207,6 +193,9 @@ private:
   void            setPath(TCchar* path);
   void            chkMbrPicture();
 
+  TCchar*         getOutputPath(PathDlgDsc& dsc);
+  String&         getPathDsc(TCchar* fileName);
+
 public:
 
   afx_msg void    onLoadDatabase();
@@ -217,6 +206,18 @@ public:
   afx_msg void    onLoadRtrMbrs() {loadMbrs(RtrMbrSrc);}
   afx_msg void    onEditRecords();
   afx_msg void    onCheckList();
+
+  afx_msg void    onExcelRpt();
+  afx_msg void    onGoogleRpt();
+  afx_msg void    onEverBridgeRpt();
+
+  afx_msg void    onOption03();
+  afx_msg void    onOption04();
+  afx_msg void    onOption05();
+  afx_msg void    onOption06();
+  afx_msg void    onOption07();
+  afx_msg void    onOption08();
+  afx_msg void    onOption09();
 
   afx_msg void    onHelp();
   afx_msg void    onUpdateDbExit();
@@ -229,6 +230,8 @@ public:
   afx_msg void    OnSize(UINT nType, int cx, int cy);
   afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
   afx_msg void    onUpdateMbr();
+  afx_msg void    onDispatch()  {toolBar.dispatch(ID_ReportMenu);}
+
   afx_msg void    onSanitizeDB();
 
   afx_msg void    onClearMbrfirstname();
@@ -322,4 +325,22 @@ public:
 //  int             getICECity();
 //  int             getEmplAddr();
 //  int             getEmplCity();
+#if 0
+MbrInfo*        currentInfo;
+MbrRcd*         mbrRcd;                         // Local copies of pointers
+EntRcd*         mbrEnt;
+EntRcd*         iceEnt;
+EntRcd*         emplEnt;
+bool            dirty;
+
+MbrRcd          nilRcd;
+EntRcd          nilEnt;
+#endif
+#if 0
+  String          expandDate(TCchar* tc);                    // 010203 becomes 01/02/03
+  String          compressDate(TCchar* cs);                // 01/02/03 becomes 010203
+  String          expandPhone(TCchar* tc);                  // 4085551212 becomes 408.555.1212
+  String          compressPhone(TCchar* tc);                // 408.555.1212 becomes 4085551212
+  String          adjFrag(String& frag);
+#endif
 

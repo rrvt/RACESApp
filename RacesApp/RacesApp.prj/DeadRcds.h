@@ -14,7 +14,7 @@ CSVOut  csv;
 
 public:
 
-  DeadRcds(TCchar* pathOut) : csvPath(pathOut), ar(csvPath, Archive::Write|Archive::Create),
+  DeadRcds(TCchar* pathOut) : csvPath(pathOut), ar(pathOut, Archive::Write|Archive::Create),
                                                                                         csv(ar) { }
  ~DeadRcds() { }
 

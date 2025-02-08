@@ -10,8 +10,27 @@ static int NoOfButtons        =  6;
 
 
 
-MyToolBar::MyToolBar()
+MyToolBar::MyToolBar() : rptMenu(ID_ReportMenu)
                         {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
+
+
+bool MyToolBar::addMenu(uint id, int idr, TCchar* caption) {
+  if (id == rptMenu.getId())  return add(rptMenu,  id, idr, caption);
+
+  return false;
+  }
+
+
+bool MyToolBar::addMenu(uint id, CbxItem cbxItem[], int n, TCchar* caption) {
+  if (id == rptMenu.getId())   return add(rptMenu,  id, cbxItem, n, caption);
+
+  return false;
+  }
+
+
+void MyToolBar::dispatch(uint id) {
+  if (id == rptMenu.getId())  ToolBarBase::dispatch(rptMenu);
+  }
 
 
 #if 0

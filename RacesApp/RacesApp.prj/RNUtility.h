@@ -21,13 +21,24 @@ inline void    reset(CComboBox& ctl) {ctl.ResetContent();}
 
 
 inline void    clrLbl(CEdit& ctl, TCchar* txt)
-                             {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
+                            {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
 
-int    getInt(CStatic& ctl);
-String expandZip(TCchar* tc);
-String compressZip(TCchar* tc);
+       int     getInt(CStatic& ctl);
 
-bool   isEarlier(TCchar* updateDate);
+       String& replaceCrlf(TCchar* tc);
+
+       String  expandPhone(TCchar* tc);                  // 4085551212 becomes 408.555.1212
+       String  compressPhone(TCchar* tc);                // 408.555.1212 becomes 4085551212
+
+       String  expandDate(TCchar* tc);
+       String  compressDate(TCchar* cs);
+
+       String  expandZip(TCchar* tc);
+       String  compressZip(TCchar* tc);
+
+       String& appdAttr(String& s, TCchar* prefix, String& body);
+
+       bool    isEarlier(TCchar* updateDate);
 
 #if 0
 void disableBttn(CButton& ctl);

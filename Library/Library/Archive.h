@@ -108,7 +108,7 @@ public:
 
 enum Mode {Read=1, Write=2, Create=4};
 
-           Archive(String& fileName, int mode);
+           Archive(TCchar* fileName, int mode);
            Archive(void*   arbObj,   int mode) : ArchPos(arbObj, mode) { }
           ~Archive() { }
 
@@ -211,7 +211,7 @@ private:
 
   static Archive& doCrlf(     Archive& n) {n.flush(); return n.crlf();}
 
-  Archive() : ArchPos(*(String*)0, 0) { }
+  Archive() : ArchPos((TCchar*)0, 0) { }
 
   friend ArManipDbl& aSetLMargin(double val);   // Set left margin (no. chars)
   friend ArManipDbl& aSetRMargin(double val);   // Set right margin (no. chars)

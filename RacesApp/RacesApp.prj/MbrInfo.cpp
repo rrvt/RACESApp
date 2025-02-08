@@ -12,13 +12,16 @@
 
 bool MbrInfo::get(MbrRcd* rcd) {
 
-  mbrEnt       = entTbl.find(rcd->mbrEntityID);   if (!mbrEnt) return false;
-  mbrRcd       = rcd;
-  emplEnt      = entTbl.find(rcd->emplEntityID);
-  iceEnt       = entTbl.find(rcd->iCE_EntityID);
-  asnRcd       = asnTbl.find(rcd->assgnPrefID);
-  locRcd       = locTbl.find(rcd->locationPrefID);
-  stsRcd       = stsTbl.find(rcd->statusID);
+  mbrEnt  = entTbl.find(rcd->mbrEntityID);   if (!mbrEnt) return false;
+  mbrRcd  = rcd;
+  emplEnt = entTbl.find(rcd->emplEntityID);
+  iceEnt  = entTbl.find(rcd->iCE_EntityID);
+  asnRcd  = asnTbl.find(rcd->assgnPrefID);
+  locRcd  = locTbl.find(rcd->locationPrefID);
+  stsRcd  = stsTbl.find(rcd->statusID);
+
+  key     = mbrEnt->lastName + mbrEnt->firstName + mbrEnt->middleInitial + rcd->callSign;
+  curMbr  = stsRcd && stsRcd->abbreviation != _T("Fmr") ? true : false;
 
   return true;
   }
@@ -37,8 +40,8 @@ void MbrInfo::copy(MbrInfo& mi) {
 
 #if 0
 void InfoRpts::info() {
-MbrLstIter iter(mbrSortList);
-MbrItem*   item;
+MbrListIter iter(memberList);
+MbrInfo*   item;
 
 int     i;
 int     n;
@@ -69,8 +72,8 @@ int     n;
 
 
 void InfoRpts::dspBadges(BadgeSort badgeSort) {
-MbrLstIter iter(mbrSortList);
-MbrItem*   item;
+MbrListIter iter(memberList);
+MbrInfo*   item;
 int        i;
 int        n;
 int        lng;
@@ -148,8 +151,8 @@ String dy;
 
 
 void InfoRpts::former(FmrSort sortKey) {
-MbrLstIter iter(mbrSortList);
-MbrItem*   item;
+MbrListIter iter(memberList);
+MbrInfo*   item;
 int        i;
 int        n;
 int        lng;
