@@ -13,13 +13,12 @@ void ExcelRpt::operator() () {
 MbrListIter iter(memberList);
 MbrInfo*    item;
 int         count;
-String      s;
 
   header();
 
   for (count = 0, item = iter(); item; item = iter++) if (item->curMbr) {output(*item);   count++;}
 
-  s.format(_T("%i Records"), count);   messageBox(s);
+  msgCount(count);
   }
 
 

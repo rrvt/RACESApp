@@ -15,10 +15,10 @@ class StsRcd;
 class ReportBase {
 
 String  csvPath;
-Archive ar;
 
 public:
 
+Archive ar;
 CSVOut  csv;
 
   ReportBase(TCchar* path) : csvPath(path), ar(path, Archive::Write|Archive::Create), csv(ar)  { }
@@ -44,6 +44,8 @@ CSVOut  csv;
   void    putLoc(     LocRcd* locRcd);
   void    putSts(     StsRcd* stsRcd);
   void    putSkills(  MbrRcd& rcd);
+
+  void    msgCount(int count);
 
 private:
 

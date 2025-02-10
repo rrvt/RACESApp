@@ -113,12 +113,13 @@
 #define ID_ExcelReport                  408
 #define ID_GoogleRpt                    409
 #define ID_EverBridgeRpt                410
-#define ID_Option04                     411
-#define ID_Option05                     412
-#define ID_Option06                     413
-#define ID_Option07                     414
-#define ID_Option08                     415
-#define ID_Option09                     416
+#define ID_CSBadgeRpt                   411
+#define ID_DateBadgeRpt                 412
+#define ID_ContactByNm                  413
+#define ID_ContactByCS                  414
+#define ID_ResponderCnts                415
+#define ID_CallSignList                 416
+#define ID_MemberIDs                    417
 
 #define ID_Options                      420
 #define ID_LoadRtrMbrs                  421

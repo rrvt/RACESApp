@@ -9,7 +9,7 @@
 #include "EntTbl.h"
 #include "LocTbl.h"
 #include "MemberList.h"
-#include "MessageBox.h"
+//#include "MessageBox.h"
 #include "MbrTbl.h"
 #include "PriorityList.h"
 #include "RNUtility.h"
@@ -21,7 +21,6 @@ PriorityList pl;
 PLIter       iter(pl);
 PLDsc*       dsc;
 int          count;
-String       s;
 
   header();
 
@@ -29,7 +28,7 @@ String       s;
     if (output(*dsc->info, false)) count++;   if (output(*dsc->info, true)) count++;
     }
 
-  s.format(_T("%i Records"), count);   messageBox(s);
+  msgCount(count);
   }
 
 
@@ -112,7 +111,7 @@ bool    avail           = addrAvail(r, addrRcd);
     }
   else csv << _T("Anywhere") << Comma;
 
-  csv << rcd.limitations << Comma;
+  csv << replaceCrlf(rcd.limitations) << Comma;
 
   csv << addrType << Comma;
 

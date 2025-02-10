@@ -44,10 +44,6 @@ private:
   };
 
 
-typedef DatumPtrT<MbrInfo, String> MbrInfoP;              // Usually defined just before iterator
-class InfoRpts;
-typedef IterT<InfoRpts, MbrInfo> InfoIter;
-
 
 #if 0
 class InfoRpts {
@@ -76,7 +72,11 @@ private:
 
   void  removeDatum(int i) {if (0 <= i && i < nData()) data.del(i);}
 
-  friend typename InfoIter;
+  friend typename CMbrIter;
   };
+
+typedef DatumPtrT<MbrInfo, String> MbrInfoP;              // Usually defined just before iterator
+class InfoRpts;
+typedef IterT<InfoRpts, MbrInfo> CMbrIter;
 
 #endif

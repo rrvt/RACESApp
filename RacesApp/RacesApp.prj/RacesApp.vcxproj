@@ -63,13 +63,13 @@
       <PreprocessorDefinitions>
         WIN32;_WINDOWS;_DEBUG;DsplyHistoryXXX;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
-      <PrecompiledHeaderFile/>
+      <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Library\;$(SolutionDir)..\..\Library\Extras\;$(SolutionDir)..\..\Library\AccessDB\;$(SolutionDir)..\..\Library\RACESdb\;$(SolutionDir)..\..\Library\DocView\</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <BasicRuntimeChecks/>
+      <BasicRuntimeChecks />
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PrecompiledHeaderOutputFile/>
+      <PrecompiledHeaderOutputFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <SupportJustMyCode>false</SupportJustMyCode>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -105,12 +105,12 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile/>
+      <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Library\;$(SolutionDir)..\..\Library\Extras\;$(SolutionDir)..\..\Library\AccessDB\;$(SolutionDir)..\..\Library\RACESdb\;$(SolutionDir)..\..\Library\DocView\</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <DebugInformationFormat/>
-      <BasicRuntimeChecks/>
-      <PrecompiledHeaderOutputFile/>
+      <DebugInformationFormat />
+      <BasicRuntimeChecks />
+      <PrecompiledHeaderOutputFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -121,7 +121,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalDependencies>Htmlhelp.lib;Library.lib;RACESdb.lib;AccessDB.lib</AdditionalDependencies>
-      <ProgramDatabaseFile/>
+      <ProgramDatabaseFile />
       <AdditionalLibraryDirectories>$(Solutiondir)..\..\Library\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -143,14 +143,18 @@
     <ClInclude Include="..\..\Library\Extras\ResourceExtra.h" />
     <ClInclude Include="AddressDlg.h" />
     <ClInclude Include="AddrList.h" />
+    <ClInclude Include="BadgeRpt.h" />
     <ClInclude Include="CityStateDlg.h" />
+    <ClInclude Include="ContactRpt.h" />
     <ClInclude Include="CurMbr.h" />
+    <ClInclude Include="CurMbrList.h" />
     <ClInclude Include="DeadRcds.h" />
     <ClInclude Include="EverBridgeRpt.h" />
     <ClInclude Include="ExcelRpt.h" />
     <ClInclude Include="GoogleRpt.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="APicture.h" />
+    <ClInclude Include="MbrIDs.h" />
     <ClInclude Include="PrepAdrRcd.h" />
     <ClInclude Include="PrepCtyRcd.h" />
     <ClInclude Include="PrepEntRcd.h" />
@@ -165,10 +169,12 @@
     <ClInclude Include="PriorityList.h" />
     <ClInclude Include="RacesApp.h" />
     <ClInclude Include="RacesAppDlg.h" />
+    <ClInclude Include="Reports.h" />
     <ClInclude Include="ReportBase.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ResponderCntRpt.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="RNUtility.h" />
     <ClInclude Include="ZipList.h" />
@@ -177,9 +183,12 @@
     <ClCompile Include="AddressDlg.cpp" />
     <ClCompile Include="AddrList.cpp" />
     <ClCompile Include="APicture.cpp" />
+    <ClCompile Include="BadgeRpt.cpp" />
     <ClCompile Include="ChkListDlg.cpp" />
     <ClCompile Include="CityStateDlg.cpp" />
+    <ClCompile Include="ContactRpt.cpp" />
     <ClCompile Include="CurMbr.cpp" />
+    <ClCompile Include="CurMbrList.cpp" />
     <ClCompile Include="DeadRcds.cpp" />
     <ClCompile Include="EverBridgeRpt.cpp" />
     <ClCompile Include="ExcelRpt.cpp" />
@@ -187,6 +196,7 @@
     <ClCompile Include="MbrAvailability.cpp" />
     <ClCompile Include="MbrBadgeNo.cpp" />
     <ClCompile Include="MbrGeography.cpp" />
+    <ClCompile Include="MbrIDs.cpp" />
     <ClCompile Include="MbrInfo.cpp" />
     <ClCompile Include="MbrStatus.cpp" />
     <ClCompile Include="MemberList.cpp" />
@@ -198,7 +208,9 @@
     <ClCompile Include="PriorityList.cpp" />
     <ClCompile Include="RacesApp.cpp" />
     <ClCompile Include="RacesAppDlg.cpp" />
+    <ClCompile Include="Reports.cpp" />
     <ClCompile Include="ReportBase.cpp" />
+    <ClCompile Include="ResponderCntRpt.cpp" />
     <ClCompile Include="RNUtility.cpp" />
     <ClCompile Include="ZipList.cpp" />
     <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp" />

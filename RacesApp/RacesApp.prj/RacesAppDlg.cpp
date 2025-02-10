@@ -11,10 +11,7 @@
 #include "Database.h"
 #include "Date.h"
 #include "DeadRcds.h"
-#include "EverBridgeRpt.h"
-#include "FileName.h"
 #include "GetPathDlg.h"
-#include "GoogleRpt.h"
 #include "History.h"
 #include "IniFile.h"
 #include "MbrBadgeNo.h"
@@ -64,6 +61,16 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_ExcelReport,   &onExcelRpt)
   ON_COMMAND(      ID_GoogleRpt,     &onGoogleRpt)
   ON_COMMAND(      ID_EverBridgeRpt, &onEverBridgeRpt)
+  ON_COMMAND(      ID_CSBadgeRpt,    &onCSBadgeRpt)
+  ON_COMMAND(      ID_DateBadgeRpt,  &onDateBadgeRpt)
+  ON_COMMAND(      ID_ContactByNm,   &onContactByNmRpt)
+  ON_COMMAND(      ID_ContactByCS,   &onContactByCSRpt)
+  ON_COMMAND(      ID_ResponderCnts, &onResponderCnts)
+  ON_COMMAND(      ID_CallSignList,  &onCallSignList)
+  ON_COMMAND(      ID_MemberIDs,     &onMemberIDs)
+
+
+
 
   ON_COMMAND(      ID_LoadRtrMbrs,   &onLoadRtrMbrs)
   ON_COMMAND(      ID_RemoveFmr,     &onRemoveFmr)
@@ -644,60 +651,6 @@ String     sect;
     iniFile.write(sect, TrainingKey,  dlg.trainingIntro);
     }
   }
-
-
-void RacesAppDlg::onExcelRpt() {
-PathDlgDsc dsc = {_T("Excel Report"), getPathDsc(_T("Excel")), _T("csv"), _T("*.csv")};
-String     path = getOutputPath(dsc);
-ExcelRpt   excelRpt(path);
-
-  excelRpt();
-  }
-
-
-void RacesAppDlg::onGoogleRpt() {
-PathDlgDsc dsc = {_T("Google Report"), getPathDsc(_T("Google")), _T("csv"), _T("*.csv")};
-String     path = getOutputPath(dsc);
-GoogleRpt  googleRpt(path);
-
-  googleRpt();
-  }
-
-
-
-void RacesAppDlg::onEverBridgeRpt() {
-PathDlgDsc dsc = {_T("Everbridge Report"), getPathDsc(_T("Everbridge")), _T("csv"), _T("*.csv")};
-String     path = getOutputPath(dsc);
-EverBridgeRpt  everBridgeRpt(path);
-
-  everBridgeRpt();
-  }
-
-
-
-void RacesAppDlg::onOption03() { }
-void RacesAppDlg::onOption04() { }
-void RacesAppDlg::onOption05() { }
-void RacesAppDlg::onOption06() { }
-void RacesAppDlg::onOption07() { }
-void RacesAppDlg::onOption08() { }
-void RacesAppDlg::onOption09() { }
-
-
-TCchar* RacesAppDlg::getOutputPath(PathDlgDsc& dsc) {
-
-  return getSaveAsPathDlg(dsc, reportPath) ? reportPath.str() : 0;
-  }
-
-
-String& RacesAppDlg::getPathDsc(TCchar* fileName) {
-static String path;
-
-  if (!reportPath.isEmpty()) {path = reportPath;   path = getPath(path);}
-
-  path += fileName;   return path;
-  }
-
 
 
 void RacesAppDlg::onRemoveFmr() {

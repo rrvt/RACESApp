@@ -121,6 +121,24 @@
     <ClInclude Include="EverBridgeRpt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BadgeRpt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CurMbrList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reports.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactRpt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResponderCntRpt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MbrIDs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -210,8 +228,23 @@
     <ClCompile Include="EverBridgeRpt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\RacesReports\RacesReports.prj\Everbridge.cpp">
-      <Filter>App Reports</Filter>
+    <ClCompile Include="BadgeRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurMbrList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reports.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResponderCntRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MbrIDs.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

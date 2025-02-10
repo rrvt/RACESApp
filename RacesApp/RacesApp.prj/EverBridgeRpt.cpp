@@ -6,8 +6,9 @@
 #include "EverBridgeRpt.h"
 #include "Database.h"
 #include "MemberList.h"
-#include "MessageBox.h"
 #include "RNUtility.h"
+
+//#include "MessageBox.h"         // Debugging
 
 
 /*
@@ -51,13 +52,12 @@ void EverBridgeRpt::operator() () {
 MbrListIter iter(memberList);
 MbrInfo*    item;
 int         count;
-String      s;
 
   header();
 
   for (count = 0, item = iter(); item; item = iter++) if (item->curMbr) {output(*item);   count++;}
 
-  s.format(_T("%i Records"), count);   messageBox(s);
+  msgCount(count);
   }
 
 
@@ -393,7 +393,6 @@ String  responder =  rcd.responder.trim();
 String  dsw       =  rcd.dSWDate.trim();
 String  key;
 String  s;
-String  t;                                                // The empty string
 
   csv << mbrEnt->firstName << Comma;                      // First Name
   csv << mbrEnt->middleInitial << Comma;                  // Middle Initial
@@ -438,15 +437,17 @@ String  t;                                                // The empty string
   csv << nCommas(3);                                        // Extension Phone 4
   csv << nCommas(3);                                        // Extension Phone 5
 
-  phone(mbrEnt  ? mbrEnt->phone2  : 0);                     //Phone 1
-  phone(emplRcd ? emplRcd->phone2 : 0);                     //Phone 2
-  phone(mbrEnt  ? mbrEnt->phone1  : 0);                     //Phone 3
-  phone(emplRcd ? emplRcd->phone1 : 0);                     //Phone 4
+  String empty;
+
+  phone(mbrEnt  ? mbrEnt->phone2  : empty);                     //Phone 1
+  phone(emplRcd ? emplRcd->phone2 : empty);                     //Phone 2
+  phone(mbrEnt  ? mbrEnt->phone1  : empty);                     //Phone 3
+  phone(emplRcd ? emplRcd->phone1 : empty);                     //Phone 4
   phone(0);                                                 //Phone 5
   phone(0);                                                 //Phone 6
 
-  eMail(mbrEnt  ?  mbrEnt->eMail : 0);                      // Email Address 1
-  eMail(emplRcd ? emplRcd->eMail : 0);                      // Email Address 2
+  eMail(mbrEnt  ?  mbrEnt->eMail : empty);                      // Email Address 1
+  eMail(emplRcd ? emplRcd->eMail : empty);                      // Email Address 2
   csv << Comma;                                             // Email Address 3
   csv << Comma;                                             // Email Address 4
   csv << Comma;                                             // Email Address 5
@@ -562,5 +563,5 @@ String s = expandPhone(ph);
 
 
 void EverBridgeRpt::eMail(TCchar* em)
-                                   {String s = em ? em : _T("");    s.trim();   csv << s << Comma;}
+                                   {String s = em;    s.trim();   csv << s << Comma;}
 

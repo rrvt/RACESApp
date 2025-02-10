@@ -63,6 +63,11 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 2/9/25
+
+Finished 10 Reports all but one verified.  Sent eMail with Everbridge report to board and ask them
+to verify it will import into Everbridge.  We'll see if that effort works.
+
 ### Update 2/7/25
 
 Add Three of several reports.  More to come.

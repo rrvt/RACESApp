@@ -203,6 +203,10 @@ CTimeSpan delta(365 * 3, 0, 0, 0);    bnd -= delta;
   }
 
 
+
+void setMax(String& s, int& max) {int lng = s.length();   if (lng > max) max = lng;}
+
+
 #if 0
 void disableBttn(CButton& ctl) {
 uint style = ctl.GetButtonStyle();

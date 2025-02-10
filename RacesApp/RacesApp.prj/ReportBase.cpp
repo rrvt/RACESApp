@@ -5,6 +5,7 @@
 #include "ReportBase.h"
 #include "CSVOut.h"
 #include "Database.h"
+#include "MessageBox.h"
 #include "RNUtility.h"
 
 
@@ -226,6 +227,11 @@ void ReportBase::putSkills(MbrRcd& rcd) {
 
   csv << rcd.badgeOK             << Comma;
   }
+
+
+void ReportBase::msgCount(int count)
+                                  {String s;   s.format(_T("%i Records"), count);   messageBox(s);}
+
 
 
 #if 0

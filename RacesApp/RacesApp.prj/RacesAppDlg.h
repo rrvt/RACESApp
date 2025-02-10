@@ -7,12 +7,12 @@
 #include "CtyTbl.h"
 #include "CurMbr.h"
 #include "EntTbl.h"
-#include "ExcelRpt.h"
 #include "MbrAvailability.h"
 #include "MbrGeography.h"
 #include "MbrStatus.h"
 #include "MbrTbl.h"
 #include "MyToolBar.h"
+#include "Reports.h"
 #include "Resource.h"
 #include "StatusBar.h"
 #include "RNUtility.h"
@@ -45,7 +45,6 @@ bool            isInitialized;
 DlgSource       dlgSource;
 bool            readOnly;
 
-String          reportPath;
 
 AdrRcd          nilAdr;
 CtyRcd          nilCty;
@@ -54,6 +53,8 @@ MbrStatus       mbrStatus;
 MbrAvailability mbrAvailability;
 MbrGeography    mbrGeography;
 APicture        mbrPic;
+
+Reports reports;
 
 public:
 
@@ -193,8 +194,6 @@ private:
   void            setPath(TCchar* path);
   void            chkMbrPicture();
 
-  TCchar*         getOutputPath(PathDlgDsc& dsc);
-  String&         getPathDsc(TCchar* fileName);
 
 public:
 
@@ -207,12 +206,19 @@ public:
   afx_msg void    onEditRecords();
   afx_msg void    onCheckList();
 
-  afx_msg void    onExcelRpt();
-  afx_msg void    onGoogleRpt();
-  afx_msg void    onEverBridgeRpt();
+  afx_msg void    onExcelRpt()       {reports.excelRpt();}
+  afx_msg void    onGoogleRpt()      {reports.googleRpt();}
+  afx_msg void    onEverBridgeRpt()  {reports.everBridgeRpt();}
+  afx_msg void    onCSBadgeRpt()     {reports.csBadgeRpt();}
+  afx_msg void    onDateBadgeRpt()   {reports.dateBadgeRpt();}
+  afx_msg void    onContactByNmRpt() {reports.contactNm();}
+  afx_msg void    onContactByCSRpt() {reports.contactCS();}
+  afx_msg void    onResponderCnts()  {reports.responderCnts();}
+  afx_msg void    onCallSignList()   {reports.callSignList();}
+  afx_msg void    onMemberIDs()      {reports.memberIDs();}
 
-  afx_msg void    onOption03();
-  afx_msg void    onOption04();
+
+
   afx_msg void    onOption05();
   afx_msg void    onOption06();
   afx_msg void    onOption07();

@@ -19,6 +19,7 @@ inline void    clear(CButton&   ctl) {set(ctl, false);}
 inline void    clear(CComboBox& ctl) {ctl.SetCurSel(-1);}
 inline void    reset(CComboBox& ctl) {ctl.ResetContent();}
 
+       void    setMax(String& s, int& max);
 
 inline void    clrLbl(CEdit& ctl, TCchar* txt)
                             {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
