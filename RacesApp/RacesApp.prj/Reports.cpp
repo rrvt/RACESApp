@@ -8,6 +8,8 @@
 #include "EverBridgeRpt.h"
 #include "ExcelRpt.h"
 #include "FileName.h"
+#include "FmrPeriodDlg.h"
+#include "FormerRpt.h"
 #include "GetPathDlg.h"
 #include "GoogleRpt.h"
 #include "MbrIDs.h"
@@ -97,7 +99,7 @@ PathDlgDsc dsc = {_T("Call Sign List"), getPathDsc(_T("CallSigns")), _T("txt"), 
 String     path = getOutputPath(dsc);
 MbrIDs     mbrIDs(path);
 
-  mbrIDs(false);
+  mbrIDs(CallSignList);
   }
 
 
@@ -106,10 +108,28 @@ PathDlgDsc dsc = {_T("Member IDs List"), getPathDsc(_T("MemberInfo")), _T("csv")
 String     path = getOutputPath(dsc);
 MbrIDs     mbrIDs(path);
 
-  mbrIDs(true);
+  mbrIDs(PlusIDsList);
   }
 
 
+void Reports::suffixList() {
+PathDlgDsc dsc = {_T("Suffix List"), getPathDsc(_T("SuffixList")), _T("csv"), _T("*.csv")};
+String     path = getOutputPath(dsc);
+MbrIDs     mbrIDs(path);
+
+  mbrIDs(SuffixList);
+  }
+
+
+void Reports::formerList() {
+PathDlgDsc   dsc = {_T("Former Member List"), getPathDsc(_T("FormerMbrList")),
+                                                                           _T("csv"), _T("*.csv")};
+String       path = getOutputPath(dsc);
+FormerRpt    rpt(path);
+FmrPeriodDlg dlg;
+
+  if (dlg.DoModal() == IDOK) rpt(dlg.begP, dlg.endP);
+  }
 
 
 String& Reports::getPathDsc(TCchar* fileName) {

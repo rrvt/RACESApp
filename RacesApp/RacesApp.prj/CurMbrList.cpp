@@ -5,7 +5,7 @@
 #include "CurMbrList.h"
 #include "Database.h"
 #include "MemberList.h"
-#include "RNUtility.h"
+#include "Utility.h"
 
 
 
@@ -68,6 +68,7 @@ void CurMbrData::setKey(CurMbrSort curMbrSort) {
     case BadgeDateSort: key  = getDateKey();
     case CallSignSort : key += callSign;                          break;
     case MemberSort   : key  = lastName + firstName + callSign;   break;
+    case SuffixSort   : key = getSuffixKey();                     break;
     case NilSort      :
     default           : break;
     }
@@ -88,6 +89,22 @@ String s;
   yr = badgeExpDate.substr(4);      if (yr.length() == 4) yr = yr.substr(2);
 
   return s = yr + mn + dy;
+  }
+
+
+String CurMbrData::getSuffixKey() {
+String s = callSign;
+int    pos = s.findOneOf(_T("0123456789"));
+String letter;
+String key;
+
+  if (pos > 0) letter = s[pos+1];
+
+  if      (letter < _T('L')) key = _T('0');
+  else if (letter < _T('T')) key = _T('1');
+  else                       key = _T('2');
+
+  return key += callSign;
   }
 
 

@@ -6,7 +6,7 @@
 #include "AddrList.h"
 #include "AdrTbl.h"
 #include "Resource.h"
-#include "RNUtility.h"
+#include "Utility.h"
 
 
 static TCchar* StreetAddrLbl = _T("Street Address");

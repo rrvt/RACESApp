@@ -6,12 +6,15 @@
 #include "CurMbrList.h"
 
 
+enum MbrIDList {CallSignList, PlusIDsList, SuffixList};
+
+
 class MbrIDs : public ReportBase {
 public:
 
   MbrIDs(TCchar* path) : ReportBase(path) { }
 
-  void operator() (bool plus);
+  void operator() (MbrIDList listType);
 
 private:
 

@@ -15,7 +15,7 @@
 #include "Reports.h"
 #include "Resource.h"
 #include "StatusBar.h"
-#include "RNUtility.h"
+#include "Utility.h"
 #include "WinPos.h"
 
 class  StatusBar;
@@ -216,8 +216,8 @@ public:
   afx_msg void    onResponderCnts()  {reports.responderCnts();}
   afx_msg void    onCallSignList()   {reports.callSignList();}
   afx_msg void    onMemberIDs()      {reports.memberIDs();}
-
-
+  afx_msg void    onSuffixList()     {reports.suffixList();}
+  afx_msg void    onFormerList()     {reports.formerList();}
 
   afx_msg void    onOption05();
   afx_msg void    onOption06();

@@ -9,7 +9,7 @@
 struct CurMbrData;
 
 
-enum CurMbrSort {NilSort, MemberSort, CallSignSort, BadgeDateSort};
+enum CurMbrSort {NilSort, MemberSort, CallSignSort, BadgeDateSort, SuffixSort};
 
 
 struct CurMbrData {
@@ -52,6 +52,7 @@ String wrkEmail;
 private:
 
   String getDateKey();
+  String getSuffixKey();
 
   void copy(CurMbrData& mi);
   };

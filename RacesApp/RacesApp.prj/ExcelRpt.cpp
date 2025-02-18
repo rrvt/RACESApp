@@ -6,7 +6,7 @@
 #include "Database.h"
 #include "MemberList.h"
 #include "MessageBox.h"
-#include "RNUtility.h"
+#include "Utility.h"
 
 
 void ExcelRpt::operator() () {

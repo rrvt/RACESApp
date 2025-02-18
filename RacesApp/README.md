@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 2/17/25
+
+Added a Former Member Report with date period filter.
+
 ### Update 2/9/25
 
 Finished 10 Reports all but one verified.  Sent eMail with Everbridge report to board and ask them

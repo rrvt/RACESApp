@@ -5,7 +5,7 @@
 #include "ZipList.h"
 #include "CityStateDlg.h"
 #include "CurMbr.h"
-#include "RNUtility.h"
+#include "Utility.h"
 
 
 ZipList zipList;                        // The one zip list

@@ -151,6 +151,8 @@
     <ClInclude Include="DeadRcds.h" />
     <ClInclude Include="EverBridgeRpt.h" />
     <ClInclude Include="ExcelRpt.h" />
+    <ClInclude Include="FmrPeriodDlg.h" />
+    <ClInclude Include="FormerRpt.h" />
     <ClInclude Include="GoogleRpt.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="APicture.h" />
@@ -176,7 +178,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResponderCntRpt.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="RNUtility.h" />
+    <ClInclude Include="Utility.h" />
     <ClInclude Include="ZipList.h" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +194,8 @@
     <ClCompile Include="DeadRcds.cpp" />
     <ClCompile Include="EverBridgeRpt.cpp" />
     <ClCompile Include="ExcelRpt.cpp" />
+    <ClCompile Include="FmrPeriodDlg.cpp" />
+    <ClCompile Include="FormerRpt.cpp" />
     <ClCompile Include="GoogleRpt.cpp" />
     <ClCompile Include="MbrAvailability.cpp" />
     <ClCompile Include="MbrBadgeNo.cpp" />
@@ -211,7 +215,7 @@
     <ClCompile Include="Reports.cpp" />
     <ClCompile Include="ReportBase.cpp" />
     <ClCompile Include="ResponderCntRpt.cpp" />
-    <ClCompile Include="RNUtility.cpp" />
+    <ClCompile Include="Utility.cpp" />
     <ClCompile Include="ZipList.cpp" />
     <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp" />
     <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp" />
@@ -236,6 +240,7 @@
     <Image Include="res\Puppy.bmp" />
     <Image Include="res\RacesApp.ico" />
     <Image Include="res\ShortToolbar.bmp" />
+    <Image Include="res\Toolbar15.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library\Library.vcxproj">

@@ -108,7 +108,8 @@ public:
 
 enum Mode {Read=1, Write=2, Create=4};
 
-           Archive(TCchar* fileName, int mode);
+           Archive(TCchar* fileName, int mode) : ArchPos(fileName, mode)       {initialize();}
+           Archive(String& fileName, int mode) : ArchPos(fileName.str(), mode) {initialize();}
            Archive(void*   arbObj,   int mode) : ArchPos(arbObj, mode) { }
           ~Archive() { }
 

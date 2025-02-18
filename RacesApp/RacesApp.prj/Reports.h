@@ -25,6 +25,8 @@ public:
   void    responderCnts();
   void    callSignList();
   void    memberIDs();
+  void    suffixList();
+  void    formerList();
 
 private:
 
