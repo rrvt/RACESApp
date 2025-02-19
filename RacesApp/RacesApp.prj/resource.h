@@ -109,6 +109,7 @@
 #define ID_EditRecords                  404
 #define ID_UpdateMbr                    405
 #define ID_CheckList                    406
+
 #define ID_ReportMenu                   407
 #define ID_ExcelReport                  408
 #define ID_GoogleRpt                    409
@@ -122,13 +123,20 @@
 #define ID_MemberIDs                    417
 #define ID_SuffixList                   418
 #define ID_FormerMbrs                   419
+
 #define ID_Options                      430
 #define ID_LoadRtrMbrs                  431
 #define ID_RemoveFmr                    432
 #define ID_SanitizeDB                   433
+
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499
+
+
+#define DlgWidth                        506
+#define DlgDepth                        355
+
 
 // Next default values for new objects
 //
@@ -136,12 +144,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        115
 #define _APS_NEXT_COMMAND_VALUE         411
-#define _APS_NEXT_CONTROL_VALUE         401
+#define _APS_NEXT_CONTROL_VALUE         402
 #define _APS_NEXT_SYMED_VALUE           201
 #endif
 #endif
-
-
-#define DlgWidth                        506
-#define DlgDepth                        355
-

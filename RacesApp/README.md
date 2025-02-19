@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 2/18/25
+
+Modified the handling of the dates in the date period filter.
+
 ### Update 2/17/25
 
 Added a Former Member Report with date period filter.

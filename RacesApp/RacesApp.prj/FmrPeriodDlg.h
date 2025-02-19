@@ -2,6 +2,7 @@
 
 
 #pragma once
+#include "MmYyCtl.h"
 
 
 // FmrPeriodDlg dialog
@@ -10,8 +11,10 @@ class FmrPeriodDlg : public CDialogEx {
 
   DECLARE_DYNAMIC(FmrPeriodDlg)
 
-COleDateTime beginPeriod;
-COleDateTime endPeriod;
+Cstring beginPeriod;
+MmYyCtl beginPeriodCtl;
+Cstring endPeriod;
+MmYyCtl endPeriodCtl;
 
 public:
 Cstring begP;
@@ -32,4 +35,9 @@ protected:
   virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
   DECLARE_MESSAGE_MAP()
+
+public:
+
+  afx_msg void onChangeBeginPeriod();
+  afx_msg void onChangeEndperiod();
   };

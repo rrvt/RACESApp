@@ -157,6 +157,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="APicture.h" />
     <ClInclude Include="MbrIDs.h" />
+    <ClInclude Include="MmYyCtl.h" />
     <ClInclude Include="PrepAdrRcd.h" />
     <ClInclude Include="PrepCtyRcd.h" />
     <ClInclude Include="PrepEntRcd.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="MbrInfo.cpp" />
     <ClCompile Include="MbrStatus.cpp" />
     <ClCompile Include="MemberList.cpp" />
+    <ClCompile Include="MmYyCtl.cpp" />
     <ClCompile Include="MyToolBar.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="PrepAdrRcd.cpp" />
