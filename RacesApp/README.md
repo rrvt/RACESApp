@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update
+
+Set default start date to today for new member.
+
 ### Update 2/18/25
 
 Modified the handling of the dates in the date period filter.

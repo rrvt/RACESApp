@@ -285,6 +285,7 @@ void RacesAppDlg::loadDatabase() {
 void RacesAppDlg::onNewMember() {
 String          s;
 MbrBadgeNo      mbrBadgeNo;
+Date            today;
 
   onUpdateMbr();
 
@@ -297,6 +298,7 @@ MbrBadgeNo      mbrBadgeNo;
   mbrStatus.setDefault();
   mbrAvailability.setDefault();
   mbrGeography.setDefault();
+  today.getToday();   startDateCtl.SetWindowText(today.format(_T("%m/%d/%y")));
 
   setStatus(NewMbrSrc, false);
   }
@@ -702,18 +704,10 @@ String          s;
   rcd.assgnPrefID    = mbrAvailability.getID();
   rcd.locationPrefID = mbrGeography.getID();
   rcd.mbrEntityID    = getMbrEntity();   setTitle();
-#if 1
   rcd.textMsgPh1     = getTxtPh(rcd.mbrEntityID);
-#else
-  mbrEnt  = entTbl.find(rcd.mbrEntityID);    if (mbrEnt) rcd.textMsgPh1  = mbrEnt->phone2;
-#endif
   rcd.iCE_EntityID   = getICEEntity();
   rcd.emplEntityID   = getEmplEntity();
-#if 1
   rcd.textMsgPh2     = getTxtPh(rcd.emplEntityID);
-#else
-  emplEnt = entTbl.find(rcd.emplEntityID);   if (emplEnt) rcd.textMsgPh2 = emplEnt->phone2;
-#endif
        callSignCtl.GetWindowText(cs);    rcd.callSign            = cs;
       csExpDateCtl.GetWindowText(cs);    rcd.fCCExpiration       = compressDate(cs);
                                          rcd.badgeOK             = badgeOKCtl.GetCheck();
@@ -1286,5 +1280,13 @@ int lng;
 
   return frag;
   }
+#endif
+#if 1
+#else
+  mbrEnt  = entTbl.find(rcd.mbrEntityID);    if (mbrEnt) rcd.textMsgPh1  = mbrEnt->phone2;
+#endif
+#if 1
+#else
+  emplEnt = entTbl.find(rcd.emplEntityID);   if (emplEnt) rcd.textMsgPh2 = emplEnt->phone2;
 #endif
 
