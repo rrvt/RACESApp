@@ -10,7 +10,7 @@
 #include "StsTbl.h"
 
 
-bool MbrInfo::get(MbrRcd* rcd) {
+bool MbrInfo::set(MbrRcd* rcd) {
 
   mbrEnt  = entTbl.find(rcd->mbrEntityID);   if (!mbrEnt) return false;
   mbrRcd  = rcd;

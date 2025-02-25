@@ -75,15 +75,15 @@ CButton    badgeOKCtl;
 CStatic    badgeNoCtl;
 CEdit      badgeExpDateCtl;
 
-CEdit      mbrStreetAdrCtl;
+CComboBox  mbrStreetAdrCtl;
 CEdit      mbrUnitNoCtl;
 CEdit      mbrCityCtl;
 CEdit      mbrStateCtl;
-CEdit      mbrZipCtl;
+CComboBox  mbrZipCtl;
 CEdit      mbrCellPhCtl;
 CEdit      mbrLandlineCtl;
 CButton    mbrZipOnlyCtl;
-CEdit      mbrHomeZipCtl;
+CComboBox  mbrHomeZipCtl;
 
 CEdit      mbrEmailCtl;
 CButton    officerCtl;
@@ -96,24 +96,24 @@ CEdit      iceMidInitialCtl;
 CEdit      iceLastNameCtl;
 CEdit      iceEmailCtl;
 
-CEdit      iceStreetAdrCtl;
+CComboBox  iceStreetAdrCtl;
 CEdit      iceUnitNoCtl;
 CEdit      iceCityCtl;
 CEdit      iceStateCtl;
-CEdit      iceZipCtl;
+CComboBox  iceZipCtl;
 CEdit      iceCellPhCtl;
 CEdit      iceLandlineCtl;
 
 CEdit      emplNameCtl;
 CEdit      emplEmailCtl;
 CButton    emplZipOnlyCtl;
-CEdit      emplCompanyZipCtl;
+CComboBox  emplCmpZipCtl;
 
-CEdit      emplStreetAdrCtl;
+CComboBox  emplStreetAdrCtl;
 CEdit      emplUnitNoCtl;
 CEdit      emplCityCtl;
 CEdit      emplStateCtl;
-CEdit      emplZipCtl;
+CComboBox  emplZipCtl;
 CEdit      emplCellPhCtl;
 CEdit      emplLandlineCtl;
 
@@ -169,8 +169,6 @@ private:
 
   int             getChk(CButton& ctl);
 
-  bool            setField(String& fld, TCchar* tc);        // only if not equal
-  bool            setField(int&   fld, int      v);
 
   void            setDate(CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandDate(txt));}
   void            setZip( CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandZip(txt));}
@@ -178,22 +176,31 @@ private:
 
   void            initScreen();
   void            setLabels();
+  void            setFirstName();
   void            clrLabels();
+
+  void            clearMbrStreetAdr();
+  void            clearMbrZip();
+  void            clearMbrHomeZip();
+  void            clearIceStreetAdr();
+  void            clearIceZip();
+  void            clearEmplStreetAdr();
+  void            clearEmplZip();
+  void            clearEmplCompanyZip();
 
   void            clrLbl(CEdit& ctl, TCchar* txt)
                              {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
-  void            clrLbl(CStatic& ctl, TCchar* txt)
+
+  void            clrLbl(CComboBox& ctl, TCchar* txt)
                              {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
 
-
-  String&         getToday();
-  int             getNextBadgeNo();
+  void            clrLbl(CStatic& ctl, TCchar* txt)
+                             {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
 
   void            setTitle();
   void            setStatus(DlgSource src, bool rdOnly);
   void            setPath(TCchar* path);
   void            chkMbrPicture();
-
 
 public:
 
@@ -206,6 +213,7 @@ public:
   afx_msg void    onEditRecords();
   afx_msg void    onCheckList();
 
+  afx_msg void    onDispatch()       {toolBar.dispatch(ID_ReportMenu);}
   afx_msg void    onExcelRpt()       {reports.excelRpt();}
   afx_msg void    onGoogleRpt()      {reports.googleRpt();}
   afx_msg void    onEverBridgeRpt()  {reports.everBridgeRpt();}
@@ -236,7 +244,6 @@ public:
   afx_msg void    OnSize(UINT nType, int cx, int cy);
   afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
   afx_msg void    onUpdateMbr();
-  afx_msg void    onDispatch()  {toolBar.dispatch(ID_ReportMenu);}
 
   afx_msg void    onSanitizeDB();
 
@@ -248,17 +255,29 @@ public:
   afx_msg void    onClearMbrCallsign();
   afx_msg void    onClearCallSignExpDate();
   afx_msg void    onClearBadgeExpDate();
-  afx_msg void    onClearMbrStreetAdr();
+
+  afx_msg void    onStartMbrStreetAdr();
+  afx_msg void    onSelectMbrStreetAdr();
+  afx_msg void    onLeaveMbrStreetAdr();
+
   afx_msg void    onClearMbrUnitNo();
+  afx_msg void    onLeaveMbrUnitNo();
   afx_msg void    onClearMbrCity();
   afx_msg void    onClearMbrState();
-  afx_msg void    onClearMbrZip();
-  afx_msg void    onLeaveMbrzip();
+
+  afx_msg void    onStartMbrZip();
+  afx_msg void    onSelectMbrzip();
+  afx_msg void    onLeaveMbrZip();
+
   afx_msg void    onClearMbrCellPh();
   afx_msg void    onLeaveMbrCellPh();
   afx_msg void    onClearMbrLandline();
   afx_msg void    onLeaveMbrlandline();
-  afx_msg void    onClearMbrHomeZip();
+
+  afx_msg void    onStartMbrHomeZip();
+  afx_msg void    onSelectMbrHomeZip();
+  afx_msg void    onLeaveMbrHomeZip();
+
   afx_msg void    onClearMbrEmail();
   afx_msg void    onClearStartDate();
   afx_msg void    onClearDSWDate();
@@ -269,12 +288,20 @@ public:
   afx_msg void    onClearIceLastName();
   afx_msg void    onLeaveIceName();
   afx_msg void    onClearIceEmail();
-  afx_msg void    onClearIceStreetAdr();
+
+  afx_msg void    onStartIceStreetAdr();
+  afx_msg void    onSelectIceStreetAdr();
+  afx_msg void    onLeaveIceStreetAdr();
+
   afx_msg void    onClearIceUnitNo();
+  afx_msg void    onLeaveIceUnitNo();
   afx_msg void    onClearIceCity();
   afx_msg void    onClearIceState();
-  afx_msg void    onClearIceZip();
+
+  afx_msg void    onStartIceZip();
   afx_msg void    onLeaveIceZip();
+  afx_msg void    onSelectIceZip();
+
   afx_msg void    onClearIceCellPh();
   afx_msg void    onLeaveIceCellPh();
   afx_msg void    onClearIceLandline();
@@ -282,25 +309,33 @@ public:
 
   afx_msg void    onClearEmplName();
   afx_msg void    onClearEmplEmail();
-  afx_msg void    onClearEmplStreetAdr();
+
+  afx_msg void    onStartEmplStreetAdr();
+  afx_msg void    onSelectEmplStreetAdr();
+  afx_msg void    onLeaveEmplStreetAdr();
+
   afx_msg void    onClearEmplUnitNo();
+  afx_msg void    onLeaveEmplUnitNo();
   afx_msg void    onClearEmplCity();
   afx_msg void    onClearEmplState();
-  afx_msg void    onClearEmplZip();
+
+  afx_msg void    onStartEmplZip();
+  afx_msg void    onSelectEmplZip();
   afx_msg void    onLeaveEmplZip();
+
   afx_msg void    onClearEmplCellPh();
   afx_msg void    onLeaveEmplCellPh();
   afx_msg void    onClearEmplLandline();
   afx_msg void    onLeaveEmplLandline();
   afx_msg void    onClearEmplZipOnly();
-  afx_msg void    onClearEmplCompanyZip();
-  afx_msg void    onFindICEAddr();
-  afx_msg void    onFindICEZip();
-  afx_msg void    onFindEmplAddr();
-  afx_msg void    onFindEmplZip();
+
+  afx_msg void    onStartEmplCompanyZip();
+  afx_msg void    onLeaveEmplCompanyZip();
+  afx_msg void    onSelectEmplCompanyZip();
+
   afx_msg void    onPickPicPath();
   afx_msg void    onRemoveFmr();
-};
+  };
 
 
 
@@ -349,4 +384,10 @@ EntRcd          nilEnt;
   String          compressPhone(TCchar* tc);                // 408.555.1212 becomes 4085551212
   String          adjFrag(String& frag);
 #endif
+//  afx_msg void    onFindICEAddr();
+//  afx_msg void    onFindICEZip();
+//  afx_msg void    onFindEmplAddr();
+//  afx_msg void    onFindEmplZip();
+//  afx_msg void OnCbnCloseupMbrstreetadr();
+//  afx_msg void OnCbnEditchangeMbrstreetadr();
 

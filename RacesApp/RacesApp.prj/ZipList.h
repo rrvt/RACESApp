@@ -7,24 +7,27 @@
 
 class ZipDtm {
 
+String  key;
 CtyRcd* rcd;
 
 public:
 
-String zip;
 
   ZipDtm() : rcd(0) { }
  ~ZipDtm() { }
 
+  String& add(CtyRcd* ctyRcd) {rcd = ctyRcd;   key = ctyRcd->zip;   return key;}
 
-  void add(CtyRcd* ctyRcd) {rcd = ctyRcd;   zip = ctyRcd->zip;}
+  void    add(CComboBox& ctl);
 
   CtyRcd* operator() () {return rcd;}
+  String& getKey()            {return key;}
+  bool    inKey(TCchar* tgt)  {return key.find(tgt) >= 0;}
 
-  bool operator>= (ZipDtm& d)  {return zip >= d.zip;}
-  bool operator== (String key) {return zip == key;}
-  bool operator>  (String key) {return zip >  key;}
-  bool operator<  (String key) {return zip <  key;}
+  bool operator>= (ZipDtm&   d) {return       key >= d.key;}
+  bool operator== (String& key) {return this->key == key;}
+  bool operator>  (String& key) {return this->key >  key;}
+  bool operator<  (String& key) {return this->key <  key;}
   };
 
 
@@ -36,6 +39,7 @@ typedef IterT<ZipList, ZipDtm>    ZipIter;
 class ZipList {
 
 ExpandableP<ZipDtm, String, ZipDtmP, 2> data;
+CtyRcd nilRcd;
 
 public:
 
@@ -44,11 +48,14 @@ public:
 
   void    load();
 
-  int     add(CEdit& cityCtl, CEdit& stateCtl, CEdit& zipCtl);
+//  int     add(CEdit& cityCtl, CEdit& stateCtl, CEdit& zipCtl);
+  int     add(CComboBox& zipCtl, CEdit& cityCtl, CEdit& stateCtl);
 
   CtyRcd* add(CtyRcd* ctyRcd);
 
-  CtyRcd* find(TCchar* tc);
+  void    load(CComboBox& ctl, TCchar* tc);
+  void    load(CComboBox& ctl);
+  void    set(CComboBox& ctl, CEdit& cityCtl, CEdit& stateCtl);
 
 private:
 

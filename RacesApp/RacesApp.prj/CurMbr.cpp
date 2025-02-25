@@ -3,23 +3,21 @@
 
 #include "pch.h"
 #include "CurMbr.h"
-#include "MbrInfo.h"
 #include "MessageBox.h"
 
 
 CurMbr curMbr;
 
 
-bool CurMbr::set(void* info) {
-MbrInfo* ptr = (MbrInfo*) info;
+bool CurMbr::set(MbrInfo* info) {
 
-  if (!ptr) return false;
+  if (!info) return false;
 
-  this->info = ptr;
-  rcd      = ptr->mbrRcd  ? ptr->mbrRcd  : &nilRcd;
-  ent      = ptr->mbrEnt  ? ptr->mbrEnt  : &nilEnt;
-  ice      = ptr->iceEnt  ? ptr->iceEnt  : &nilEnt;
-  empl     = ptr->emplEnt ? ptr->emplEnt : &nilEnt;
+  this->info = info;
+  rcd        = info->mbrRcd  ? info->mbrRcd  : &nilRcd;
+  mbr        = info->mbrEnt  ? info->mbrEnt  : &nilEnt;
+  ice        = info->iceEnt  ? info->iceEnt  : &nilEnt;
+  empl       = info->emplEnt ? info->emplEnt : &nilEnt;
 
   return true;
   }
@@ -29,10 +27,10 @@ String& CurMbr::getIdent() {
 
   ident.clear();
 
-  if (!rcd || !ent) return ident;
-                                                    ident  = ent->firstName;
-  if (!ident.isEmpty() && !ent->lastName.isEmpty()) ident += _T(' ');
-  if (!ent->lastName.isEmpty())                     ident += ent->lastName;
+  if (!rcd || !mbr) return ident;
+                                                    ident  = mbr->firstName;
+  if (!ident.isEmpty() && !mbr->lastName.isEmpty()) ident += _T(' ');
+  if (!mbr->lastName.isEmpty())                     ident += mbr->lastName;
 
   if (!ident.isEmpty() && !rcd->callSign.isEmpty()) ident += _T(", ");
   if (!rcd->callSign.isEmpty())                     ident += rcd->callSign;

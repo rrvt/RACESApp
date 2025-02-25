@@ -3,7 +3,6 @@
 
 #include "pch.h"
 #include "ZipList.h"
-#include "CityStateDlg.h"
 #include "CurMbr.h"
 #include "Utility.h"
 
@@ -20,6 +19,103 @@ CtyRcd* rcd;
 
 
 
+int ZipList::add(CComboBox& zipCtl, CEdit& cityCtl, CEdit& stateCtl) {
+Cstring cs;
+CtyRcd  cty;
+
+   cityCtl.GetWindowText(cs);  cty.city  = cs;
+  stateCtl.GetWindowText(cs);  cty.state = cs;
+    zipCtl.GetWindowText(cs);  cty.zip   = compressZip(cs);
+
+    if (!cty.city.isEmpty() || !cty.state.isEmpty() || !cty.zip.isEmpty()) {
+
+      CtyRcd* rcd = ctyTbl.find(cty.zip);
+
+      if (rcd) {
+        if (rcd->city  != cty.city  && !cty.city.isEmpty())  rcd->city  = cty.city;
+        if (rcd->state != cty.state && !cty.state.isEmpty()) rcd->state = cty.state;
+        }
+      else rcd = add(curMbr.addCtyTbl(cty));
+
+      return rcd->getId();
+      }
+
+  return 0;
+  }
+
+
+CtyRcd* ZipList::add(CtyRcd* ctyRcd) {
+ZipDtm  dtm;
+ZipDtm* zipDtm;
+
+  zipDtm = data.bSearch(dtm.add(ctyRcd));
+
+  if (!zipDtm) zipDtm = data = dtm;   return (*zipDtm)();
+  }
+
+
+
+void ZipList::load(CComboBox& ctl, TCchar* tc) {
+String  s = expandZip(tc);
+
+  load(ctl);   ctl.SetCurSel(ctl.FindStringExact(-1, s));
+  }
+
+
+void ZipList::load(CComboBox& ctl) {
+ZipIter iter(*this);
+ZipDtm* dtm;
+Cstring  cs;
+
+  ctl.GetWindowText(cs);
+
+  ctl.ResetContent();   addCB(ctl, _T(""), &nilRcd);
+
+  for (dtm = iter(); dtm; dtm = iter++) dtm->add(ctl);
+
+  ::set(ctl, cs);
+  }
+
+
+void ZipDtm::add(CComboBox& ctl) {if (!key.isEmpty()) addCB(ctl, expandZip(key), rcd);}
+
+
+void ZipList::set(CComboBox& ctl, CEdit& cityCtl, CEdit& stateCtl) {
+int     x   = ctl.GetCurSel();   if (x < 0) return;
+CtyRcd& rcd = *(CtyRcd*)ctl.GetItemDataPtr(x);
+
+  cityCtl.SetWindowText(rcd.city);   stateCtl.SetWindowText(rcd.state);
+  }
+
+
+
+
+////////--------------------
+
+#if 0
+CtyRcd* ZipList::find(TCchar* tc) {
+String        tgt = compressZip(tc);
+ZipIter       iter(*this);
+ZipDtm*       dtm;
+CityStateDlg  dlg;
+
+  for (dtm = iter(); dtm; dtm = iter++) if (dtm->getKey() == tgt) return (*dtm)();
+
+  dlg.tgt = tgt;
+
+  if (dlg.DoModal() == IDOK && dlg.ctyRcd) return dlg.ctyRcd;
+
+  return 0;
+  }
+#endif
+#if 0
+   {
+    x = ctl.AddString(expandZip((*dtm)()->zip));   if (x < 0) continue;
+
+    ctl.SetItemDataPtr(x, dtm);
+    }
+#endif
+#if 0
 int ZipList::add(CEdit& cityCtl, CEdit& stateCtl, CEdit& zipCtl) {
 Cstring cs;
 CtyRcd  cty;
@@ -37,42 +133,5 @@ CtyRcd  cty;
 
   return 0;
   }
-
-
-CtyRcd* ZipList::add(CtyRcd* ctyRcd) {
-ZipDtm  dtm;
-ZipDtm* zipDtm;
-
-  dtm.add(ctyRcd);   zipDtm = data.bSearch(dtm.zip);
-
-  if (!zipDtm) zipDtm = data = dtm;   return (*zipDtm)();
-  }
-
-
-
-CtyRcd* ZipList::find(TCchar* tc) {
-String        tgt = compressZip(tc);
-ZipIter       iter(*this);
-ZipDtm*       dtm;
-CityStateDlg  dlg;
-
-  for (dtm = iter(); dtm; dtm = iter++) if (dtm->zip == tgt) return (*dtm)();
-
-  dlg.tgt = tgt;
-
-  if (dlg.DoModal() == IDOK && dlg.ctyRcd) return dlg.ctyRcd;
-
-  return 0;
-  }
-
-
-
-////------------
-
-#if 1
-#else
-    set(emplCityCtl,  dlg.ctyRcd->city);
-    set(emplStateCtl, dlg.ctyRcd->state);
-    set(emplZipCtl,   expandZip(dlg.ctyRcd->zip));
 #endif
 

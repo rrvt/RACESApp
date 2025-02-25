@@ -11,9 +11,7 @@
 
 #define IDD_RacesApp                    200
 #define IDD_CheckList                   201
-#define IDD_Address                     202
-#define IDD_CityState                   203
-#define IDD_Period                      204
+#define IDD_Period                      202
 
 #define IDC_StatusBar                   300
 #define IDC_MemberList                  301
@@ -48,25 +46,25 @@
 #define IDC_ICEUnitNo                   330
 #define IDC_ICECity                     331
 #define IDC_ICEState                    332
-#define IDC_ICECellPh                   333
-#define IDC_ICELandline                 334
-#define IDC_EmplName                    335
-#define IDC_EmplEmail                   336
-#define IDC_EmplStreetAdr               337
-#define IDC_EmplUnitNo                  338
-#define IDC_EmplCity                    339
-#define IDC_EmplState                   340
-#define IDC_EmplZip                     341
-#define IDC_EmplCellPh                  342
-#define IDC_EmplLandline                343
-#define IDC_EmplZipOnly                 344
-#define IDC_EmplCompanyZip              345
-#define IDC_HandHeld                    346
-#define IDC_PortMobile                  347
-#define IDC_OtherEquip                  348
-#define IDC_PortPacket                  349
-#define IDC_Multilingual                350
-#define IDC_ICEZip                      351
+#define IDC_ICEZip                      333
+#define IDC_ICECellPh                   334
+#define IDC_ICELandline                 335
+#define IDC_EmplName                    336
+#define IDC_EmplEmail                   337
+#define IDC_EmplStreetAdr               338
+#define IDC_EmplUnitNo                  339
+#define IDC_EmplCity                    340
+#define IDC_EmplState                   341
+#define IDC_EmplZip                     342
+#define IDC_EmplCellPh                  343
+#define IDC_EmplLandline                344
+#define IDC_EmplZipOnly                 345
+#define IDC_EmplCompanyZip              346
+#define IDC_HandHeld                    347
+#define IDC_PortMobile                  348
+#define IDC_OtherEquip                  349
+#define IDC_PortPacket                  350
+#define IDC_Multilingual                351
 #define IDC_OtherCapabilities           352
 #define IDC_Limitations                 353
 #define IDC_Comments                    354
@@ -84,23 +82,10 @@
 #define IDC_Geography                   366
 #define IDC_Availability                367
 #define IDC_Suffix                      368
-#define IDC_StreetAddr                  369
-#define IDC_UnitNo                      370
-#define IDC_State                       371
-#define IDC_City                        372
-#define IDC_Zip                         373
-#define IDC_FindAddr                    374
-#define IDC_FindNext                    375
-#define IDC_FindZip                     376
-#define IDC_FindICEAddr                 377
-#define IDC_FindEmplAddr                378
-#define IDC_FindICEZip                  379
-#define IDC_FindEmplZip                 380
-#define IDC_NextZip                     381
-#define IDC_PickPicPath                 382
-#define IDC_PicPath                     383
-#define IDC_BeginPeriod                 384
-#define IDC_EndPeriod                   385
+#define IDC_PickPicPath                 369
+#define IDC_PicPath                     370
+#define IDC_BeginPeriod                 371
+#define IDC_EndPeriod                   372
 
 #define ID_LoadDatabase                 400
 #define ID_NewMember                    401
@@ -109,7 +94,6 @@
 #define ID_EditRecords                  404
 #define ID_UpdateMbr                    405
 #define ID_CheckList                    406
-
 #define ID_ReportMenu                   407
 #define ID_ExcelReport                  408
 #define ID_GoogleRpt                    409
@@ -123,28 +107,46 @@
 #define ID_MemberIDs                    417
 #define ID_SuffixList                   418
 #define ID_FormerMbrs                   419
-
-#define ID_Options                      430
-#define ID_LoadRtrMbrs                  431
-#define ID_RemoveFmr                    432
-#define ID_SanitizeDB                   433
-
+#define ID_Options                      420
+#define ID_LoadRtrMbrs                  421
+#define ID_RemoveFmr                    422
+#define ID_SanitizeDB                   423
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499
 
 
+
 #define DlgWidth                        506
 #define DlgDepth                        355
-
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        115
-#define _APS_NEXT_COMMAND_VALUE         411
-#define _APS_NEXT_CONTROL_VALUE         402
-#define _APS_NEXT_SYMED_VALUE           201
+#define _APS_NEXT_RESOURCE_VALUE        105
+#define _APS_NEXT_COMMAND_VALUE         424
+#define _APS_NEXT_CONTROL_VALUE         381
+#define _APS_NEXT_SYMED_VALUE           203
 #endif
 #endif
+
+
+
+
+///////-----------------
+
+//#define IDC_FindICEAddr                 377
+//#define IDC_FindEmplAddr                378
+//#define IDC_FindICEZip                  379
+//#define IDC_FindEmplZip                 380
+//#define IDC_NextZip                     381
+//#define IDC_FindAddr                    374
+//#define IDC_FindNext                    375
+//#define IDC_FindZip                     376
+//#define IDC_Zip                         373
+//#define IDC_StreetAddr                  369
+//#define IDC_UnitNo                      370
+//#define IDC_State                       371
+//#define IDC_City                        372
+

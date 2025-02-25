@@ -4,10 +4,8 @@
 #include "pch.h"
 #include "RacesAppDlg.h"
 #include "AboutDlg.h"
-#include "AddressDlg.h"
 #include "AddrList.h"
 #include "ChkListDlg.h"
-#include "CityStateDlg.h"
 #include "Database.h"
 #include "Date.h"
 #include "DeadRcds.h"
@@ -48,105 +46,116 @@ RacesAppDlg::~RacesAppDlg() {winPos.~WinPos();}                             //de
 
 
 BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
-  ON_COMMAND(      ID_LoadDatabase,  &onLoadDatabase)
-  ON_COMMAND(      ID_NewMember,     &onNewMember)
-  ON_COMMAND(      ID_LoadCurMbrs,   &onLoadCurMbrs)
-  ON_COMMAND(      ID_LoadFmrMbrs,   &onLoadFmrMbrs)
-  ON_COMMAND(      ID_EditRecords,   &onEditRecords)
-  ON_CBN_SELCHANGE(IDC_MemberList,   &onSelectMbr)
-  ON_COMMAND(      ID_CheckList,     &onCheckList)
-  ON_COMMAND(      ID_UpdateMbr,     &onUpdateMbr)
+  ON_COMMAND(      ID_LoadDatabase,      &onLoadDatabase)
+  ON_COMMAND(      ID_NewMember,         &onNewMember)
+  ON_COMMAND(      ID_LoadCurMbrs,       &onLoadCurMbrs)
+  ON_COMMAND(      ID_LoadFmrMbrs,       &onLoadFmrMbrs)
+  ON_COMMAND(      ID_EditRecords,       &onEditRecords)
+  ON_CBN_SELCHANGE(IDC_MemberList,       &onSelectMbr)
+  ON_COMMAND(      ID_CheckList,         &onCheckList)
+  ON_COMMAND(      ID_UpdateMbr,         &onUpdateMbr)
 
-  ON_CBN_SELCHANGE(ID_ReportMenu,    &onDispatch)            // Send Command Message with ID_...
-  ON_COMMAND(      ID_ExcelReport,   &onExcelRpt)
-  ON_COMMAND(      ID_GoogleRpt,     &onGoogleRpt)
-  ON_COMMAND(      ID_EverBridgeRpt, &onEverBridgeRpt)
-  ON_COMMAND(      ID_CSBadgeRpt,    &onCSBadgeRpt)
-  ON_COMMAND(      ID_DateBadgeRpt,  &onDateBadgeRpt)
-  ON_COMMAND(      ID_ContactByNm,   &onContactByNmRpt)
-  ON_COMMAND(      ID_ContactByCS,   &onContactByCSRpt)
-  ON_COMMAND(      ID_ResponderCnts, &onResponderCnts)
-  ON_COMMAND(      ID_CallSignList,  &onCallSignList)
-  ON_COMMAND(      ID_MemberIDs,     &onMemberIDs)
-  ON_COMMAND(      ID_SuffixList,    &onSuffixList)
-  ON_COMMAND(      ID_FormerMbrs,    &onFormerList)
+  ON_CBN_SELCHANGE(ID_ReportMenu,        &onDispatch)         // Send Command Message with ID_...
+  ON_COMMAND(      ID_ExcelReport,       &onExcelRpt)
+  ON_COMMAND(      ID_GoogleRpt,         &onGoogleRpt)
+  ON_COMMAND(      ID_EverBridgeRpt,     &onEverBridgeRpt)
+  ON_COMMAND(      ID_CSBadgeRpt,        &onCSBadgeRpt)
+  ON_COMMAND(      ID_DateBadgeRpt,      &onDateBadgeRpt)
+  ON_COMMAND(      ID_ContactByNm,       &onContactByNmRpt)
+  ON_COMMAND(      ID_ContactByCS,       &onContactByCSRpt)
+  ON_COMMAND(      ID_ResponderCnts,     &onResponderCnts)
+  ON_COMMAND(      ID_CallSignList,      &onCallSignList)
+  ON_COMMAND(      ID_MemberIDs,         &onMemberIDs)
+  ON_COMMAND(      ID_SuffixList,        &onSuffixList)
+  ON_COMMAND(      ID_FormerMbrs,        &onFormerList)
 
+  ON_COMMAND(      ID_LoadRtrMbrs,       &onLoadRtrMbrs)
+  ON_COMMAND(      ID_RemoveFmr,         &onRemoveFmr)
 
-  ON_COMMAND(      ID_LoadRtrMbrs,   &onLoadRtrMbrs)
-  ON_COMMAND(      ID_RemoveFmr,     &onRemoveFmr)
+  ON_COMMAND(      ID_SanitizeDB,        &onSanitizeDB)
 
-  ON_COMMAND(      ID_SanitizeDB,    &onSanitizeDB)
+  ON_COMMAND(      ID_IntroHelp,         &onHelp)
+  ON_COMMAND(      ID_About,             &onAbout)
+  ON_COMMAND(      ID_UpdateDBExit,      &onUpdateDbExit)
 
-  ON_COMMAND(      ID_IntroHelp,     &onHelp)
-  ON_COMMAND(      ID_About,         &onAbout)
-  ON_COMMAND(      ID_UpdateDBExit,  &onUpdateDbExit)
+  ON_BN_CLICKED(   IDC_PickPicPath,      &onPickPicPath)
 
-  ON_BN_CLICKED(   IDC_FindICEAddr,  &onFindICEAddr)
-  ON_BN_CLICKED(   IDC_FindICEZip,   &onFindICEZip)
-  ON_BN_CLICKED(   IDC_FindEmplAddr, &onFindEmplAddr)
-  ON_BN_CLICKED(   IDC_FindEmplZip,  &onFindEmplZip)
-  ON_BN_CLICKED(   IDC_PickPicPath,  &onPickPicPath)
+  ON_EN_SETFOCUS(  IDC_MbrFirstName,     &onClearMbrfirstname)
+  ON_EN_SETFOCUS(  IDC_MbrMiddleInitial, &onClearMbrMiddleInitial)
+  ON_EN_SETFOCUS(  IDC_MbrLastName,      &onClearMbrLastName)
+  ON_EN_SETFOCUS(  IDC_Suffix,           &onClearSuffix)
+
+  ON_EN_SETFOCUS(  IDC_MbrCallsign,      &onClearMbrCallsign)
+  ON_EN_SETFOCUS(  IDC_CallSignExpDate,  &onClearCallSignExpDate)
+  ON_EN_SETFOCUS(  IDC_BadgeExpDate,     &onClearBadgeExpDate)
+  ON_CBN_SETFOCUS( IDC_MbrStreetAdr,     &onStartMbrStreetAdr)
+  ON_CBN_SELCHANGE(IDC_MbrStreetAdr,     &onSelectMbrStreetAdr)
+  ON_CBN_KILLFOCUS(IDC_MbrStreetAdr,     &onLeaveMbrStreetAdr)
+  ON_EN_SETFOCUS(  IDC_MbrUnitNo,        &onClearMbrUnitNo)
+  ON_EN_KILLFOCUS( IDC_MbrUnitNo,        &onLeaveMbrUnitNo)
+  ON_EN_SETFOCUS(  IDC_MbrCity,          &onClearMbrCity)
+  ON_EN_SETFOCUS(  IDC_MbrState,         &onClearMbrState)
+  ON_CBN_SETFOCUS( IDC_MbrZip,           &onStartMbrZip)
+  ON_CBN_SELCHANGE(IDC_MbrZip,           &onSelectMbrzip)
+  ON_CBN_KILLFOCUS(IDC_MbrZip,           &onLeaveMbrZip)
+  ON_EN_SETFOCUS(  IDC_MbrCellPh,        &onClearMbrCellPh)
+  ON_EN_SETFOCUS(  IDC_MbrLandline,      &onClearMbrLandline)
+  ON_CBN_SETFOCUS( IDC_MbrHomeZip,       &onStartMbrHomeZip)
+  ON_CBN_SELCHANGE(IDC_MbrHomeZip,       &onSelectMbrHomeZip)
+  ON_CBN_KILLFOCUS(IDC_MbrHomeZip,       &onLeaveMbrHomeZip)
+  ON_EN_SETFOCUS(  IDC_MbrEmail,         &onClearMbrEmail)
+  ON_EN_SETFOCUS(  IDC_StartDate,        &onClearStartDate)
+  ON_EN_SETFOCUS(  IDC_DSWDate,          &onClearDSWDate)
+  ON_EN_SETFOCUS(  IDC_ResponderDate,    &onClearResponderDate)
+
+  ON_EN_SETFOCUS(  IDC_ICEFirstName,     &onClearIceFirstName )
+  ON_EN_SETFOCUS(  IDC_ICEMiddleInitial, &onClearIceMidInitial)
+  ON_EN_SETFOCUS(  IDC_ICELastName,      &onClearIceLastName)
+  ON_EN_KILLFOCUS( IDC_ICELastName,      &onLeaveIceName)
+  ON_EN_SETFOCUS(  IDC_ICEeMail,         &onClearIceEmail)
+  ON_CBN_SETFOCUS( IDC_ICEStreetAdr,     &onStartIceStreetAdr)
+  ON_CBN_SELCHANGE(IDC_ICEStreetAdr,     &onSelectIceStreetAdr)
+  ON_CBN_KILLFOCUS(IDC_ICEStreetAdr,     &onLeaveIceStreetAdr)
+  ON_EN_SETFOCUS(  IDC_ICEUnitNo,        &onClearIceUnitNo)
+  ON_EN_KILLFOCUS( IDC_ICEUnitNo,        &onLeaveIceUnitNo)
+  ON_EN_SETFOCUS(  IDC_ICECity,          &onClearIceCity)
+  ON_EN_SETFOCUS(  IDC_ICEState,         &onClearIceState)
+  ON_CBN_SETFOCUS( IDC_ICEZip,           &onStartIceZip)
+  ON_CBN_SELCHANGE(IDC_ICEZip,           &onSelectIceZip)
+  ON_CBN_KILLFOCUS(IDC_ICEZip,           &onLeaveIceZip)
+  ON_EN_SETFOCUS(  IDC_ICECellPh,        &onClearIceCellPh)
+  ON_EN_SETFOCUS(  IDC_ICELandline,      &onClearIceLandline)
+
+  ON_EN_SETFOCUS(  IDC_EmplName,         &onClearEmplName)
+  ON_EN_SETFOCUS(  IDC_EmplEmail,        &onClearEmplEmail)
+  ON_CBN_SETFOCUS( IDC_EmplStreetAdr,    &onStartEmplStreetAdr)
+  ON_CBN_SELCHANGE(IDC_EmplStreetAdr,    &onSelectEmplStreetAdr)
+  ON_CBN_KILLFOCUS(IDC_EmplStreetAdr,    &onLeaveEmplStreetAdr)
+  ON_EN_SETFOCUS(  IDC_EmplUnitNo,       &onClearEmplUnitNo)
+  ON_EN_KILLFOCUS( IDC_EmplUnitNo,       &onLeaveEmplUnitNo)
+  ON_EN_SETFOCUS(  IDC_EmplCity,         &onClearEmplCity)
+  ON_EN_SETFOCUS(  IDC_EmplState,        &onClearEmplState)
+  ON_CBN_SETFOCUS( IDC_EmplZip,          &onStartEmplZip)
+  ON_CBN_SELCHANGE(IDC_EmplZip,          &onSelectEmplZip)
+  ON_CBN_KILLFOCUS(IDC_EmplZip,          &onLeaveEmplZip)
+  ON_EN_SETFOCUS(  IDC_EmplCellPh,       &onClearEmplCellPh)
+  ON_EN_SETFOCUS(  IDC_EmplLandline,     &onClearEmplLandline)
+  ON_CBN_SETFOCUS( IDC_EmplCompanyZip,   &onStartEmplCompanyZip)
+  ON_CBN_SELCHANGE(IDC_EmplCompanyZip,   &onSelectEmplCompanyZip)
+  ON_CBN_KILLFOCUS(IDC_EmplCompanyZip,   &onLeaveEmplCompanyZip)
+
+  ON_EN_KILLFOCUS( IDC_MbrCellPh,        &onLeaveMbrCellPh)
+  ON_EN_KILLFOCUS( IDC_MbrLandline,      &onLeaveMbrlandline)
+  ON_EN_KILLFOCUS( IDC_ICECellPh,        &onLeaveIceCellPh)
+  ON_EN_KILLFOCUS( IDC_ICELandline,      &onLeaveICELandline)
+  ON_EN_KILLFOCUS( IDC_EmplCellPh,       &onLeaveEmplCellPh)
+  ON_EN_KILLFOCUS( IDC_EmplLandline,     &onLeaveEmplLandline)
 
   ON_WM_CREATE()
   ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
-  ON_NOTIFY_EX(    TTN_NEEDTEXT, 0, &OnTtnNeedText)         // Do ToolTips
+  ON_NOTIFY_EX(         TTN_NEEDTEXT, 0,     &OnTtnNeedText)         // Do ToolTips
   ON_WM_MOVE()
   ON_WM_SIZE()
-
-  ON_EN_SETFOCUS(IDC_MbrFirstName,     &onClearMbrfirstname)
-  ON_EN_SETFOCUS(IDC_MbrMiddleInitial, &onClearMbrMiddleInitial)
-  ON_EN_SETFOCUS(IDC_MbrLastName,      &onClearMbrLastName)
-  ON_EN_SETFOCUS(IDC_Suffix,           &onClearSuffix)
-
-  ON_EN_SETFOCUS(IDC_MbrCallsign,      &onClearMbrCallsign)
-  ON_EN_SETFOCUS(IDC_CallSignExpDate,  &onClearCallSignExpDate)
-  ON_EN_SETFOCUS(IDC_BadgeExpDate,     &onClearBadgeExpDate)
-  ON_EN_SETFOCUS(IDC_MbrStreetAdr,     &onClearMbrStreetAdr)
-  ON_EN_SETFOCUS(IDC_MbrUnitNo,        &onClearMbrUnitNo)
-  ON_EN_SETFOCUS(IDC_MbrCity,          &onClearMbrCity)
-  ON_EN_SETFOCUS(IDC_MbrState,         &onClearMbrState)
-  ON_EN_SETFOCUS(IDC_MbrZip,           &onClearMbrZip)
-  ON_EN_KILLFOCUS(IDC_MbrZip,          &onLeaveMbrzip)
-  ON_EN_SETFOCUS(IDC_MbrCellPh,        &onClearMbrCellPh)
-  ON_EN_SETFOCUS(IDC_MbrLandline,      &onClearMbrLandline)
-  ON_EN_SETFOCUS(IDC_MbrHomeZip,       &onClearMbrHomeZip)
-  ON_EN_SETFOCUS(IDC_MbrEmail,         &onClearMbrEmail)
-  ON_EN_SETFOCUS(IDC_StartDate,        &onClearStartDate)
-  ON_EN_SETFOCUS(IDC_DSWDate,          &onClearDSWDate)
-  ON_EN_SETFOCUS(IDC_ResponderDate,    &onClearResponderDate)
-
-  ON_EN_SETFOCUS(IDC_ICEFirstName,     &onClearIceFirstName )
-  ON_EN_SETFOCUS(IDC_ICEMiddleInitial, &onClearIceMidInitial)
-  ON_EN_SETFOCUS(IDC_ICELastName,      &onClearIceLastName)
-  ON_EN_KILLFOCUS(IDC_ICELastName,     &onLeaveIceName)
-  ON_EN_SETFOCUS(IDC_ICEeMail,         &onClearIceEmail)
-  ON_EN_SETFOCUS(IDC_ICEStreetAdr,     &onClearIceStreetAdr)
-  ON_EN_SETFOCUS(IDC_ICEUnitNo,        &onClearIceUnitNo)
-  ON_EN_SETFOCUS(IDC_ICECity,          &onClearIceCity)
-  ON_EN_SETFOCUS(IDC_ICEState,         &onClearIceState)
-  ON_EN_SETFOCUS(IDC_ICEZip,           &onClearIceZip)
-  ON_EN_KILLFOCUS(IDC_ICEZip,          &onLeaveIceZip)
-  ON_EN_SETFOCUS(IDC_ICECellPh,        &onClearIceCellPh)
-  ON_EN_SETFOCUS(IDC_ICELandline,      &onClearIceLandline)
-
-  ON_EN_SETFOCUS(IDC_EmplName,         &onClearEmplName)
-  ON_EN_SETFOCUS(IDC_EmplEmail,        &onClearEmplEmail)
-  ON_EN_SETFOCUS(IDC_EmplStreetAdr,    &onClearEmplStreetAdr)
-  ON_EN_SETFOCUS(IDC_EmplUnitNo,       &onClearEmplUnitNo)
-  ON_EN_SETFOCUS(IDC_EmplCity,         &onClearEmplCity)
-  ON_EN_SETFOCUS(IDC_EmplState,        &onClearEmplState)
-  ON_EN_SETFOCUS(IDC_EmplZip,          &onClearEmplZip)
-  ON_EN_KILLFOCUS(IDC_EmplZip,         &onLeaveEmplZip)
-  ON_EN_SETFOCUS(IDC_EmplCellPh,       &onClearEmplCellPh)
-  ON_EN_SETFOCUS(IDC_EmplLandline,     &onClearEmplLandline)
-  ON_EN_SETFOCUS(IDC_EmplCompanyZip,   &onClearEmplCompanyZip)
-
-  ON_EN_KILLFOCUS(IDC_MbrCellPh,       &onLeaveMbrCellPh)
-  ON_EN_KILLFOCUS(IDC_MbrLandline,     &onLeaveMbrlandline)
-  ON_EN_KILLFOCUS(IDC_ICECellPh,       &onLeaveIceCellPh)
-  ON_EN_KILLFOCUS(IDC_ICELandline,     &onLeaveICELandline)
-  ON_EN_KILLFOCUS(IDC_EmplCellPh,      &onLeaveEmplCellPh)
-  ON_EN_KILLFOCUS(IDC_EmplLandline,    &onLeaveEmplLandline)
 END_MESSAGE_MAP()
 
 
@@ -197,7 +206,7 @@ void RacesAppDlg::DoDataExchange(CDataExchange* pDX) {
     DDX_Control(pDX, IDC_EmplCellPh, emplCellPhCtl);
     DDX_Control(pDX, IDC_EmplLandline, emplLandlineCtl);
     DDX_Control(pDX, IDC_EmplZipOnly, emplZipOnlyCtl);
-    DDX_Control(pDX, IDC_EmplCompanyZip, emplCompanyZipCtl);
+    DDX_Control(pDX, IDC_EmplCompanyZip, emplCmpZipCtl);
     DDX_Control(pDX, IDC_HandHeld, handHeldCtl);
     DDX_Control(pDX, IDC_PortMobile, portMobileCtl);
     DDX_Control(pDX, IDC_PortPacket, portPacketCtl);
@@ -252,9 +261,6 @@ CRect winRect;
   }
 
 
-void RacesAppDlg::onEditRecords() {false;   setStatus(dlgSource, false);}
-
-
 void RacesAppDlg::onLoadDatabase() {
 PathDlgDsc dsc(_T("Database"), 0, _T("accdb"), _T("*.accdb"));
 
@@ -285,24 +291,26 @@ void RacesAppDlg::loadDatabase() {
 void RacesAppDlg::onNewMember() {
 String          s;
 MbrBadgeNo      mbrBadgeNo;
-Date            today;
 
   onUpdateMbr();
 
-  initScreen();    reset(mbrListCtl);
+  reset(mbrListCtl);    curMbr.initialize();   setTitle();
 
-  curMbr.clear();   setTitle();
+  initScreen();
 
-  s.format(_T("%i"), mbrBadgeNo.findNext());   badgeNoCtl.SetWindowText(s);
+  s.format(_T("%i"), mbrBadgeNo.findNext());   set(badgeNoCtl, s);
 
-  mbrStatus.setDefault();
-  mbrAvailability.setDefault();
-  mbrGeography.setDefault();
-  today.getToday();   startDateCtl.SetWindowText(today.format(_T("%m/%d/%y")));
+  mbrStatus.setDefault();   mbrAvailability.setDefault();   mbrGeography.setDefault();
+
+  set(startDateCtl, getTodayExpd());
 
   setStatus(NewMbrSrc, false);
+
+  firstNameCtl.SetFocus();    setFirstName();   firstNameCtl.SetSel(0, -1);
   }
 
+
+// onLoadCurMbrs, onLoadFmrMbrs, onLoadRtrMbrs
 
 void RacesAppDlg::loadMbrs(DlgSource src) {
 MbrListIter iter(memberList);
@@ -338,6 +346,152 @@ int         indx;
   }
 
 
+void RacesAppDlg::onEditRecords() {false;   setStatus(dlgSource, false);}
+
+
+void RacesAppDlg::onSelectMbr() {
+int             indx = mbrListCtl.GetCurSel();    if (indx < 0) return;
+AdrRcd*         adrRcd;
+CtyRcd*         ctyRcd;
+String          tgt;
+
+  onUpdateMbr();
+
+  setLabels();   mbrPic.clear();
+
+  if (!curMbr.set((MbrInfo*)mbrListCtl.GetItemDataPtr(indx))) return;
+
+  mbrStatus.set(curMbr.rcd);
+  mbrAvailability.set(curMbr.rcd);
+  mbrGeography.set(curMbr.rcd);
+
+  set(recordIDCtl,     get(curMbr.rcd->getId()));
+  set(firstNameCtl,    curMbr.mbr->firstName);
+  set(midInitialCtl,   curMbr.mbr->middleInitial);
+  set(lastNameCtl,     curMbr.mbr->lastName);
+  set(suffixCtl,       curMbr.mbr->suffix);
+  set(callSignCtl,     curMbr.rcd->callSign);
+  set(csExpDateCtl,    expandDate(curMbr.rcd->fCCExpiration));
+  set(badgeOKCtl,      curMbr.rcd->badgeOK);
+  set(badgeNoCtl,      get(curMbr.rcd->badgeNumber));
+  set(badgeExpDateCtl, expandDate(curMbr.rcd->badgeExpDate));
+
+  if (!setEntity(curMbr.mbr, adrRcd, ctyRcd)) return;
+
+  set(mbrStreetAdrCtl,        adrRcd->address1);
+  set(mbrUnitNoCtl,           adrRcd->address2);
+  set(mbrCityCtl,             ctyRcd->city);
+  set(mbrStateCtl,            ctyRcd->state);
+  set(mbrZipCtl,              expandZip(ctyRcd->zip));
+  set(mbrCellPhCtl,           expandPhone(curMbr.mbr->phone2));
+  set(mbrLandlineCtl,         expandPhone(curMbr.mbr->phone1));
+  set(mbrZipOnlyCtl,          curMbr.mbr->addrIsPO);
+  set(mbrHomeZipCtl,          expandZip(curMbr.mbr->locationZip));
+
+  set(mbrEmailCtl,            curMbr.mbr->eMail);
+  set(officerCtl,             curMbr.rcd->isOfficer);
+  set(startDateCtl,           expandDate(curMbr.rcd->startDate));
+  set(dswDateCtl,             expandDate(curMbr.rcd->dSWDate));
+  set(responderDateCtl,       expandDate(curMbr.rcd->responder));
+
+  if (setEntity(curMbr.ice, adrRcd, ctyRcd)) {
+    set(iceFirstNameCtl,      curMbr.ice->firstName);
+    set(iceMidInitialCtl,     curMbr.ice->middleInitial);
+    set(iceLastNameCtl,       curMbr.ice->lastName);
+    set(iceEmailCtl,          curMbr.ice->eMail);
+    set(iceStreetAdrCtl,      adrRcd->address1);
+    set(iceUnitNoCtl,         adrRcd->address2);
+
+    set(iceCityCtl,           ctyRcd->city);
+    set(iceStateCtl,          ctyRcd->state);
+    set(iceZipCtl,            expandZip(ctyRcd->zip));
+    set(iceCellPhCtl,         expandPhone(curMbr.ice->phone2));
+    set(iceLandlineCtl,       expandPhone(curMbr.ice->phone1));
+    }
+
+  if(setEntity(curMbr.empl, adrRcd, ctyRcd)) {
+    set(emplNameCtl,            curMbr.empl->firstName);
+    set(emplEmailCtl,           curMbr.empl->eMail);
+    set(emplStreetAdrCtl,       adrRcd->address1);
+    set(emplUnitNoCtl,          adrRcd->address2);
+    set(emplCityCtl,            ctyRcd->city);
+    set(emplStateCtl,           ctyRcd->state);
+    set(emplZipCtl,             expandZip(ctyRcd->zip));
+    set(emplCellPhCtl,          expandPhone(curMbr.empl->phone2));
+    set(emplLandlineCtl,        expandPhone(curMbr.empl->phone1));
+    set(emplZipOnlyCtl,         curMbr.empl->addrIsPO);
+    set(emplCmpZipCtl,          expandZip(curMbr.empl->locationZip));
+    }
+  set(handHeldCtl,              curMbr.rcd->handHeld);
+  set(portMobileCtl,            curMbr.rcd->portMobile);
+  set(portPacketCtl,            curMbr.rcd->portPacket);
+  set(otherEquipCtl,            curMbr.rcd->otherEquip);
+  set(multilingualCtl,          curMbr.rcd->multilingual);
+  set(otherCapCtl,              curMbr.rcd->otherCapabilities);
+  set(limitationsCtl,           curMbr.rcd->limitations);
+  set(commentsCtl,              curMbr.rcd->comments);
+  set(skillCertsCtl,            curMbr.rcd->skillCertifications);
+  set(eocCertCtl,               curMbr.rcd->eOC_Certifications);
+
+  set(picPathCtl,               curMbr.rcd->image);
+
+  set(lastUpdateCtl,            expandDate(curMbr.rcd->updateDate));
+
+  mbrPic.set(curMbr.rcd->image);   mbrPic.set();
+
+  setStatus(dlgSource, true);   setTitle();
+  }
+
+
+void RacesAppDlg::onCheckList() {
+ChkListDlg dlg;
+String     sect;
+
+  if (dlgSource == NilSrc) return;
+
+//  sect = curMbr.ent->firstName + _T(' ') + curMbr.ent->lastName + _T(", ") + mbrRcd->callSign;
+  sect = curMbr.getIdent();
+
+  dlg.nameCallSign = sect;
+  iniFile.read(sect, ApplProcdKey, dlg.applicationProc, false);
+  iniFile.read(sect, PictureKey,   dlg.picture,         false);
+  iniFile.read(sect, GroupsKey,    dlg.groupsIO,        false);
+  iniFile.read(sect, TrainingKey,  dlg.trainingIntro,   false);
+
+  if (dlg.DoModal() == IDOK) {
+    iniFile.write(sect, ApplProcdKey, dlg.applicationProc);
+    iniFile.write(sect, PictureKey,   dlg.picture);
+    iniFile.write(sect, GroupsKey,    dlg.groupsIO);
+    iniFile.write(sect, TrainingKey,  dlg.trainingIntro);
+    }
+  }
+
+void RacesAppDlg::onUpdateMbr() {
+  if (readOnly) return;
+
+  switch (dlgSource) {
+    case NewMbrSrc    : saveNewMember(); return;
+    case CurMbrSrc    :
+    case FmrMbrSrc    :
+    case RtrMbrSrc    : saveMember();    return;
+    case NilSrc       :
+    default           : return;
+    }
+  }
+
+
+void RacesAppDlg::onRemoveFmr() {
+String s;
+
+  if (dlgSource != RtrMbrSrc || !curMbr.rcd || !curMbr.mbr) return;
+
+  s  = _T("Delete: ") + curMbr.getIdent();    //  ent->firstName + _T(' ') + curMbr.ent->lastName;
+                                              //  s += _T(", ") + curMbr.rcd->callSign;
+
+  if (msgYesNoBox(s) == IDYES) {curMbr.removeMbr();   messageBox(_T("Deleting"));}
+  }
+
+
 void RacesAppDlg::onSanitizeDB() {
 String   csvPath = getPath(dbPath);    csvPath += _T("DeadRcdData.csv");
 DeadRcds deadRcds(csvPath);
@@ -348,153 +502,47 @@ String   s;
   }
 
 
-void RacesAppDlg::onSelectMbr() {
-int             indx = mbrListCtl.GetCurSel();    if (indx < 0) return;
-String          s;
-AdrRcd*         adrRcd;
-CtyRcd*         ctyRcd;
+void RacesAppDlg::onHelp() {
+String topic = helpPath; topic += _T(">Introduction");
+
+  ::HtmlHelp(GetSafeHwnd(), topic,  HH_DISPLAY_TOC, 0);
+  }
+
+
+void RacesAppDlg::onAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
+
+
+void RacesAppDlg::onUpdateDbExit() {
 
   onUpdateMbr();
 
-  setLabels();   mbrPic.clear();
+  if (!curMbr.updateDB(dbPath)) messageBox(_T("Something went wrong while updating database!"));
 
-  if (!curMbr.set(mbrListCtl.GetItemDataPtr(indx))) return;
-
-    mbrStatus.set(curMbr.rcd);
-    mbrAvailability.set(curMbr.rcd);
-    mbrGeography.set(curMbr.rcd);
-
-      recordIDCtl.SetWindowText(get(curMbr.rcd->getId()));
-     firstNameCtl.SetWindowText(curMbr.ent->firstName);
-    midInitialCtl.SetWindowText(curMbr.ent->middleInitial);
-      lastNameCtl.SetWindowText(curMbr.ent->lastName);
-        suffixCtl.SetWindowText(curMbr.ent->suffix);
-      callSignCtl.SetWindowText(curMbr.rcd->callSign);
-     csExpDateCtl.SetWindowText(expandDate(curMbr.rcd->fCCExpiration));
-       badgeOKCtl.SetCheck(curMbr.rcd->badgeOK);
-       badgeNoCtl.SetWindowText(get(curMbr.rcd->badgeNumber));
-  badgeExpDateCtl.SetWindowText(expandDate(curMbr.rcd->badgeExpDate));
-
-  if (!setEntity(curMbr.ent, adrRcd, ctyRcd)) return;
-   mbrStreetAdrCtl.SetWindowText(adrRcd->address1);
-      mbrUnitNoCtl.SetWindowText(adrRcd->address2);
-        mbrCityCtl.SetWindowText(ctyRcd->city);
-       mbrStateCtl.SetWindowText(ctyRcd->state);
-         mbrZipCtl.SetWindowText(expandZip(ctyRcd->zip));
-      mbrCellPhCtl.SetWindowText(expandPhone(curMbr.ent->phone2));
-    mbrLandlineCtl.SetWindowText(expandPhone(curMbr.ent->phone1));
-     mbrZipOnlyCtl.SetCheck(curMbr.ent->addrIsPO);
-     mbrHomeZipCtl.SetWindowText(curMbr.ent->locationZip);
-
-       mbrEmailCtl.SetWindowText(curMbr.ent->eMail);
-        officerCtl.SetCheck(curMbr.rcd->isOfficer);
-      startDateCtl.SetWindowText(expandDate(curMbr.rcd->startDate));
-        dswDateCtl.SetWindowText(expandDate(curMbr.rcd->dSWDate));
-  responderDateCtl.SetWindowText(expandDate(curMbr.rcd->responder));
-
-  if (setEntity(curMbr.ice, adrRcd, ctyRcd)) {
-     iceFirstNameCtl.SetWindowText(curMbr.ice->firstName);
-    iceMidInitialCtl.SetWindowText(curMbr.ice->middleInitial);
-      iceLastNameCtl.SetWindowText(curMbr.ice->lastName);
-         iceEmailCtl.SetWindowText(curMbr.ice->eMail) ;
-     iceStreetAdrCtl.SetWindowText(adrRcd->address1);
-        iceUnitNoCtl.SetWindowText(adrRcd->address2);
-          iceCityCtl.SetWindowText(ctyRcd->city);
-         iceStateCtl.SetWindowText(ctyRcd->state);
-           iceZipCtl.SetWindowText(expandZip(ctyRcd->zip));
-        iceCellPhCtl.SetWindowText(expandPhone(curMbr.ice->phone2));
-      iceLandlineCtl.SetWindowText(expandPhone(curMbr.ice->phone1));
-     }
-
-  if (setEntity(curMbr.empl, adrRcd, ctyRcd)) {
-          emplNameCtl.SetWindowText(curMbr.empl->firstName);
-         emplEmailCtl.SetWindowText(curMbr.empl->eMail) ;
-     emplStreetAdrCtl.SetWindowText(adrRcd->address1);
-        emplUnitNoCtl.SetWindowText(adrRcd->address2);
-          emplCityCtl.SetWindowText(ctyRcd->city);
-         emplStateCtl.SetWindowText(ctyRcd->state);
-           emplZipCtl.SetWindowText(expandZip(ctyRcd->zip));
-        emplCellPhCtl.SetWindowText(expandPhone(curMbr.empl->phone2));
-      emplLandlineCtl.SetWindowText(expandPhone(curMbr.empl->phone1));
-       emplZipOnlyCtl.SetCheck(curMbr.empl->addrIsPO);
-    emplCompanyZipCtl.SetWindowText(curMbr.empl->locationZip);
-    }
-      handHeldCtl.SetWindowText(curMbr.rcd->handHeld);
-    portMobileCtl.SetWindowText(curMbr.rcd->portMobile);
-    portPacketCtl.SetWindowText(curMbr.rcd->portPacket);
-    otherEquipCtl.SetWindowText(curMbr.rcd->otherEquip);
-  multilingualCtl.SetWindowText(curMbr.rcd->multilingual);
-      otherCapCtl.SetWindowText(curMbr.rcd->otherCapabilities);
-   limitationsCtl.SetWindowText(curMbr.rcd->limitations);
-      commentsCtl.SetWindowText(curMbr.rcd->comments);
-    skillCertsCtl.SetWindowText(curMbr.rcd->skillCertifications);
-       eocCertCtl.SetWindowText(curMbr.rcd->eOC_Certifications);
-
-       picPathCtl.SetWindowText(curMbr.rcd->image);
-
-    lastUpdateCtl.SetWindowText(expandDate(curMbr.rcd->updateDate));
-
-  mbrPic.set(curMbr.rcd->image);   mbrPic.set();
-
-  setStatus(dlgSource, true);   setTitle();
+  CDialogEx::OnOK();
   }
 
 
-void RacesAppDlg::onFindICEAddr() {
-AddressDlg dlg;
+void RacesAppDlg::onPickPicPath() {
+String     rootPath = dbPath;
+PathDlgDsc pathDlg;
+String     picPath;
+int        pos;
 
   if (readOnly) return;
 
-  dlg.tgt = get(iceStreetAdrCtl);
+  rootPath = getPath(rootPath);   pos = rootPath.length() - 1;
 
-  if (dlg.DoModal() == IDOK && dlg.adrRcd) {
-    set(iceStreetAdrCtl, dlg.adrRcd->address1);
-    set(iceUnitNoCtl,    dlg.adrRcd->address2);
-    }
-  }
+  rootPath = getPath(rootPath.substr(0, pos));   picPath = rootPath + _T("Images\\");
 
+  pathDlg = pathDlg(_T("Member Photo"), picPath, _T("jpg"), _T("*.jpg"));
 
-void RacesAppDlg::onFindICEZip() {
-CityStateDlg dlg;
+  if (!getOpenDlg(pathDlg, picPath)) return;
 
-  if (readOnly) return;
+  pos = rootPath.length();   picPath = picPath.substr(pos);   picPath = _T("..\\") + picPath;
 
-  dlg.tgt = get(iceZipCtl);
+  picPathCtl.SetWindowText(picPath);
 
-  if (dlg.DoModal() == IDOK && dlg.ctyRcd) {
-    set(iceCityCtl,  dlg.ctyRcd->city);
-    set(iceStateCtl, dlg.ctyRcd->state);
-    set(iceZipCtl,   expandZip(dlg.ctyRcd->zip));
-    }
-  }
-
-
-void RacesAppDlg::onFindEmplAddr() {
-AddressDlg dlg;
-
-  if (readOnly) return;
-
-  dlg.tgt = get(emplStreetAdrCtl);
-
-  if (dlg.DoModal() == IDOK && dlg.adrRcd) {
-    set(emplStreetAdrCtl, dlg.adrRcd->address1);
-    set(emplUnitNoCtl,    dlg.adrRcd->address2);
-    }
-  }
-
-
-void RacesAppDlg::onFindEmplZip() {
-CityStateDlg dlg;
-
-  if (readOnly) return;
-
-  dlg.tgt = get(emplZipCtl);
-
-  if (dlg.DoModal() == IDOK && dlg.ctyRcd) {
-    set(emplCityCtl,  dlg.ctyRcd->city);
-    set(emplStateCtl, dlg.ctyRcd->state);
-    set(emplZipCtl,   expandZip(dlg.ctyRcd->zip));
-    }
+  mbrPic.set(picPath);
   }
 
 
@@ -534,8 +582,8 @@ static TCchar* PicPathLbl       = _T("Picture Path");
 
 
 void RacesAppDlg::setLabels() {
-  set(   firstNameCtl, FirstNameLbl);       set(  midInitialCtl, MiddleInitialLbl);
-  set(    lastNameCtl, LastNameLbl);        set(  suffixCtl, SuffixLbl);
+  setFirstName();                           set(  midInitialCtl, MiddleInitialLbl);
+  set(    lastNameCtl, LastNameLbl);        set(  suffixCtl,     SuffixLbl);
   set(    callSignCtl, CallLbl);
   set(   csExpDateCtl, CSExpDateLbl);       set(     badgeOKCtl, false);
   set(     badgeNoCtl, _T("123"));          set(badgeExpDateCtl, BgExpDateLbl);
@@ -560,30 +608,12 @@ void RacesAppDlg::setLabels() {
   set(  emplStreetAdrCtl, StreetAddrLbl);   set(     emplUnitNoCtl, UnitNoLbl);
   set(       emplCityCtl, CityLbl);         set(      emplStateCtl, StateLbl);
   set(        emplZipCtl, ZipLbl);          set(     emplCellPhCtl, CellPhLbl);
-  set(   emplLandlineCtl, LandLineLbl);     set( emplCompanyZipCtl, CompanyZipLbl);
+  set(   emplLandlineCtl, LandLineLbl);     set( emplCmpZipCtl, CompanyZipLbl);
   set(        picPathCtl, PicPathLbl);
   }
 
 
-void RacesAppDlg::clrLabels() {
-  onClearMbrfirstname();      onClearMbrMiddleInitial();    onClearMbrLastName();
-  onClearSuffix();
-  onClearMbrCallsign();       onClearCallSignExpDate();     onClearBadgeExpDate();
-  onClearMbrStreetAdr();      onClearMbrUnitNo();           onClearMbrCity();
-  onClearMbrState();          onClearMbrZip();              onClearMbrCellPh();
-  onClearMbrLandline();       onClearMbrHomeZip();          onClearMbrEmail();
-  onClearStartDate();         onClearDSWDate();             onClearResponderDate();
-
-  onClearIceFirstName();      onClearIceMidInitial();       onClearIceLastName();
-  onClearIceEmail();          onClearIceStreetAdr();        onClearIceUnitNo();
-  onClearIceCity();           onClearIceState();            onClearIceZip();
-  onClearIceCellPh();         onClearIceLandline();
-
-  onClearEmplName();          onClearEmplEmail();           onClearEmplStreetAdr();
-  onClearEmplUnitNo();        onClearEmplCity();            onClearEmplState();
-  onClearEmplZip();           onClearEmplCellPh();          onClearEmplLandline();
-  onClearEmplCompanyZip();    clrLbl(picPathCtl, PicPathLbl);
-  }
+void RacesAppDlg::setFirstName() {set(firstNameCtl, FirstNameLbl);}
 
 
 void RacesAppDlg::onClearMbrfirstname()     {clrLbl(firstNameCtl,      FirstNameLbl);}
@@ -593,14 +623,21 @@ void RacesAppDlg::onClearSuffix()           {clrLbl(suffixCtl,         SuffixLbl
 void RacesAppDlg::onClearMbrCallsign()      {clrLbl(callSignCtl,       CallLbl);}
 void RacesAppDlg::onClearCallSignExpDate()  {clrLbl(csExpDateCtl,      CSExpDateLbl);}
 void RacesAppDlg::onClearBadgeExpDate()     {clrLbl(badgeExpDateCtl,   BgExpDateLbl);}
-void RacesAppDlg::onClearMbrStreetAdr()     {clrLbl(mbrStreetAdrCtl,   StreetAddrLbl);}
+
+void RacesAppDlg::clearMbrStreetAdr()       {clrLbl(mbrStreetAdrCtl,   StreetAddrLbl);}
+void RacesAppDlg::clearMbrZip()             {clrLbl(mbrZipCtl,         ZipLbl);}
+void RacesAppDlg::clearMbrHomeZip()         {clrLbl(mbrHomeZipCtl,     HomeZipLbl);}
+void RacesAppDlg::clearIceStreetAdr()       {clrLbl(iceStreetAdrCtl,   StreetAddrLbl);}
+void RacesAppDlg::clearIceZip()             {clrLbl(iceZipCtl,         ZipLbl);}
+void RacesAppDlg::clearEmplStreetAdr()      {clrLbl(emplStreetAdrCtl,  StreetAddrLbl);}
+void RacesAppDlg::clearEmplZip()            {clrLbl(emplZipCtl,        ZipLbl);}
+void RacesAppDlg::clearEmplCompanyZip()     {clrLbl(emplCmpZipCtl,     CompanyZipLbl);}
+
 void RacesAppDlg::onClearMbrUnitNo()        {clrLbl(mbrUnitNoCtl,      UnitNoLbl);}
 void RacesAppDlg::onClearMbrCity()          {clrLbl(mbrCityCtl,        CityLbl);}
 void RacesAppDlg::onClearMbrState()         {clrLbl(mbrStateCtl,       StateLbl);}
-void RacesAppDlg::onClearMbrZip()           {clrLbl(mbrZipCtl,         ZipLbl);}
 void RacesAppDlg::onClearMbrCellPh()        {clrLbl(mbrCellPhCtl,      CellPhLbl);}
 void RacesAppDlg::onClearMbrLandline()      {clrLbl(mbrLandlineCtl,    LandLineLbl);}
-void RacesAppDlg::onClearMbrHomeZip()       {clrLbl(mbrHomeZipCtl,     HomeZipLbl);}
 void RacesAppDlg::onClearMbrEmail()         {clrLbl(mbrEmailCtl,       EmailLbl);}
 void RacesAppDlg::onClearStartDate()        {clrLbl(startDateCtl,      DateLbl);}
 void RacesAppDlg::onClearDSWDate()          {clrLbl(dswDateCtl,        DateLbl);}
@@ -610,87 +647,89 @@ void RacesAppDlg::onClearIceFirstName()     {clrLbl(iceFirstNameCtl,   FirstName
 void RacesAppDlg::onClearIceMidInitial()    {clrLbl(iceMidInitialCtl,  MiddleInitialLbl);}
 void RacesAppDlg::onClearIceLastName()      {clrLbl(iceLastNameCtl,    LastNameLbl);}
 void RacesAppDlg::onClearIceEmail()         {clrLbl(iceEmailCtl,       EmailLbl);}
-void RacesAppDlg::onClearIceStreetAdr()     {clrLbl(iceStreetAdrCtl,   StreetAddrLbl);}
 void RacesAppDlg::onClearIceUnitNo()        {clrLbl(iceUnitNoCtl,      UnitNoLbl);}
 void RacesAppDlg::onClearIceCity()          {clrLbl(iceCityCtl,        CityLbl);}
 void RacesAppDlg::onClearIceState()         {clrLbl(iceStateCtl,       StateLbl);}
-void RacesAppDlg::onClearIceZip()           {clrLbl(iceZipCtl,         ZipLbl);}
 void RacesAppDlg::onClearIceCellPh()        {clrLbl(iceCellPhCtl,      CellPhLbl);}
 void RacesAppDlg::onClearIceLandline()      {clrLbl(iceLandlineCtl,    LandLineLbl);}
 
 void RacesAppDlg::onClearEmplName()         {clrLbl(emplNameCtl,       CompanyNameLbl);}
 void RacesAppDlg::onClearEmplEmail()        {clrLbl(emplEmailCtl,      EmailLbl);}
-void RacesAppDlg::onClearEmplStreetAdr()    {clrLbl(emplStreetAdrCtl,  StreetAddrLbl);}
 void RacesAppDlg::onClearEmplUnitNo()       {clrLbl(emplUnitNoCtl,     UnitNoLbl);}
 void RacesAppDlg::onClearEmplCity()         {clrLbl(emplCityCtl,       CityLbl);}
 void RacesAppDlg::onClearEmplState()        {clrLbl(emplStateCtl,      StateLbl);}
-void RacesAppDlg::onClearEmplZip()          {clrLbl(emplZipCtl,        ZipLbl);}
 void RacesAppDlg::onClearEmplCellPh()       {clrLbl(emplCellPhCtl,     CellPhLbl);}
 void RacesAppDlg::onClearEmplLandline()     {clrLbl(emplLandlineCtl,   LandLineLbl);}
-void RacesAppDlg::onClearEmplCompanyZip()   {clrLbl(emplCompanyZipCtl, CompanyZipLbl);}
 
 
+void RacesAppDlg::onLeaveMbrCellPh()
+               {String s = compressPhone(get(mbrCellPhCtl));    set(mbrCellPhCtl, expandPhone(s));}
 
-void RacesAppDlg::onCheckList() {
-ChkListDlg dlg;
-String     sect;
+void RacesAppDlg::onLeaveMbrlandline()
+           {String s = compressPhone(get(mbrLandlineCtl));    set(mbrLandlineCtl, expandPhone(s));}
 
-  if (dlgSource == NilSrc) return;
+void RacesAppDlg::onLeaveIceCellPh()
+               {String s = compressPhone(get(iceCellPhCtl));    set(iceCellPhCtl, expandPhone(s));}
 
-//  sect = curMbr.ent->firstName + _T(' ') + curMbr.ent->lastName + _T(", ") + mbrRcd->callSign;
-  sect = curMbr.getIdent();
+void RacesAppDlg::onLeaveICELandline()
+           {String s = compressPhone(get(iceLandlineCtl));    set(iceLandlineCtl, expandPhone(s));}
 
-  dlg.nameCallSign = sect;
-  iniFile.read(sect, ApplProcdKey, dlg.applicationProc, false);
-  iniFile.read(sect, PictureKey,   dlg.picture,         false);
-  iniFile.read(sect, GroupsKey,    dlg.groupsIO,        false);
-  iniFile.read(sect, TrainingKey,  dlg.trainingIntro,   false);
+void RacesAppDlg::onLeaveEmplCellPh()
+             {String s = compressPhone(get(emplCellPhCtl));    set(emplCellPhCtl, expandPhone(s));}
 
-  if (dlg.DoModal() == IDOK) {
-    iniFile.write(sect, ApplProcdKey, dlg.applicationProc);
-    iniFile.write(sect, PictureKey,   dlg.picture);
-    iniFile.write(sect, GroupsKey,    dlg.groupsIO);
-    iniFile.write(sect, TrainingKey,  dlg.trainingIntro);
-    }
+void RacesAppDlg::onLeaveEmplLandline()
+         {String s = compressPhone(get(emplLandlineCtl));    set(emplLandlineCtl, expandPhone(s));}
+
+
+void RacesAppDlg::onStartMbrStreetAdr()
+                     {clrLbl(mbrStreetAdrCtl, StreetAddrLbl);     addrList.load(mbrStreetAdrCtl);}
+void RacesAppDlg::onSelectMbrStreetAdr()  {addrList.getSel(mbrStreetAdrCtl);}
+void RacesAppDlg::onLeaveMbrStreetAdr()   {addrList.set(mbrStreetAdrCtl,  mbrUnitNoCtl);}
+void RacesAppDlg::onLeaveMbrUnitNo()      {addrList.add(mbrStreetAdrCtl,  mbrUnitNoCtl);}
+
+void RacesAppDlg::onStartIceStreetAdr()
+                     {clrLbl(iceStreetAdrCtl,   StreetAddrLbl);   addrList.load(iceStreetAdrCtl);}
+void RacesAppDlg::onSelectIceStreetAdr()  {addrList.getSel(iceStreetAdrCtl);}
+void RacesAppDlg::onLeaveIceStreetAdr()   {addrList.set(iceStreetAdrCtl,  iceUnitNoCtl);}
+void RacesAppDlg::onLeaveIceUnitNo()      {addrList.add(iceStreetAdrCtl,  iceUnitNoCtl);}
+
+void RacesAppDlg::onStartEmplStreetAdr()
+                     {clrLbl(emplStreetAdrCtl,  StreetAddrLbl);   addrList.load(emplStreetAdrCtl);}
+void RacesAppDlg::onSelectEmplStreetAdr() {addrList.getSel(emplStreetAdrCtl);}
+void RacesAppDlg::onLeaveEmplStreetAdr()  {addrList.set(emplStreetAdrCtl, emplUnitNoCtl);}
+void RacesAppDlg::onLeaveEmplUnitNo()     {addrList.add(emplStreetAdrCtl, emplUnitNoCtl);}
+
+void RacesAppDlg::onStartMbrZip()         {clrLbl(mbrZipCtl, ZipLbl);   zipList.load(mbrZipCtl);}
+void RacesAppDlg::onSelectMbrzip()        {zipList.set(mbrZipCtl,  mbrCityCtl,  mbrStateCtl);}
+void RacesAppDlg::onLeaveMbrZip()         {zipList.add(mbrZipCtl,  mbrCityCtl,  mbrStateCtl);}
+
+void RacesAppDlg::onStartMbrHomeZip()
+                                {clrLbl(mbrHomeZipCtl, HomeZipLbl);   zipList.load(mbrHomeZipCtl);}
+void RacesAppDlg::onSelectMbrHomeZip() {zipList.set(mbrHomeZipCtl, mbrCityCtl,  mbrStateCtl);}
+void RacesAppDlg::onLeaveMbrHomeZip()  {zipList.add(mbrHomeZipCtl, mbrCityCtl,  mbrStateCtl);}
+
+
+void RacesAppDlg::onLeaveIceName() {
+PrepAdrRcd prepRcd;
+
+  prepRcd.setAddress(get(mbrStreetAdrCtl));   prepRcd.setUnitNo(get(mbrUnitNoCtl));
+
+  addrList.add(prepRcd.add());
   }
 
 
-void RacesAppDlg::onRemoveFmr() {
-String s;
+void RacesAppDlg::onStartIceZip()      {clrLbl(iceZipCtl, ZipLbl);   zipList.load(iceZipCtl);}
+void RacesAppDlg::onSelectIceZip()     {zipList.set(iceZipCtl,  iceCityCtl,  iceStateCtl);}
+void RacesAppDlg::onLeaveIceZip()      {zipList.add(iceZipCtl,  iceCityCtl,  iceStateCtl);}
 
-  if (dlgSource != RtrMbrSrc || !curMbr.rcd || !curMbr.ent) return;
+void RacesAppDlg::onStartEmplZip()     {clrLbl(emplZipCtl, ZipLbl);   zipList.load(emplZipCtl);}
+void RacesAppDlg::onSelectEmplZip()    {zipList.set(emplZipCtl, emplCityCtl, emplStateCtl);}
+void RacesAppDlg::onLeaveEmplZip()     {zipList.add(emplZipCtl, emplCityCtl, emplStateCtl);}
 
-  s  = _T("Delete: ") + curMbr.getIdent();    //  ent->firstName + _T(' ') + curMbr.ent->lastName;
-                                              //  s += _T(", ") + curMbr.rcd->callSign;
-
-  if (msgYesNoBox(s) == IDYES) {curMbr.removeMbr();   messageBox(_T("Deleting"));}
-  }
-
-
-bool RacesAppDlg::setEntity(EntRcd* ent, AdrRcd*& adr, CtyRcd*& cty) {
-int id;
-
-  if (!ent) return false;
-
-  id = ent->addrID;   adr = id ? adrTbl.find(id) : &nilAdr;
-  id = ent->cityStID; cty = id ? ctyTbl.find(id) : &nilCty;
-
-  return true;
-  }
-                          //NewMbrSrc, CurMbrSrc, FmrMbrSrc, RtrMbrSrc
-
-void RacesAppDlg::onUpdateMbr() {
-  if (readOnly) return;
-
-  switch (dlgSource) {
-    case NewMbrSrc    : saveNewMember(); return;
-    case CurMbrSrc    :
-    case FmrMbrSrc    :
-    case RtrMbrSrc    : saveMember();    return;
-    case NilSrc       :
-    default           : return;
-    }
-  }
+void RacesAppDlg::onStartEmplCompanyZip()
+                             {clrLbl(emplCmpZipCtl, CompanyZipLbl);   zipList.load(emplCmpZipCtl);}
+void RacesAppDlg::onSelectEmplCompanyZip() {zipList.set(emplCmpZipCtl, emplCityCtl, emplStateCtl);}
+void RacesAppDlg::onLeaveEmplCompanyZip()  {zipList.add(emplCmpZipCtl, emplCityCtl, emplStateCtl);}
 
 
 void RacesAppDlg::saveNewMember() {
@@ -698,7 +737,7 @@ Cstring         cs;
 MbrRcd          rcd;
 String          s;
 
-  clrLabels();
+  curMbr.clear();   clrLabels();
   rcd.badgeNumber    = getInt(badgeNoCtl);
   rcd.statusID       = mbrStatus.getID();
   rcd.assgnPrefID    = mbrAvailability.getID();
@@ -729,7 +768,7 @@ String          s;
      skillCertsCtl.GetWindowText(cs);    rcd.skillCertifications = cs;
         eocCertCtl.GetWindowText(cs);    rcd.eOC_Certifications  = cs;
         picPathCtl.GetWindowText(cs);    rcd.image               = cs;
-                                         rcd.updateDate          = getToday();
+                                         rcd.updateDate          = getTodayCmpr();
 
   if (rcd.mbrEntityID                   ||   !rcd.callSign.isEmpty()            ||
       !rcd.fCCExpiration.isEmpty()      ||   !rcd.badgeOK                       ||
@@ -743,6 +782,7 @@ String          s;
       !rcd.eOC_Certifications.isEmpty()) {
 
     curMbr.set(memberList.add(&rcd));
+    curMbr.rcdDirty();   curMbr.mbrDirty();   curMbr.iceDirty();   curMbr.emplDirty();
     }
 
   setStatus(dlgSource, false);
@@ -753,6 +793,8 @@ void RacesAppDlg::saveMember() {
 PrepEntRcd mbr;
 AdrRcd*    adrRcd;
 CtyRcd*    ctyRcd;
+
+  if (curMbr.isEmpty()) return;
 
   clrLabels();
 
@@ -777,9 +819,9 @@ CtyRcd*    ctyRcd;
   mbr.setLandLine(get(mbrLandlineCtl));
   if (setField(curMbr.rcd->textMsgPh1, mbr.getTxtPh())) curMbr.rcdDirty();
 
-  if (!setEntity(curMbr.ent, adrRcd, ctyRcd)) return;
+  if (!setEntity(curMbr.mbr, adrRcd, ctyRcd)) return;
   mbr.setAdrRcd(adrRcd);   mbr.setCtyRcd(ctyRcd);
-  curMbr.rcd->mbrEntityID = mbr.updateRcd(curMbr.ent);
+  curMbr.rcd->mbrEntityID = mbr.updateRcd(curMbr.mbr);
 
   mbr.clear();
   mbr.setFirstName(get(iceFirstNameCtl));
@@ -806,7 +848,7 @@ CtyRcd*    ctyRcd;
   mbr.setState(get(emplStateCtl));
   mbr.setZip(get(emplZipCtl));
   mbr.setZipOnly(emplZipOnlyCtl.GetCheck());
-  mbr.setLocZip(get(emplCompanyZipCtl));
+  mbr.setLocZip(get(emplCmpZipCtl));
   mbr.setEmail(get(emplEmailCtl));
   mbr.setCellPh(get(emplCellPhCtl));
   mbr.setLandLine(get(emplLandlineCtl));
@@ -830,7 +872,50 @@ CtyRcd*    ctyRcd;
   if (setField(curMbr.rcd->eOC_Certifications, get(eocCertCtl)))      curMbr.rcdDirty();
   if (setField(curMbr.rcd->image, get(picPathCtl)))                   curMbr.rcdDirty();
 
-  curMbr.rcd->updateDate = getToday();
+  curMbr.rcd->updateDate = getTodayCmpr();
+  }
+
+
+void RacesAppDlg::setTitle() {
+String title;
+
+  title = curMbr.getIdent();
+
+  if (title.isEmpty()) title = _T("RACES Record");
+
+  SetWindowText(title);
+  }
+
+void RacesAppDlg::clrLabels() {
+  onClearMbrfirstname();      onClearMbrMiddleInitial();    onClearMbrLastName();
+  onClearSuffix();
+  onClearMbrCallsign();       onClearCallSignExpDate();     onClearBadgeExpDate();
+  clearMbrStreetAdr();        onClearMbrUnitNo();           onClearMbrCity();
+  onClearMbrState();          clearMbrZip();                onClearMbrCellPh();
+  onClearMbrLandline();       clearMbrHomeZip();            onClearMbrEmail();
+  onClearStartDate();         onClearDSWDate();             onClearResponderDate();
+
+  onClearIceFirstName();      onClearIceMidInitial();       onClearIceLastName();
+  onClearIceEmail();          clearIceStreetAdr();          onClearIceUnitNo();
+  onClearIceCity();           onClearIceState();            clearIceZip();
+  onClearIceCellPh();         onClearIceLandline();
+
+  onClearEmplName();          onClearEmplEmail();           clearEmplStreetAdr();
+  onClearEmplUnitNo();        onClearEmplCity();            onClearEmplState();
+  clearEmplZip();             onClearEmplCellPh();          onClearEmplLandline();
+  clearEmplCompanyZip();      clrLbl(picPathCtl, PicPathLbl);
+  }
+
+
+bool RacesAppDlg::setEntity(EntRcd* ent, AdrRcd*& adr, CtyRcd*& cty) {
+int id;
+
+  if (!ent) return false;
+
+  id = ent->addrID;   adr = id ? adrTbl.find(id) : &nilAdr;
+  id = ent->cityStID; cty = id ? ctyTbl.find(id) : &nilCty;
+
+  return true;
   }
 
 
@@ -849,10 +934,14 @@ Cstring cs;
      mbrEmailCtl.GetWindowText(cs);   ent.eMail        = cs;
 
    ent.addrID   = addrList.add(mbrStreetAdrCtl, mbrUnitNoCtl);
-   ent.cityStID = zipList.add(mbrCityCtl, mbrStateCtl, mbrZipCtl);
+   ent.cityStID = zipList.add(mbrZipCtl, mbrCityCtl, mbrStateCtl);
 
   return addEntity(ent);
   }
+
+
+TCchar* RacesAppDlg::getTxtPh(int entId)
+                    {EntRcd* ent = entTbl.find(entId);   return  ent ? ent->phone2.str() : _T("");}
 
 
 int RacesAppDlg::getICEEntity() {
@@ -867,7 +956,7 @@ Cstring cs;
     iceLandlineCtl.GetWindowText(cs);    ent.phone1        = compressPhone(cs);
 
   ent.addrID   = addrList.add(iceStreetAdrCtl, iceUnitNoCtl);
-  ent.cityStID = zipList.add(iceCityCtl, iceStateCtl, iceZipCtl);
+  ent.cityStID = zipList.add(iceZipCtl, iceCityCtl, iceStateCtl);
 
   return addEntity(ent);
   }
@@ -881,10 +970,10 @@ Cstring cs;
       emplCellPhCtl.GetWindowText(cs);   ent.phone2      = compressPhone(cs);
     emplLandlineCtl.GetWindowText(cs);   ent.phone1      = compressPhone(cs);
                                          ent.addrIsPO    = emplZipOnlyCtl.GetCheck();
-  emplCompanyZipCtl.GetWindowText(cs);   ent.locationZip = compressZip(cs);
+  emplCmpZipCtl.GetWindowText(cs);   ent.locationZip = compressZip(cs);
 
   ent.addrID   = addrList.add(emplStreetAdrCtl, emplUnitNoCtl);
-  ent.cityStID = zipList.add(emplCityCtl, emplStateCtl, emplZipCtl);
+  ent.cityStID = zipList.add(emplZipCtl, emplCityCtl, emplStateCtl);
 
   return addEntity(ent);
   }
@@ -902,148 +991,6 @@ EntRcd* entRcd;
     }
 
   return 0;
-  }
-
-
-TCchar* RacesAppDlg::getTxtPh(int entId)
-                    {EntRcd* ent = entTbl.find(entId);   return  ent ? ent->phone2.str() : _T("");}
-
-
-void RacesAppDlg::onLeaveMbrCellPh()
-               {String s = compressPhone(get(mbrCellPhCtl));    set(mbrCellPhCtl, expandPhone(s));}
-
-void RacesAppDlg::onLeaveMbrlandline()
-           {String s = compressPhone(get(mbrLandlineCtl));    set(mbrLandlineCtl, expandPhone(s));}
-
-void RacesAppDlg::onLeaveIceCellPh()
-               {String s = compressPhone(get(iceCellPhCtl));    set(iceCellPhCtl, expandPhone(s));}
-
-void RacesAppDlg::onLeaveICELandline()
-           {String s = compressPhone(get(iceLandlineCtl));    set(iceLandlineCtl, expandPhone(s));}
-
-void RacesAppDlg::onLeaveEmplCellPh()
-             {String s = compressPhone(get(emplCellPhCtl));    set(emplCellPhCtl, expandPhone(s));}
-
-void RacesAppDlg::onLeaveEmplLandline()
-         {String s = compressPhone(get(emplLandlineCtl));    set(emplLandlineCtl, expandPhone(s));}
-
-
-void RacesAppDlg::onLeaveMbrzip() {
-CtyRcd* ctyRcd = zipList.find(compressZip(get(mbrZipCtl)));
-
-  if (ctyRcd) {
-    set(mbrCityCtl,  ctyRcd->city);
-    set(mbrStateCtl, ctyRcd->state);
-    set(mbrZipCtl,   expandZip(ctyRcd->zip));
-    }
-  }
-
-
-void RacesAppDlg::onLeaveIceZip() {
-CtyRcd* ctyRcd = zipList.find(compressZip(get(iceZipCtl)));
-
-  if (ctyRcd) {
-    set(iceCityCtl,  ctyRcd->city);
-    set(iceStateCtl, ctyRcd->state);
-    set(iceZipCtl,   expandZip(ctyRcd->zip));
-    }
-  }
-
-
-void RacesAppDlg::onLeaveEmplZip() {
-
-CtyRcd* ctyRcd = zipList.find(compressZip(get(emplZipCtl)));
-
-  if (ctyRcd) {
-    set(emplCityCtl,  ctyRcd->city);
-    set(emplStateCtl, ctyRcd->state);
-    set(emplZipCtl,   expandZip(ctyRcd->zip));
-    }
-  }
-
-
-void RacesAppDlg::onLeaveIceName() {
-PrepAdrRcd prepRcd;
-
-  prepRcd.setAddress(get(mbrStreetAdrCtl));   prepRcd.setUnitNo(get(mbrUnitNoCtl));
-
-  addrList.add(prepRcd.add());
-  }
-
-
-
-
-void RacesAppDlg::onPickPicPath() {
-String     rootPath = dbPath;
-PathDlgDsc pathDlg;
-String     picPath;
-int        pos;
-
-  if (readOnly) return;
-
-  rootPath = getPath(rootPath);   pos = rootPath.length() - 1;
-
-  rootPath = getPath(rootPath.substr(0, pos));   picPath = rootPath + _T("Images\\");
-
-  pathDlg = pathDlg(_T("Member Photo"), picPath, _T("jpg"), _T("*.jpg"));
-
-  if (!getOpenDlg(pathDlg, picPath)) return;
-
-  pos = rootPath.length();   picPath = picPath.substr(pos);   picPath = _T("..\\") + picPath;
-
-  picPathCtl.SetWindowText(picPath);
-
-
-
-  mbrPic.set(picPath);
-  }
-
-
-// set field only if not equal
-
-bool RacesAppDlg::setField(String& fld, TCchar* tc)
-                                      {if (fld == tc)   return false;   fld = tc;     return true;}
-bool RacesAppDlg::setField(int&   fld, int v)
-                                      {if (v == fld)    return false;   fld = v;      return true;}
-
-
-String& RacesAppDlg::getToday() {
-static String s;
-Date          today;   today.getToday();   return s = today.format(_T("%m%d%y"));
-  }
-
-
-int RacesAppDlg::getNextBadgeNo() {
-MbrIter iter(mbrTbl);
-MbrRcd* rcd;
-int     badgeNo;
-
-  for (badgeNo = 0, rcd = iter(); rcd; rcd = iter++)
-                                      {if (rcd->badgeNumber > badgeNo) badgeNo = rcd->badgeNumber;}
-  return badgeNo + 1;
-  }
-
-
-
-
-void RacesAppDlg::onUpdateDbExit() {
-
-  onUpdateMbr();
-
-  if (!curMbr.updateDB(dbPath)) messageBox(_T("Something went wrong while updating database!"));
-
-  CDialogEx::OnOK();
-  }
-
-
-void RacesAppDlg::setTitle() {
-String title;
-
-  title = curMbr.getIdent();
-
-  if (title.isEmpty()) title = _T("RACES Record");
-
-  SetWindowText(title);
   }
 
 
@@ -1116,16 +1063,6 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
 BOOL RacesAppDlg::OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
                                                             {return toolBar.OnTtnNeedText(pNMHDR);}
-
-
-void RacesAppDlg::onHelp() {
-String topic = helpPath; topic += _T(">Introduction");
-
-  ::HtmlHelp(GetSafeHwnd(), topic,  HH_DISPLAY_TOC, 0);
-  }
-
-
-void RacesAppDlg::onAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 
 
 
@@ -1288,5 +1225,114 @@ int lng;
 #if 1
 #else
   emplEnt = entTbl.find(rcd.emplEntityID);   if (emplEnt) rcd.textMsgPh2 = emplEnt->phone2;
+#endif
+#if 0
+void RacesAppDlg::onFindICEAddr() {
+AddressDlg dlg;
+
+  if (readOnly) return;
+
+  dlg.tgt = get(iceStreetAdrCtl);
+
+  if (dlg.DoModal() == IDOK && dlg.adrRcd) {
+    set(iceStreetAdrCtl, dlg.adrRcd->address1);
+    set(iceUnitNoCtl,    dlg.adrRcd->address2);
+    }
+  }
+
+
+void RacesAppDlg::onFindICEZip() {
+CityStateDlg dlg;
+
+  if (readOnly) return;
+
+  dlg.tgt = get(iceZipCtl);
+
+  if (dlg.DoModal() == IDOK && dlg.ctyRcd) {
+    set(iceCityCtl,  dlg.ctyRcd->city);
+    set(iceStateCtl, dlg.ctyRcd->state);
+    set(iceZipCtl,   expandZip(dlg.ctyRcd->zip));
+    }
+  }
+
+
+void RacesAppDlg::onFindEmplAddr() {
+AddressDlg dlg;
+
+  if (readOnly) return;
+
+  dlg.tgt = get(emplStreetAdrCtl);
+
+  if (dlg.DoModal() == IDOK && dlg.adrRcd) {
+    set(emplStreetAdrCtl, dlg.adrRcd->address1);
+    set(emplUnitNoCtl,    dlg.adrRcd->address2);
+    }
+  }
+
+
+void RacesAppDlg::onFindEmplZip() {
+CityStateDlg dlg;
+
+  if (readOnly) return;
+
+  dlg.tgt = get(emplZipCtl);
+
+  if (dlg.DoModal() == IDOK && dlg.ctyRcd) {
+    set(emplCityCtl,  dlg.ctyRcd->city);
+    set(emplStateCtl, dlg.ctyRcd->state);
+    set(emplZipCtl,   expandZip(dlg.ctyRcd->zip));
+    }
+  }
+#endif
+#if 0
+  ON_BN_CLICKED(   IDC_FindICEAddr,  &onFindICEAddr)
+  ON_BN_CLICKED(   IDC_FindICEZip,   &onFindICEZip)
+  ON_BN_CLICKED(   IDC_FindEmplAddr, &onFindEmplAddr)
+  ON_BN_CLICKED(   IDC_FindEmplZip,  &onFindEmplZip)
+#endif
+#if 1
+#else
+CtyRcd* ctyRcd = zipList.find(compressZip(get(mbrZipCtl)));
+
+  if (ctyRcd) {
+    set(mbrCityCtl,  ctyRcd->city);
+    set(mbrStateCtl, ctyRcd->state);
+    set(mbrZipCtl,   expandZip(ctyRcd->zip));
+    }
+#endif
+#if 1
+#else
+CtyRcd* ctyRcd = zipList.find(compressZip(get(iceZipCtl)));
+
+  if (ctyRcd) {
+    set(iceCityCtl,  ctyRcd->city);
+    set(iceStateCtl, ctyRcd->state);
+    set(iceZipCtl,   expandZip(ctyRcd->zip));
+    }
+#endif
+#if 1
+#else
+CtyRcd* ctyRcd = zipList.find(compressZip(get(emplZipCtl)));
+
+  if (ctyRcd) {
+    set(emplCityCtl,  ctyRcd->city);
+    set(emplStateCtl, ctyRcd->state);
+    set(emplZipCtl,   expandZip(ctyRcd->zip));
+    }
+#endif
+
+//void RacesAppDlg::OnCbnCloseupMbrstreetadr() {addrList.set(mbrStreetAdrCtl,  mbrUnitNoCtl);}
+//void RacesAppDlg::OnCbnEditchangeMbrstreetadr() {}
+//  ON_CBN_CLOSEUP(  IDC_MbrStreetAdr,     &OnCbnCloseupMbrstreetadr)
+//      ON_CBN_EDITCHANGE(IDC_MbrStreetAdr, &RacesAppDlg::OnCbnEditchangeMbrstreetadr)
+#if 0
+  addrList.load(mbrStreetAdrCtl);
+  addrList.load(iceStreetAdrCtl);
+  addrList.load(emplStreetAdrCtl);
+  zipList.load(mbrZipCtl);
+  zipList.load(mbrHomeZipCtl);
+   zipList.load(iceZipCtl);
+   zipList.load(emplZipCtl);
+   zipList.load(emplCmpZipCtl);
 #endif
 

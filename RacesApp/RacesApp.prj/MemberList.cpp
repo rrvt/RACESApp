@@ -31,19 +31,8 @@ MbrRcd*  r;
 
   rcd = r ? r : curMbr.addMbrTbl(*rcd);
 
-  info = data.allocate();   if (!info->get(rcd)) {data.deallocate(info); return 0;}
+  info = data.allocate();   if (!info->set(rcd)) {data.deallocate(info); return 0;}
 
   return data = info;
   }
-
-
-
-////-------------
-
-#if 1
-#else
-    info = data.allocate();   if (!info->get(rcd)) {data.deallocate(info); continue;}
-
-    data = info;
-#endif
 

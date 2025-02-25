@@ -63,6 +63,14 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 2/24/25
+
+Add Combo Boxes to Street Addresses (Street, Unit Number) and Zip codes (City, State, Zip).  Added
+labels to fields with no text description.  The labels disappear when entry into field is started.
+
+The drop down lists for the combo boxes are filled in on the fly so that changes in one combo box
+are reflected in other combo boxes.
+
 ### Update
 
 Set default start date to today for new member.

@@ -79,12 +79,6 @@
     <ClInclude Include="PrepCtyRcd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CityStateDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AddressDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -196,12 +190,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PrepCtyRcd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CityStateDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AddressDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utility.cpp">

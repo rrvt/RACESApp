@@ -3,13 +3,22 @@
 
 #pragma once
 
-inline TCchar* get(CStatic& ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
-inline TCchar* get(CEdit&   ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
-inline TCchar* get(int        v) {static String s(v);  return s;}
+class AdrRcd;
 
-inline TCchar* set(CStatic&   ctl, TCchar* txt) {ctl.SetWindowText(txt);   return txt;}
-inline TCchar* set(CEdit&     ctl, TCchar* txt) {ctl.SetWindowText(txt);   return txt;}
-inline bool    set(CButton&   ctl, bool    chk) {ctl.SetCheck(chk);        return chk;}
+
+inline TCchar* get(CStatic&   ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
+inline TCchar* get(CEdit&     ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
+inline TCchar* get(CComboBox& ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
+inline TCchar* get(int          v) {static String   s;   s = v;                   return s;}
+
+
+       TCchar* set(CStatic&   ctl, TCchar* txt);
+       TCchar* set(CEdit&     ctl, TCchar* txt);
+       TCchar* set(CComboBox& ctl, TCchar* txt);
+inline bool    set(CButton&   ctl, bool    chk) {ctl.SetCheck(chk);   return chk;}
+
+
+       void    addCB(CComboBox& ctl, TCchar* key, void* rcd);
 
        void    setPicture(CStatic& ctl, TCchar* path);
 
@@ -40,6 +49,12 @@ inline void    clrLbl(CEdit& ctl, TCchar* txt)
        String& appdAttr(String& s, TCchar* prefix, String& body);
 
        bool    isEarlier(TCchar* updateDate);
+
+       bool    setField(String& fld, TCchar* tc);        // only if not equal
+       bool    setField(int&   fld, int      v);
+
+       String& getTodayCmpr();                            // returns mmddyy
+       String& getTodayExpd();                            // returns mm/dd/yy
 
 #if 0
 void disableBttn(CButton& ctl);

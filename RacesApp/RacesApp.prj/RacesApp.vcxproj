@@ -141,10 +141,8 @@
     <ClInclude Include="..\..\Library\Extras\AboutDlg.h" />
     <ClInclude Include="..\..\Library\Extras\OptionsDlg.h" />
     <ClInclude Include="..\..\Library\Extras\ResourceExtra.h" />
-    <ClInclude Include="AddressDlg.h" />
     <ClInclude Include="AddrList.h" />
     <ClInclude Include="BadgeRpt.h" />
-    <ClInclude Include="CityStateDlg.h" />
     <ClInclude Include="ContactRpt.h" />
     <ClInclude Include="CurMbr.h" />
     <ClInclude Include="CurMbrList.h" />
@@ -183,12 +181,10 @@
     <ClInclude Include="ZipList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AddressDlg.cpp" />
     <ClCompile Include="AddrList.cpp" />
     <ClCompile Include="APicture.cpp" />
     <ClCompile Include="BadgeRpt.cpp" />
     <ClCompile Include="ChkListDlg.cpp" />
-    <ClCompile Include="CityStateDlg.cpp" />
     <ClCompile Include="ContactRpt.cpp" />
     <ClCompile Include="CurMbr.cpp" />
     <ClCompile Include="CurMbrList.cpp" />

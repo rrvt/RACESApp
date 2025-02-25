@@ -28,7 +28,7 @@ StsRcd* stsRcd;
 
   MbrInfo& operator=  (MbrInfo& mi) {copy(mi); return *this;}
 
-  bool     get(MbrRcd* rcd);
+  bool     set(MbrRcd* rcd);
 
   // Required for Insertion Sort, i.e. data = dtm;
   bool     operator>= (MbrInfo& mi) {return key >= mi.key;}
@@ -45,38 +45,4 @@ private:
 
 
 
-#if 0
-class InfoRpts {
 
-ExpandableP<MbrInfo, String, MbrInfoP, 2> data;
-
-public:
-
-  InfoRpts() { }
- ~InfoRpts() { }
-
-  void info();
-  void dspBadges(BadgeSort badgeSort);
-  void former(FmrSort key);
-
-private:
-
-  String getDateKey(String& d);
-  String decodeDate(String& d);
-
-  // returns either a pointer to data (or datum) at index i in array or zero
-
-  MbrInfo* datum(int i) {return 0 <= i && i < nData() ? data[i].p : 0;}
-
-  int   nData()      {return data.end();}                  // returns number of data items in array
-
-  void  removeDatum(int i) {if (0 <= i && i < nData()) data.del(i);}
-
-  friend typename CMbrIter;
-  };
-
-typedef DatumPtrT<MbrInfo, String> MbrInfoP;              // Usually defined just before iterator
-class InfoRpts;
-typedef IterT<InfoRpts, MbrInfo> CMbrIter;
-
-#endif

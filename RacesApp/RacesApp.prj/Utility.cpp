@@ -11,6 +11,15 @@
 static String adjFrag(String& frag);
 
 
+TCchar* set(CStatic&   ctl, TCchar* txt)
+                        {String s = txt;   if (!s.isEmpty()) ctl.SetWindowText(txt);   return txt;}
+TCchar* set(CEdit&     ctl, TCchar* txt) //{ctl.SetWindowText(txt);   return txt;}
+                        {String s = txt;   if (!s.isEmpty()) ctl.SetWindowText(txt);   return txt;}
+TCchar* set(CComboBox& ctl, TCchar* txt) //{ctl.SetWindowText(txt);   return txt;}
+                        {String s = txt;   if (!s.isEmpty()) ctl.SetWindowText(txt);   return txt;}
+
+
+
 int getInt(CStatic& ctl) {
 Cstring cs;
 uint    pos;
@@ -206,6 +215,37 @@ CTimeSpan delta(365 * 3, 0, 0, 0);    bnd -= delta;
 
 void setMax(String& s, int& max) {int lng = s.length();   if (lng > max) max = lng;}
 
+
+
+void addCB(CComboBox& ctl, TCchar* key, void* rcd)
+                            {int x = ctl.AddString(key);   if (x >= 0) ctl.SetItemDataPtr(x, rcd);}
+
+
+// set field only if not equal
+
+bool setField(String& fld, TCchar* tc)
+                         {if (fld == tc)   return false;   fld = tc;     return true;}
+bool setField(int&   fld, int v)
+                                      {if (v == fld)    return false;   fld = v;      return true;}
+
+
+String& getTodayCmpr() {
+static String s;
+Date          today;
+
+  today.getToday();   return s = today.format(_T("%m%d%y"));
+  }
+
+
+String& getTodayExpd() {
+static String s;
+Date          today;
+
+  today.getToday();   return s = today.format(_T("%m/%d/%y"));
+  }
+
+
+///------------
 
 #if 0
 void disableBttn(CButton& ctl) {
