@@ -142,6 +142,12 @@
     <ClInclude Include="MmYyCtl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SearchDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MbrSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -252,6 +258,12 @@
     <ClCompile Include="MmYyCtl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SearchDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MbrSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RacesApp.rc">
@@ -300,6 +312,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Toolbar15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar18.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

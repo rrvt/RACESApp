@@ -12,6 +12,7 @@
 #define IDD_RacesApp                    200
 #define IDD_CheckList                   201
 #define IDD_Period                      202
+#define IDD_Search                      203
 
 #define IDC_StatusBar                   300
 #define IDC_MemberList                  301
@@ -62,8 +63,8 @@
 #define IDC_EmplCompanyZip              346
 #define IDC_HandHeld                    347
 #define IDC_PortMobile                  348
-#define IDC_OtherEquip                  349
-#define IDC_PortPacket                  350
+#define IDC_PortPacket                  349
+#define IDC_OtherEquip                  350
 #define IDC_Multilingual                351
 #define IDC_OtherCapabilities           352
 #define IDC_Limitations                 353
@@ -86,6 +87,14 @@
 #define IDC_PicPath                     370
 #define IDC_BeginPeriod                 371
 #define IDC_EndPeriod                   372
+
+#define IDC_SrchTgt                     375
+#define IDC_WholeWord                   376
+#define IDC_CurFldOnly                  377
+#define IDC_CaseSensitive               378
+#define IDC_WholeFld                    379
+#define IDC_Anywhere                    380
+#define IDC_Beginning                   381
 
 #define ID_LoadDatabase                 400
 #define ID_NewMember                    401
@@ -111,10 +120,14 @@
 #define ID_LoadRtrMbrs                  421
 #define ID_RemoveFmr                    422
 #define ID_SanitizeDB                   423
+#define ID_Left                         424
+#define ID_Find                         425
+#define ID_FindNext                     426
+#define ID_Right                        427
+
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499
-
 
 
 #define DlgWidth                        506
@@ -124,29 +137,9 @@
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        105
-#define _APS_NEXT_COMMAND_VALUE         424
-#define _APS_NEXT_CONTROL_VALUE         381
-#define _APS_NEXT_SYMED_VALUE           203
+#define _APS_NEXT_RESOURCE_VALUE        106
+#define _APS_NEXT_COMMAND_VALUE         428
+#define _APS_NEXT_CONTROL_VALUE         385
+#define _APS_NEXT_SYMED_VALUE           204
 #endif
 #endif
-
-
-
-
-///////-----------------
-
-//#define IDC_FindICEAddr                 377
-//#define IDC_FindEmplAddr                378
-//#define IDC_FindICEZip                  379
-//#define IDC_FindEmplZip                 380
-//#define IDC_NextZip                     381
-//#define IDC_FindAddr                    374
-//#define IDC_FindNext                    375
-//#define IDC_FindZip                     376
-//#define IDC_Zip                         373
-//#define IDC_StreetAddr                  369
-//#define IDC_UnitNo                      370
-//#define IDC_State                       371
-//#define IDC_City                        372
-

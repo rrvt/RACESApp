@@ -155,6 +155,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="APicture.h" />
     <ClInclude Include="MbrIDs.h" />
+    <ClInclude Include="MbrSearch.h" />
     <ClInclude Include="MmYyCtl.h" />
     <ClInclude Include="PrepAdrRcd.h" />
     <ClInclude Include="PrepCtyRcd.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResponderCntRpt.h" />
+    <ClInclude Include="SearchDlg.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="ZipList.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="MbrGeography.cpp" />
     <ClCompile Include="MbrIDs.cpp" />
     <ClCompile Include="MbrInfo.cpp" />
+    <ClCompile Include="MbrSearch.cpp" />
     <ClCompile Include="MbrStatus.cpp" />
     <ClCompile Include="MemberList.cpp" />
     <ClCompile Include="MmYyCtl.cpp" />
@@ -213,6 +216,7 @@
     <ClCompile Include="Reports.cpp" />
     <ClCompile Include="ReportBase.cpp" />
     <ClCompile Include="ResponderCntRpt.cpp" />
+    <ClCompile Include="SearchDlg.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="ZipList.cpp" />
     <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp" />
@@ -239,6 +243,7 @@
     <Image Include="res\RacesApp.ico" />
     <Image Include="res\ShortToolbar.bmp" />
     <Image Include="res\Toolbar15.bmp" />
+    <Image Include="res\Toolbar18.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library\Library.vcxproj">

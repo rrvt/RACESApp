@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 2/28/25
+
+Add browse and find commands.
+
 ### Update 2/24/25
 
 Add Combo Boxes to Street Addresses (Street, Unit Number) and Zip codes (City, State, Zip).  Added

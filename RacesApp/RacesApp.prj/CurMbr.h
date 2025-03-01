@@ -40,7 +40,7 @@ EntRcd* empl;
 
   String& getIdent();
 
-  void    rcdDirty()  {if (!rcd)  return;    rcd->setDirty();   nMod++;}
+  void    rcdDirty()  {if (!rcd) return;  rcd->setDirty();   nMod++;}
   void    mbrDirty()  {if (info->mbrEnt)  setDirty(mbr);}
   void    iceDirty()  {if (info->iceEnt)  setDirty(ice);}
   void    emplDirty() {if (info->emplEnt) setDirty(empl);}

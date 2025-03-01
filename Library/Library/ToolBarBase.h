@@ -40,6 +40,8 @@ public:
 
   bool           OnTtnNeedText(NMHDR* pNMHDR);            // ToolTips -- See definition for details
 
+  void           setSeparator(int index);// {SetButtonStyle(index, TBBS_SEPARATOR);}
+
 protected:
 
   void           getFontDim(FontDim& fontDim);

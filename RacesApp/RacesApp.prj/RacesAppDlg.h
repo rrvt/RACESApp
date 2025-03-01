@@ -9,6 +9,7 @@
 #include "EntTbl.h"
 #include "MbrAvailability.h"
 #include "MbrGeography.h"
+#include "MbrSearch.h"
 #include "MbrStatus.h"
 #include "MbrTbl.h"
 #include "MyToolBar.h"
@@ -54,7 +55,9 @@ MbrAvailability mbrAvailability;
 MbrGeography    mbrGeography;
 APicture        mbrPic;
 
-Reports reports;
+
+MbrSearch*      srch;
+Reports         reports;
 
 public:
 
@@ -131,7 +134,6 @@ CEdit      eocCertCtl;
 CStatic    picPathCtl;
 CStatic    lastUpdateCtl;
 
-
            RacesAppDlg(TCchar* helpPth, CWnd* pParent = nullptr);
   virtual ~RacesAppDlg();
 
@@ -202,6 +204,9 @@ private:
   void            setPath(TCchar* path);
   void            chkMbrPicture();
 
+  void            setSrch() {if (!srch) srch = new MbrSearch(mbrListCtl);}
+  void            setCtlFocus();
+
 public:
 
   afx_msg void    onLoadDatabase();
@@ -227,11 +232,10 @@ public:
   afx_msg void    onSuffixList()     {reports.suffixList();}
   afx_msg void    onFormerList()     {reports.formerList();}
 
-  afx_msg void    onOption05();
-  afx_msg void    onOption06();
-  afx_msg void    onOption07();
-  afx_msg void    onOption08();
-  afx_msg void    onOption09();
+  afx_msg void    onLeft();
+  afx_msg void    onFind();
+  afx_msg void    onFindNext();
+  afx_msg void    onRight();
 
   afx_msg void    onHelp();
   afx_msg void    onUpdateDbExit();

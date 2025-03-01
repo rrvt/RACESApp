@@ -167,6 +167,19 @@ h.id = btn->m_nID;
   }
 
 
+void ToolBarBase::setSeparator(int index) {
+CMFCToolBarButton* btn = GetButton(index);
+CRect              rect;
+
+//  SetButtonStyle(index, TBBS_SEPARATOR);
+
+  if (btn) {
+    rect = btn->Rect();   rect.right += 90;   btn->SetRect(rect);
+
+    }
+  }
+
+
 bool ToolBarBase::getMouseHover(ButtonBase*& btn) {
 CPoint point;                                   // point relative to toolbar client area
 int    n;                                       // number of buttons

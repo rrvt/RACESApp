@@ -17,6 +17,7 @@
 #include "MessageBox.h"
 #include "PrepEntRcd.h"
 #include "Utility.h"
+#include "SearchDlg.h"
 #include "StatusBar.h"
 #include "ZipList.h"
 
@@ -37,7 +38,7 @@ RacesAppDlg::RacesAppDlg(TCchar* helpPth, CWnd* pParent) : CDialogEx(IDD_RacesAp
                                 isInitialized(false), dlgSource(NilSrc), readOnly(false),
                                 mbrStatus(statusCtl),
                                 mbrAvailability(availabilityCtl), mbrGeography(RespGeographyCtl),
-                                mbrPic(pictureCtl, *this) {}
+                                mbrPic(pictureCtl, *this), srch(0) {}
 
 
 RacesAppDlg::~RacesAppDlg() {winPos.~WinPos();}                             //deleteCtl.CleanUp();
@@ -77,6 +78,11 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_IntroHelp,         &onHelp)
   ON_COMMAND(      ID_About,             &onAbout)
   ON_COMMAND(      ID_UpdateDBExit,      &onUpdateDbExit)
+
+  ON_COMMAND(      ID_Left,              &onLeft)
+  ON_COMMAND(      ID_Find,              &onFind)
+  ON_COMMAND(      ID_FindNext,          &onFindNext)
+  ON_COMMAND(      ID_Right,             &onRight)
 
   ON_BN_CLICKED(   IDC_PickPicPath,      &onPickPicPath)
 
@@ -349,6 +355,42 @@ int         indx;
 void RacesAppDlg::onEditRecords() {false;   setStatus(dlgSource, false);}
 
 
+
+void RacesAppDlg::onLeft() {setSrch();   if (srch->left()) onSelectMbr();}
+
+
+void RacesAppDlg::onFind() {
+SearchDlg dlg;
+
+  if (dlg.DoModal() == IDOK) {
+
+    setSrch();
+
+    srch->wholeWord     = dlg.wholeWord;
+    srch->curFldOnly    = dlg.curFldOnly;
+    srch->caseSensitive = dlg.caseSensitive;
+    srch->attributes    = dlg.attributes;
+
+    if (srch->find(dlg.target)) {onSelectMbr();   setCtlFocus();}
+    }
+  }
+
+
+void RacesAppDlg::onFindNext()
+                            {setSrch();   if (srch->findNext()) {onSelectMbr();   setCtlFocus();}}
+
+
+void RacesAppDlg::setCtlFocus() {
+int   id  = srch->getFieldID();
+CWnd* wnd = GetDlgItem(id);
+
+  if (wnd) wnd->SetFocus();
+  }
+
+
+void RacesAppDlg::onRight() {setSrch();   if (srch->right()) onSelectMbr();}
+
+
 void RacesAppDlg::onSelectMbr() {
 int             indx = mbrListCtl.GetCurSel();    if (indx < 0) return;
 AdrRcd*         adrRcd;
@@ -409,7 +451,7 @@ String          tgt;
     set(iceLandlineCtl,       expandPhone(curMbr.ice->phone1));
     }
 
-  if(setEntity(curMbr.empl, adrRcd, ctyRcd)) {
+  if (setEntity(curMbr.empl, adrRcd, ctyRcd)) {
     set(emplNameCtl,            curMbr.empl->firstName);
     set(emplEmailCtl,           curMbr.empl->eMail);
     set(emplStreetAdrCtl,       adrRcd->address1);
@@ -559,26 +601,26 @@ void RacesAppDlg::initScreen() {
 
 // Labels in the fields just before being edited
 
-static TCchar* FirstNameLbl     = _T("First Name");
-static TCchar* MiddleInitialLbl = _T("MI");
-static TCchar* LastNameLbl      = _T("Last Name");
-static TCchar* SuffixLbl        = _T("Sffx");
-static TCchar* CallLbl          = _T("Call");
-static TCchar* CSExpDateLbl     = _T("Expires");
-static TCchar* BgExpDateLbl     = _T("Expires");
-static TCchar* StreetAddrLbl    = _T("Street Address");
-static TCchar* UnitNoLbl        = _T("Unit No");
-static TCchar* CityLbl          = _T("City");
-static TCchar* StateLbl         = _T("State");
-static TCchar* ZipLbl           = _T("Zip");
-static TCchar* CellPhLbl        = _T("Cell Phone");
-static TCchar* LandLineLbl      = _T("Landline");
-static TCchar* HomeZipLbl       = _T("Home Zip");
-static TCchar* EmailLbl         = _T("eMail Address");
-static TCchar* DateLbl          = _T("m/d/yr");
-static TCchar* CompanyNameLbl   = _T("Company Name");
-static TCchar* CompanyZipLbl    = _T("Company Zip");
-static TCchar* PicPathLbl       = _T("Picture Path");
+static TCchar* FirstNameLbl     = _T("<First Name>");
+static TCchar* MiddleInitialLbl = _T("<I>");
+static TCchar* LastNameLbl      = _T("<Last Name>");
+static TCchar* SuffixLbl        = _T("<Ttl>");
+static TCchar* CallLbl          = _T("<FCC>");
+static TCchar* CSExpDateLbl     = _T("<Expires>");
+static TCchar* BgExpDateLbl     = _T("<Expires>");
+static TCchar* StreetAddrLbl    = _T("<Street Address>");
+static TCchar* UnitNoLbl        = _T("<Unit #>");
+static TCchar* CityLbl          = _T("<City>");
+static TCchar* StateLbl         = _T("<S>");
+static TCchar* ZipLbl           = _T("<Zip>");
+static TCchar* CellPhLbl        = _T("<Cell Phone>");
+static TCchar* LandLineLbl      = _T("<Landline>");
+static TCchar* HomeZipLbl       = _T("<Home Zip>");
+static TCchar* EmailLbl         = _T("<eMail Address>");
+static TCchar* DateLbl          = _T("<m/d/yr>");
+static TCchar* CompanyNameLbl   = _T("<Company Name>");
+static TCchar* CompanyZipLbl    = _T("<Cmpy Zip>");
+static TCchar* PicPathLbl       = _T("<Picture Path>");
 
 
 void RacesAppDlg::setLabels() {
@@ -912,8 +954,13 @@ int id;
 
   if (!ent) return false;
 
-  id = ent->addrID;   adr = id ? adrTbl.find(id) : &nilAdr;
-  id = ent->cityStID; cty = id ? ctyTbl.find(id) : &nilCty;
+  id = ent->addrID;
+  adr = id ? adrTbl.find(id) : &nilAdr;
+  if (!adr) {adr = &nilAdr;   ent->addrID = 0;   curMbr.setDirty(ent);}
+
+  id = ent->cityStID;
+  cty = id ? ctyTbl.find(id) : &nilCty;
+  if (!cty) {cty = &nilCty;   ent->cityStID = 0;   curMbr.setDirty(ent);}
 
   return true;
   }
@@ -1056,6 +1103,7 @@ void RacesAppDlg::setupToolBar() {
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
   toolBar.addMenu(ID_ReportMenu,  IDR_ReportMenu, _T("Reports"));
+  toolBar.setSeparator(15);
   }
 
 
@@ -1334,5 +1382,20 @@ CtyRcd* ctyRcd = zipList.find(compressZip(get(emplZipCtl)));
    zipList.load(iceZipCtl);
    zipList.load(emplZipCtl);
    zipList.load(emplCmpZipCtl);
+#endif
+#if 0
+    String s = dlg.target;
+    if (dlg.wholeWord)     s += _T(" wholeWord");
+    if (dlg.curFldOnly)    s += _T(" curFldOnly");
+    if (dlg.caseSensitive) s += _T(" caseSensitive");
+
+    switch (dlg.attributes) {
+      case 0  : s += _T(" Whole field");  break;
+      case 1  : s += _T(" Anywhere In");  break;
+      case 2  : s += _T(" Beginning Of"); break;
+      default : s += _T(" Whoops!");      break;
+      }
+
+    messageBox(s);
 #endif
 

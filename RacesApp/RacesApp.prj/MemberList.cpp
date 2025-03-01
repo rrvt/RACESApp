@@ -35,4 +35,3 @@ MbrRcd*  r;
 
   return data = info;
   }
-
