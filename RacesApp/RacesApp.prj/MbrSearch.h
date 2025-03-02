@@ -37,7 +37,7 @@ int  attributes;        // 0 - Whole Field, 1 - Anywhere in, 2 - Beginning (i.e.
 private:
 
   bool find();
-  bool isWord(String& s, int pos);
+  bool isWord(String& s, int pos, int lng);
   bool setCurSel() {return ctl.SetCurSel(index) >= 0;}
 
   MbrSearch() : ctl(*(CComboBox*)0) { }

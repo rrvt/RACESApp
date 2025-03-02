@@ -8,6 +8,7 @@
 #define IDR_ReportMenu                  102
 #define IDB_PuppyBitMap                 103
 #define IDB_Delete                      104
+#define IDD_SaveChgs                    105
 
 #define IDD_RacesApp                    200
 #define IDD_CheckList                   201
@@ -87,7 +88,6 @@
 #define IDC_PicPath                     370
 #define IDC_BeginPeriod                 371
 #define IDC_EndPeriod                   372
-
 #define IDC_SrchTgt                     375
 #define IDC_WholeWord                   376
 #define IDC_CurFldOnly                  377
@@ -95,36 +95,35 @@
 #define IDC_WholeFld                    379
 #define IDC_Anywhere                    380
 #define IDC_Beginning                   381
+#define IDC_SetEditable                 382
 
 #define ID_LoadDatabase                 400
 #define ID_NewMember                    401
 #define ID_LoadCurMbrs                  402
 #define ID_LoadFmrMbrs                  403
 #define ID_EditRecords                  404
-#define ID_UpdateMbr                    405
-#define ID_CheckList                    406
-#define ID_ReportMenu                   407
-#define ID_ExcelReport                  408
-#define ID_GoogleRpt                    409
-#define ID_EverBridgeRpt                410
-#define ID_CSBadgeRpt                   411
-#define ID_DateBadgeRpt                 412
-#define ID_ContactByNm                  413
-#define ID_ContactByCS                  414
-#define ID_ResponderCnts                415
-#define ID_CallSignList                 416
-#define ID_MemberIDs                    417
-#define ID_SuffixList                   418
-#define ID_FormerMbrs                   419
-#define ID_Options                      420
-#define ID_LoadRtrMbrs                  421
-#define ID_RemoveFmr                    422
-#define ID_SanitizeDB                   423
-#define ID_Left                         424
-#define ID_Find                         425
-#define ID_FindNext                     426
-#define ID_Right                        427
-
+#define ID_CheckList                    405
+#define ID_ReportMenu                   406
+#define ID_ExcelReport                  407
+#define ID_GoogleRpt                    408
+#define ID_EverBridgeRpt                409
+#define ID_CSBadgeRpt                   410
+#define ID_DateBadgeRpt                 411
+#define ID_ContactByNm                  412
+#define ID_ContactByCS                  413
+#define ID_ResponderCnts                414
+#define ID_CallSignList                 415
+#define ID_MemberIDs                    416
+#define ID_SuffixList                   417
+#define ID_FormerMbrs                   418
+#define ID_Options                      419
+#define ID_LoadRtrMbrs                  420
+#define ID_RemoveFmr                    421
+#define ID_SanitizeDB                   422
+#define ID_Left                         423
+#define ID_Find                         424
+#define ID_FindNext                     425
+#define ID_Right                        426
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499
@@ -137,9 +136,9 @@
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        106
-#define _APS_NEXT_COMMAND_VALUE         428
-#define _APS_NEXT_CONTROL_VALUE         385
+#define _APS_NEXT_RESOURCE_VALUE        108
+#define _APS_NEXT_COMMAND_VALUE         427
+#define _APS_NEXT_CONTROL_VALUE         383
 #define _APS_NEXT_SYMED_VALUE           204
 #endif
 #endif

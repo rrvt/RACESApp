@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Introduction</title>
+<title>RACES App Introduction</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -15,22 +15,65 @@
 <div class="container">
 <div class="content">
 <!-- InstanceBeginEditable name="Title" -->
-<h1>Dialog App</h1>
+<h1>RACES App</h1>
 <!-- InstanceEndEditable -->
 
 <!-- InstanceBeginEditable name="Body" -->
 <h2>Introduction</h2>
 <p>
-DialogApp is an example of a Windows Dialog application.  It includes a trimmed down MFC starting application
-InitInstance.  The main dialog has a menu, a toolbar with various features and a status bar on the bottom of the
-client part of the window.  The main dialog has a fixed size and may be populated with all the usual controls
-that are available in Visual Studio 17's Resource editor.
+Over the years I've updated the Radio Amateur Civil Emergency Service data base maintained in Microsoft Access and
+programmed in MS Basic.  I was discouraged with the limitations on MS Basic and Access.  The Chief Radio Operators 
+asked for various reports from the data and I found a way to produce those using a MFC/c++ application.  This is a 
+consolidation of the user interface and reports and anything else that I can think of.
 </p>
 <p>
-There is a lot of functionality buried in the MainFrame of the normal MFC application.  For example the tool bar
-depends heavily of the MainFrame.  This example has a tool bar but and status bar but the functionality is 
-a subset of that available in a normal MFC application.  The operations available are discussed on the 
-  <a href="Operations.htm">operations page</a>. </p>
+The application window is a dialog box which contains an edit or combo box for each field in the database.  It also has
+check boxes for some true/false items.  The entites in the dialog box represent exactly one member.  The app starts with
+the user interface allows changes to be made in the dialog box, however, the interface starts in a mode that does not
+allow any changes to be made in the database file.  It is easily changed by selecting the Editable (pencil icon) command on
+the toolbar or menu.
+</p>
+<p>
+The Access database is made up of four principal tables:  Member, Entity, Address, and CityState.  There are two additional
+tables that specify their ability to respond to an emergency.  The database is divided into two sets:  Current Member and
+Former Member.  The Member Table contains a record for every person in the database.  It contains an Entity Record 
+identifier for the member, ICE person (spouse, other family member, friend to call in an emergency), and employer.
+An entity record contains an Address record identifier and a CityState record identifier.  This organization allows 
+records to be reused or to be not used at all (i.e. no employer). 
+</p>
+<p>
+When the app opens it connects to the last database file and loads the current members into the a drop down list in
+the upper left hand corner of the window.  The data for a member is displayed when a member's name and call sign are 
+selected in the drop down list.  The status bar at the bottom of the window show the specific set of members (Current, 
+Former, and 3 yr Former), the editable status (Read Only, Editable) and the specific path to the database file.
+</p>
+
+<p>
+The toolbar contains the following commands:
+</p>
+<ul>
+<li>Load database -- Allows user to select and open a new MS Access database file, load the current members into the app.</li>
+<li>New Member -- Clears the dialog fields, sets the editable status to allow creating a new member</li>
+<li>Load Current Members -- Load the current members into the drop down list</li>
+<li>Load Former Members -- Load the former members into the drop down list</li>
+<li>Edit Records -- Set the status so that edits to records are stored in the database file</li>
+<li>Check List -- Display a dialog box that shows the list of things that needs to be done to a new member</li>
+<li>Load Retired members -- Load Former Members that have been former for three years or more</li>
+<li>Remove Retired Member -- Remove "Retired" Member's Member Table record</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+
+
+
+
+
+
+
 <!-- InstanceEndEditable -->
 </div><!-- end .content -->
 </div><!-- end .container -->

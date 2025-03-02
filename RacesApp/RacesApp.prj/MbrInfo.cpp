@@ -31,7 +31,6 @@ bool MbrInfo::set(MbrRcd* rcd) {
   }
 
 
-
 void MbrInfo::copy(MbrInfo& mi) {
   key         = mi.key;           mbrRcd   = mi.mbrRcd;
   mbrEnt      = mi.mbrEnt;        emplEnt  = mi.emplEnt;
@@ -40,42 +39,18 @@ void MbrInfo::copy(MbrInfo& mi) {
   }
 
 
-int fldList[] = {IDC_MbrFirstName,
-                 IDC_MbrLastName,
-                 IDC_MbrCallsign,
-                 IDC_MbrStreetAdr,
-                 IDC_MbrCity,
-                 IDC_MbrState,
-                 IDC_MbrZip,
-                 IDC_MbrCellPh,
-                 IDC_MbrLandline,
-                 IDC_MbrHomeZip,
-                 IDC_MbrEmail,
-                 IDC_ICEFirstName,
-                 IDC_ICELastName,
-                 IDC_ICEeMail,
-                 IDC_ICEStreetAdr,
-                 IDC_ICECity,
-                 IDC_ICEZip,
-                 IDC_ICECellPh,
-                 IDC_ICELandline,
-                 IDC_EmplName,
-                 IDC_EmplEmail,
-                 IDC_EmplStreetAdr,
-                 IDC_EmplCity,
-                 IDC_EmplZip,
-                 IDC_EmplCellPh,
-                 IDC_EmplLandline,
-                 IDC_EmplCompanyZip,
-                 IDC_HandHeld,
-                 IDC_PortMobile,
-                 IDC_PortPacket,
-                 IDC_OtherEquip,
-                 IDC_Multilingual,
-                 IDC_OtherCapabilities,
-                 IDC_Limitations,
-                 IDC_Comments,
-                 IDC_SkillCerts,
+int fldList[] = {IDC_MbrFirstName,        IDC_MbrLastName,        IDC_MbrCallsign,
+                 IDC_MbrStreetAdr,        IDC_MbrCity,            IDC_MbrState,
+                 IDC_MbrZip,              IDC_MbrCellPh,          IDC_MbrLandline,
+                 IDC_MbrHomeZip,          IDC_MbrEmail,           IDC_ICEFirstName,
+                 IDC_ICELastName,         IDC_ICEeMail,           IDC_ICEStreetAdr,
+                 IDC_ICECity,             IDC_ICEZip,             IDC_ICECellPh,
+                 IDC_ICELandline,         IDC_EmplName,           IDC_EmplEmail,
+                 IDC_EmplStreetAdr,       IDC_EmplCity,           IDC_EmplZip,
+                 IDC_EmplCellPh,          IDC_EmplLandline,       IDC_EmplCompanyZip,
+                 IDC_HandHeld,            IDC_PortMobile,         IDC_PortPacket,
+                 IDC_OtherEquip,          IDC_Multilingual,       IDC_OtherCapabilities,
+                 IDC_Limitations,         IDC_Comments,           IDC_SkillCerts,
                  IDC_EOCCert
                  };
 
@@ -87,45 +62,6 @@ int i;
 
   for (i = 0; i < noElements(fldList); i++)
                            {field = fldList[i];   if (findInOneFld(srch, tgt, field)) return true;}
-#if 0
-  if (cmpMbrFirstName(srch, tgt))      return true;
-  if (cmpMbrLastName(srch, tgt))       return true;
-  if (cmpCallSign(srch, tgt))          return true;
-  if (cmpMbrStreetAdr(srch, tgt))      return true;
-  if (cmpMbrCity(srch, tgt))           return true;
-  if (cmpMbrState(srch, tgt))          return true;
-  if (cmpMbrZip(srch, tgt))            return true;
-  if (cmpCellPh(srch, tgt))            return true;
-  if (cmpMbrLandline(srch, tgt))       return true;
-  if (cmpMbrHomeZip(srch, tgt))        return true;
-  if (cmpMbrEmail(srch, tgt))          return true;
-  if (cmpICEFirstName(srch, tgt))      return true;
-  if (cmpICELastName(srch, tgt))       return true;
-  if (cmpICEeMail(srch, tgt))          return true;
-  if (cmpICEStreetAdr(srch, tgt))      return true;
-  if (cmpICECity(srch, tgt))           return true;
-  if (cmpICEZip(srch, tgt))            return true;
-  if (cmpICECellPh(srch, tgt))         return true;
-  if (cmpICELandline(srch, tgt))       return true;
-  if (cmpEmplName(srch, tgt))          return true;
-  if (cmpEmplEmail(srch, tgt))         return true;
-  if (cmpEmplStreetAdr(srch, tgt))     return true;
-  if (cmpEmplCity(srch, tgt))          return true;
-  if (cmpEmplZip(srch, tgt))           return true;
-  if (cmpEmplCellPh(srch, tgt))        return true;
-  if (cmpEmplLandline(srch, tgt))      return true;
-  if (cmpEmplCompanyZip(srch, tgt))    return true;
-  if (cmpHandHeld(srch, tgt))          return true;
-  if (cmpPortMobile(srch, tgt))        return true;
-  if (cmpPortPacket(srch, tgt))        return true;
-  if (cmpOtherEquip(srch, tgt))        return true;
-  if (cmpMultilingual(srch, tgt))      return true;
-  if (cmpOtherCapabilities(srch, tgt)) return true;
-  if (cmpLimitations(srch, tgt))       return true;
-  if (cmpComments(srch, tgt))          return true;
-  if (cmpSkillCerts(srch, tgt))        return true;
-  if (cmpEOCCert(srch, tgt))           return true;
-#endif
   field = 0;   return false;
   }
 
@@ -485,5 +421,44 @@ int        tab2;
     notePad << nCrlf;
     }
   }
+#endif
+#if 0
+  if (cmpMbrFirstName(srch, tgt))      return true;
+  if (cmpMbrLastName(srch, tgt))       return true;
+  if (cmpCallSign(srch, tgt))          return true;
+  if (cmpMbrStreetAdr(srch, tgt))      return true;
+  if (cmpMbrCity(srch, tgt))           return true;
+  if (cmpMbrState(srch, tgt))          return true;
+  if (cmpMbrZip(srch, tgt))            return true;
+  if (cmpCellPh(srch, tgt))            return true;
+  if (cmpMbrLandline(srch, tgt))       return true;
+  if (cmpMbrHomeZip(srch, tgt))        return true;
+  if (cmpMbrEmail(srch, tgt))          return true;
+  if (cmpICEFirstName(srch, tgt))      return true;
+  if (cmpICELastName(srch, tgt))       return true;
+  if (cmpICEeMail(srch, tgt))          return true;
+  if (cmpICEStreetAdr(srch, tgt))      return true;
+  if (cmpICECity(srch, tgt))           return true;
+  if (cmpICEZip(srch, tgt))            return true;
+  if (cmpICECellPh(srch, tgt))         return true;
+  if (cmpICELandline(srch, tgt))       return true;
+  if (cmpEmplName(srch, tgt))          return true;
+  if (cmpEmplEmail(srch, tgt))         return true;
+  if (cmpEmplStreetAdr(srch, tgt))     return true;
+  if (cmpEmplCity(srch, tgt))          return true;
+  if (cmpEmplZip(srch, tgt))           return true;
+  if (cmpEmplCellPh(srch, tgt))        return true;
+  if (cmpEmplLandline(srch, tgt))      return true;
+  if (cmpEmplCompanyZip(srch, tgt))    return true;
+  if (cmpHandHeld(srch, tgt))          return true;
+  if (cmpPortMobile(srch, tgt))        return true;
+  if (cmpPortPacket(srch, tgt))        return true;
+  if (cmpOtherEquip(srch, tgt))        return true;
+  if (cmpMultilingual(srch, tgt))      return true;
+  if (cmpOtherCapabilities(srch, tgt)) return true;
+  if (cmpLimitations(srch, tgt))       return true;
+  if (cmpComments(srch, tgt))          return true;
+  if (cmpSkillCerts(srch, tgt))        return true;
+  if (cmpEOCCert(srch, tgt))           return true;
 #endif
 

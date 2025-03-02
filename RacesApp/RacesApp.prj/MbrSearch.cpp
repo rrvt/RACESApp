@@ -48,7 +48,7 @@ int    pos;
 
   pos = s.find(t);   if (pos < 0) return false;
 
-  if (wholeWord && !isWord(s, pos)) return false;
+  if (wholeWord && !isWord(s, pos, t.length())) return false;
 
   switch (attributes) {
     case 0  : return s.length() == t.length();    // Whole Field
@@ -59,14 +59,15 @@ int    pos;
   }
 
 
-static TCchar* WordChar = _T("abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ_0123456789");
+static TCchar* BoundaryChar = _T(" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
 
 
-bool MbrSearch::isWord(String& s, int pos) {
-String ch;
+bool MbrSearch::isWord(String& s, int pos, int lng) {
+int    prePos = pos - 1;
+int    aftPos = pos + lng;
+String preCh  = prePos >= 0         ? s[prePos] : _T(' ');
+String aftCh  = aftPos < s.length() ? s[aftPos] : _T(' ');
 
-  if (pos)                     {ch = s[pos-1];   if (!ch.findOneOf(WordChar, 1)) return false;}
-  if (pos + lng >= s.length()) {ch = s[pos+1];   if (!ch.findOneOf(WordChar, 1)) return false;}
-  return true;
+  return !preCh.findOneOf(BoundaryChar) && !aftCh.findOneOf(BoundaryChar);
   }
 

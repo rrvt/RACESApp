@@ -17,9 +17,11 @@
 #include "MessageBox.h"
 #include "PrepEntRcd.h"
 #include "Utility.h"
+#include "SaveRcdDlg.h"
 #include "SearchDlg.h"
 #include "StatusBar.h"
 #include "ZipList.h"
+
 
 static TCchar* GlobalSect   = _T("Global");
 static TCchar* DBFileKey    = _T("DBfile");
@@ -54,7 +56,6 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_EditRecords,       &onEditRecords)
   ON_CBN_SELCHANGE(IDC_MemberList,       &onSelectMbr)
   ON_COMMAND(      ID_CheckList,         &onCheckList)
-  ON_COMMAND(      ID_UpdateMbr,         &onUpdateMbr)
 
   ON_CBN_SELCHANGE(ID_ReportMenu,        &onDispatch)         // Send Command Message with ID_...
   ON_COMMAND(      ID_ExcelReport,       &onExcelRpt)
@@ -298,7 +299,7 @@ void RacesAppDlg::onNewMember() {
 String          s;
 MbrBadgeNo      mbrBadgeNo;
 
-  onUpdateMbr();
+  updateMbr();
 
   reset(mbrListCtl);    curMbr.initialize();   setTitle();
 
@@ -397,7 +398,7 @@ AdrRcd*         adrRcd;
 CtyRcd*         ctyRcd;
 String          tgt;
 
-  onUpdateMbr();
+  updateMbr();
 
   setLabels();   mbrPic.clear();
 
@@ -508,17 +509,24 @@ String     sect;
     }
   }
 
-void RacesAppDlg::onUpdateMbr() {
-  if (readOnly) return;
+void RacesAppDlg::updateMbr() {
+SaveRcdDlg dlg;
+
+  if (!curMbr.isModified()) return;
+
+  dlg.editable = !readOnly;   if (readOnly && dlg.DoModal() != IDOK) return;
+
+  readOnly = !dlg.editable;
 
   switch (dlgSource) {
-    case NewMbrSrc    : saveNewMember(); return;
+    case NewMbrSrc    : saveNewMember(); break;
     case CurMbrSrc    :
     case FmrMbrSrc    :
-    case RtrMbrSrc    : saveMember();    return;
+    case RtrMbrSrc    : saveMember();    break;
     case NilSrc       :
-    default           : return;
+    default           : break;
     }
+  curMbr.resetModified();
   }
 
 
@@ -556,7 +564,7 @@ void RacesAppDlg::onAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 
 void RacesAppDlg::onUpdateDbExit() {
 
-  onUpdateMbr();
+  updateMbr();
 
   if (!curMbr.updateDB(dbPath)) messageBox(_T("Something went wrong while updating database!"));
 

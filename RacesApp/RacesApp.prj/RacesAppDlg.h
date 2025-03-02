@@ -159,9 +159,11 @@ private:
   void            loadMbrs(DlgSource src);
 
   bool            setEntity(EntRcd* ent, AdrRcd*& adr, CtyRcd*& cty);
-  void            saveMember();
 
+  void            updateMbr();
+  void            saveMember();
   void            saveNewMember();
+
   int             getMbrEntity();
   int             getICEEntity();
   int             getEmplEntity();
@@ -247,7 +249,6 @@ public:
   afx_msg void    OnMove(int x, int y);
   afx_msg void    OnSize(UINT nType, int cx, int cy);
   afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
-  afx_msg void    onUpdateMbr();
 
   afx_msg void    onSanitizeDB();
 

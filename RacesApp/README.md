@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 3/1/25
+
+Rearranged the toolbar commands.  Fixed some find options.  Start the help document.
+
 ### Update 2/28/25
 
 Add browse and find commands.

@@ -14,7 +14,8 @@ struct MbrInfo;
 
 class CurMbr {
 
-int      nMod;
+int      nMod;                      // Record has been modified
+bool     update;                    // Update database
 MbrInfo* info;
 MbrRcd   nilRcd;
 EntRcd   nilEnt;
@@ -27,7 +28,7 @@ EntRcd* mbr;
 EntRcd* ice;
 EntRcd* empl;
 
-          CurMbr() : nMod(0), info(0), rcd(0), mbr(0), ice(0), empl(0) { }
+          CurMbr() : nMod(0), update(false), info(0), rcd(0), mbr(0), ice(0), empl(0) { }
          ~CurMbr() { }
 
   void    initialize() {nMod = 0; info = 0; ident.clear(); clear();}
@@ -37,6 +38,9 @@ EntRcd* empl;
   bool    set(MbrInfo* info);
 
   bool    isEmpty() {return !info;}
+
+  bool    isModified()    {return nMod != 0;}
+  void    resetModified() {if (nMod) update |= true;   nMod = 0;}
 
   String& getIdent();
 

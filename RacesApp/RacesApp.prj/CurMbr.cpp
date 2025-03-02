@@ -41,7 +41,7 @@ String& CurMbr::getIdent() {
 
 bool CurMbr::updateDB(TCchar* dbPath) {
 
-  if (nMod && msgYesNoBox(_T("Update database?")) == IDYES) {
+  if (update && msgYesNoBox(_T("Update database?")) == IDYES) {
 
     if (!ctyTbl.store(dbPath)) return false;
     if (!adrTbl.store(dbPath)) return false;

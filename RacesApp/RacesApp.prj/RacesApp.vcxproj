@@ -177,6 +177,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResponderCntRpt.h" />
+    <ClInclude Include="SaveRcdDlg.h" />
     <ClInclude Include="SearchDlg.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utility.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Reports.cpp" />
     <ClCompile Include="ReportBase.cpp" />
     <ClCompile Include="ResponderCntRpt.cpp" />
+    <ClCompile Include="SaveRcdDlg.cpp" />
     <ClCompile Include="SearchDlg.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="ZipList.cpp" />
