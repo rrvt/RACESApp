@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Operations</title>
+<title>RACES App Operations</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -15,141 +15,138 @@
 <div class="container">
 <div class="content">
 <!-- InstanceBeginEditable name="Title" -->
-<h1>DialogApp Operations</h1>
+<h1>RACES App Operations</h1>
 <!-- InstanceEndEditable -->
 
 <!-- InstanceBeginEditable name="Body" -->
-<h2>ToolBar Examples</h2>
+<h2>Starting</h2>
 <p>
-  The toolbar in a dialog box is not directly supported by MFC.  The library has a little expansion of
-  the MFC toolbar.  The creation of a toolbar and the following example controls is a two step process.
-  The first step is in the OnInitDialog of the dialog box:
+When the app starts it loads the last database file known to the app.  It then loads the drop down
+list in the dialog box with the current members information, sorted by name/call sign.  At that point
+a member may be selected from the list or a search (find) may be used to display the fields of a single member.  Alternately, one of the commands will load former memembers information into the drop down list.
+Then only former members may be displayed in the dialog box.
 </p>
-<blockquote>
-  if (!toolBar.create(this, IDR_TOOLBAR)) return false;
-</blockquote>
 <p>
-  When the toolbar is created there is a Registered Message sent to set up the controls on the toolbar:
-</p>
-<blockquote>
-ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
-</blockquote>
-<p>
-Here is the setup for all the controls on the toolbar:
-</p>
-<blockquote>
-LRESULT DialogDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();  return 0;}<br>
-<br>
-<br>
-void DialogDlg::setupToolBar() {<br>
-CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);<br>
-<br>
-&nbsp;&nbsp;toolBar.installBtn(ID_Button, _T(" My Button "));<br>
-<br>
-&nbsp;&nbsp;if (toolBar.installComboBox(ID_CBox)) setComboBox();<br>
-<br>
-&nbsp;toolBar.installEditBox(ID_EditBox, 20);<br>
-<br>
-&nbsp;&nbsp;(toolBar.installPopupMenu(ID_PopupMenu)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;toolBar.addPopupMenu(   ID_PopupMenu, IDR_PopupMenu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;toolBar.setPopupCaption(ID_PopupMenu, MenuCaption);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-<br>
-&nbsp;&nbsp;if (toolBar.installPopupMenu(ID_PopupMenu1)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;toolBar.addPopupItems(  ID_PopupMenu1, PopupItems, noElements(PopupItems));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;toolBar.setPopupCaption(ID_PopupMenu1, ItemsCaption);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;}<br>
-</blockquote>
-
-<h3><img src="Images/MyButton.jpg" width="37" height="15"> A Button</h3>
-<p>
-This is a long button (dd,15) with a caption.  A flying tooltip is possible for a button
+Making changes in the database is challenging.  Make the wrong change and the database loses some of its
+purpose.  So, the app is designed to make making changes inadvertently difficult.  The status bar at the
+bottom of the screen shows the current mode of operation (Read Only or Save Record Changes).  The inital
+mode of operation is Read Only.  But Save Record Changes mode only
+allows the app to save record changes to the app's version of the database.  
+In order to change the actual file 
+which contains the database, the Update and Exit command must be executed and the dialog question 
+responded to in the afirmative.
 </p>
 
-<h3><img src="Images/Greeks.jpg"> Combo Box</h3>
+<h3><img src="Images/AccessIcon.jpg" width="16" height="15"> Load Database</h3>
 <p>
-  A Combo Box in this implementation contains a string and an integer on each line.  The combo box
-  is loaded by the program, either all at once or one item at a time.  It turns out that a MENU entity in
-  the resource file also contains a string and an integer.  So a combo box may be loaded from a MENU
-  in the resource file by knowing the MENU identifier.
-</p>
-<p>
-  The struct (i.e. a public class) CbxItem is used to define a a single item that may be loaded into
-  the Combo Box.  The usual technique is to create an constant (perhaps static) vector of CbxItems and
-  there is a function to load that directly into the Combo Box.
-</p>
-<p>
-  When the user selects an item in the combo box the ON_CBN_SELCHANGE message is sent to the application.
-  The following entry in the BEGIN_MESSAGE_MAP will cause the onComboBoxChng function to be executed:
-</p>
-<blockquote>
-ON_CBN_SELCHANGE(ID_CBox, &onComboBoxChng) // Process secelection from the combo box list
-</blockquote>
-<p>
-The following function will retrieve the string and data:
-</p>
-<blockquote>
-String s;<br>
-int&nbsp;&nbsp;&nbsp;&nbsp;    x;<br>
-<br>
-  &nbsp;&nbsp;if (!toolBar.getCbxSel(ID_CBox, s, x)) return; 
-</blockquote>
-
-<h3><img src="Images/EditBoox.jpg"> Edit Box</h3>
-<p>
-  The edit box allows the user to type some text.  When the user leaves the edit box the kill focus
-  command message will allow the text to be processed:
-</p>
-<blockquote>
-ON_EN_KILLFOCUS(ID_EditBox, &onTBEditBox) // Process content of edit box
-</blockquote>
-<p>
-At the function the following function call will retrieve the text:
-</p>
-<blockquote>
-String s;<br>
-  &nbsp;&nbsp;toolBar.getEbxText(ID_EditBox, s);
-</blockquote>
-
-<h3><img src="Images/PopupMenu.jpg" width="51" height="15"> Drop Down Resource Menu </h3>
-<p>
-A drop down menu uses a combo box control.  This version loads the menu from the application's resources.
-Then instead of reacting to the select change message by retrieving the item from the combo box a
-command message is sent with the item's integer data, i.e. the command ID.  Both the select change and
-the command message entries must appear in the Message Map:
-</p>
-<blockquote>
-ON_CBN_SELCHANGE(ID_PopupMenu,   &onDispatch)           // Send Command Message with ID_...<br>
-ON_COMMAND(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID_Option01,&nbsp;&nbsp;&nbsp;&nbsp; &onOption01)<br>
-ON_COMMAND(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID_Option02,&nbsp;&nbsp;&nbsp;&nbsp; &onOption02)<br>
-</blockquote>
-<p>
-Here is the code for onDispatch:
-</p>
-<blockquote>
-void DialogDlg::onDispatch()  {toolBar.dispatch(ID_PopupMenu,  MenuCaption);}
-</blockquote>
-<p>
-  A Menu does not need the item selected to appear in the edit box associated with the combo box but it
-  is useful for the caption of the menu to appear there.  So, right after the dispatch of the command
-  the caption is restored to the drop down menu.
+The database is an .accdb file. A Open File dialog box starts and the user selects the correct file.  The file is
+loaded into the app and the Drop Down List is loaded with current members.  At that point the records are read only
+and the status bar describes the path and the content of the drop down list of members.
 </p>
 
-<h3><img src="Images/ItemsMenu.jpg" width="51" height="15"> Programmable Drop Down Menu</h3>
+
+<h3><img src="Images/NewFile.jpg" width="15" height="14"> Create New Member</h3>
 <p>
-The initialization of the menu is the only difference between this drop down menu and the previous drop down menu.
+The drop down list is cleared, the fields are cleared and those fields with an explanation have labels stored in 
+them.  Labels are distintuished from data by angle bracket, "&lt;label&gt;".  The mode is changed to Save Records (in liu
+of Read Only).  Filling in the fields is only the first step.  Then the records need to be saved which happens 
+automatically when any other action is executed.  Then the update and exit command needs to be executed with an 
+affirmative response to the update question.
 </p>
+
+<h3><img src="Images/People.jpg" width="16" height="15"> Load Current Members</h3>
+<p>
+Clear the drop down list and load the current members.  Reset the status to reflect the new list.
+</p>
+
+
+<h3><img src="Images/ExIcon.jpg" width="16" height="15"> Load Former Members</h3>
+<p>
+Clear the drop down list and load the former members.  Reset the status to reflect the new list.
+</p>
+
+<h3><img src="Images/Edit.jpg" width="16" height="15"> Edit Records</h3>
+<p>
+Change the mode from Read Only to Save Records.  There is no command to simply return to Read Only mode.
+</p>
+
+
+<h3><img src="Images/CheckLlist.jpg" width="16" height="15"> Open Member's Check List</h3>
+<p>
+Opens a dialog box for the member displayed that has a check list of all the things that should be done for
+a new member (or maybe a member being transferred to the former member status).  The results of the check list are kept in the ini file.
+</p>
+
+<h3><img src="Images/Printer.jpg" width="16" height="15"> Print Current Record</h3>
+<p>
+Not implemented yet.
+</p>
+
+
+<h3><img src="Images/Options.jpg" width="16" height="15"> Options</h3>
+<p>
+not implemented yet.
+</p>
+
+<h3><img src="Images/RockingChair.jpg" width="16" height="16"> Load 3 Yr Former Members</h3>
+<p>
+Clear the drop down list and load the former members whose records were last modified three or more years ago. 
+Reset the status to reflect the new list. 
+</p>
+
+
+<h3><img src="Images/Delete01.jpg" width="16" height="15"> Remove 3 Yr Former Member</h3>
+<p>
+Remove the member displayed only if they are former members that was last modified three or more years
+ago.  The removal is in the apps version of the database and the update and exit command is required to update the
+database.  However, only the member record is removed.  This effectively removes the member from the database but 
+other records in the database may have been orphaned (See Remove Database Dead Records command).
+</p>
+
+<h3><img src="Images/Refresh.jpg" width="16" height="15"> Remove Database Dead Records</h3>
+<p>
+Each member record contains identifiers (integers) of Entitiy records.  Each Entity Record contains two
+indentifiers (for an address and city record).  When a member record is deleted up to nine records may have been
+orphaned.  However, some of them may be used in other member or entity records and cannot be deleted.  This command 
+verifies every record is used somewhere otherwise it is marked to be deleted.
+</p>
+
+
 
 <h3><img src="Images/About.jpg" width="16" height="15"> About</h3>
 <p>
-Displays the About Box.  The about box uses text from the resource file (TestApp.rc) for
-the output information.  There is a standard about box dialog in the Library.
-</p>
-<h3><img src="Images/Exit.jpg" width="16" height="15"> Exit</h3>
+Displays the About Box.</p>
+
+<h3><img src="Images/Exit.jpg" width="16" height="15"> Update Database and Exit</h3>
 <p>
-Exit the application with no reservations.
+If any records have been modified and saved in the apps version of the database and dialog box is displayed
+asking if the database should be updated.  if the answer is yes a backup file is created before the file is 
+updated.  Then the app exits.
 </p>
+
+
+<h3><img src="Images/Left..jpg" width="16" height="15"> Move to Previous Record</h3>
+<p>
+</p>
+
+<h3><img src="Images/Find.jpg" width="16" height="15"> Find a Record</h3>
+<p>
+</p>
+
+
+<h3><img src="Images/FindNext.jpg" width="16" height="15"> Find Next Record</h3>
+<p>
+</p>
+
+<h3><img src="Images/Next.jpg" width="16" height="15"> Move to Next Record</h3>
+<p>
+</p>
+
+
+<h3><img src="Images/Reports.jpg" width="278" height="27"> Report Menu</h3>
+<p>
+</p>
+
 <h2>File Menu</h2>
 <h3>Change Ready</h3>
 <p>

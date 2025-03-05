@@ -251,6 +251,7 @@ public:
   afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
 
   afx_msg void    onSanitizeDB();
+  afx_msg void    onSetCompact() {curMbr.setCompact();}
 
   afx_msg void    onClearMbrfirstname();
   afx_msg void    onClearMbrMiddleInitial();

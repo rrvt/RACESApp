@@ -120,10 +120,11 @@
 #define ID_LoadRtrMbrs                  420
 #define ID_RemoveFmr                    421
 #define ID_SanitizeDB                   422
-#define ID_Left                         423
-#define ID_Find                         424
-#define ID_FindNext                     425
-#define ID_Right                        426
+#define ID_SetCompact                   423
+#define ID_Left                         424
+#define ID_Find                         425
+#define ID_FindNext                     426
+#define ID_Right                        427
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499
@@ -137,7 +138,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        108
-#define _APS_NEXT_COMMAND_VALUE         427
+#define _APS_NEXT_COMMAND_VALUE         428
 #define _APS_NEXT_CONTROL_VALUE         383
 #define _APS_NEXT_SYMED_VALUE           204
 #endif

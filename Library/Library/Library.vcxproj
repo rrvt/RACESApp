@@ -12,6 +12,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppFile.cpp" />
     <ClCompile Include="ArchFile.cpp" />
     <ClCompile Include="Archive.cpp" />
     <ClCompile Include="ArchPos.cpp" />
@@ -72,6 +73,7 @@
     <ClCompile Include="XTerm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppFile.h" />
     <ClInclude Include="ArchFile.h" />
     <ClInclude Include="Archive.h" />
     <ClInclude Include="ArchPos.h" />

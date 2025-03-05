@@ -15,6 +15,7 @@
 #include "MbrBadgeNo.h"
 #include "MemberList.h"
 #include "MessageBox.h"
+#include "MsAccess.h"
 #include "PrepEntRcd.h"
 #include "Utility.h"
 #include "SaveRcdDlg.h"
@@ -75,6 +76,7 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_RemoveFmr,         &onRemoveFmr)
 
   ON_COMMAND(      ID_SanitizeDB,        &onSanitizeDB)
+  ON_COMMAND(      ID_SetCompact,        &onSetCompact)
 
   ON_COMMAND(      ID_IntroHelp,         &onHelp)
   ON_COMMAND(      ID_About,             &onAbout)
@@ -512,20 +514,21 @@ String     sect;
 void RacesAppDlg::updateMbr() {
 SaveRcdDlg dlg;
 
-  if (!curMbr.isModified()) return;
+  if (curMbr.isEmpty()) return;
 
-  dlg.editable = !readOnly;   if (readOnly && dlg.DoModal() != IDOK) return;
+//  dlg.editable = !readOnly;   if (readOnly && dlg.DoModal() != IDOK) return;
 
-  readOnly = !dlg.editable;
+//  readOnly = !dlg.editable;
 
   switch (dlgSource) {
     case NewMbrSrc    : saveNewMember(); break;
     case CurMbrSrc    :
     case FmrMbrSrc    :
-    case RtrMbrSrc    : saveMember();    break;
+    case RtrMbrSrc    : if (!readOnly) saveMember();    break;
     case NilSrc       :
     default           : break;
     }
+
   curMbr.resetModified();
   }
 
@@ -548,7 +551,9 @@ DeadRcds deadRcds(csvPath);
 int      n;
 String   s;
 
-  n = deadRcds.fix();   s.format(_T("%i Records Marked as Deleted"), n);   messageBox(s);
+  n = deadRcds.fix();   if (n) {curMbr.resetModified();   curMbr.setCompact();}
+
+  s.format(_T("%i Records Marked as Deleted"), n);   messageBox(s);
   }
 
 
@@ -1062,7 +1067,7 @@ String s;
     case RtrMbrSrc : s = _T("Retire Members");  break;
     default        : s.clear();                 break;
     }
-  s += readOnly ? _T(" -- Read Only") : _T(" -- Editable");
+  s += readOnly ? _T(" -- Read Only") : _T(" -- Save Record Changes");
 
   statusBar.setText(0, s);
   }

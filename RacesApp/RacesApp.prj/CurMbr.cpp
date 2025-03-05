@@ -3,7 +3,10 @@
 
 #include "pch.h"
 #include "CurMbr.h"
+#include "CopyFile.h"
+#include "Database.h"
 #include "MessageBox.h"
+#include "MsAccess.h"
 
 
 CurMbr curMbr;
@@ -43,10 +46,16 @@ bool CurMbr::updateDB(TCchar* dbPath) {
 
   if (update && msgYesNoBox(_T("Update database?")) == IDYES) {
 
+    backupCopy(dbPath, 10);
+
     if (!ctyTbl.store(dbPath)) return false;
     if (!adrTbl.store(dbPath)) return false;
     if (!entTbl.store(dbPath)) return false;
     if (!mbrTbl.store(dbPath)) return false;
+
+    database.close();
+
+    if (compactDB) {MsAccess msAccess; msAccess.compact(dbPath);}
     }
 
   return true;

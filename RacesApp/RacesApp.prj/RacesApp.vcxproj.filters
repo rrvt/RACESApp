@@ -151,6 +151,9 @@
     <ClInclude Include="SaveRcdDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MsAccess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -268,6 +271,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SaveRcdDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsAccess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

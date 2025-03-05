@@ -13,7 +13,7 @@
 		<param name="Local" value="Introduction.htm">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="DialogApp Operations">
+		<param name="Name" value="RACES App Operations">
 		<param name="Local" value="Operations.htm">
 		</OBJECT>
 </UL>

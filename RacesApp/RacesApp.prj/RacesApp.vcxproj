@@ -157,6 +157,7 @@
     <ClInclude Include="MbrIDs.h" />
     <ClInclude Include="MbrSearch.h" />
     <ClInclude Include="MmYyCtl.h" />
+    <ClInclude Include="MsAccess.h" />
     <ClInclude Include="PrepAdrRcd.h" />
     <ClInclude Include="PrepCtyRcd.h" />
     <ClInclude Include="PrepEntRcd.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="MbrStatus.cpp" />
     <ClCompile Include="MemberList.cpp" />
     <ClCompile Include="MmYyCtl.cpp" />
+    <ClCompile Include="MsAccess.cpp" />
     <ClCompile Include="MyToolBar.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="PrepAdrRcd.cpp" />

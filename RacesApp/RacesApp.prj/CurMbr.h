@@ -16,6 +16,7 @@ class CurMbr {
 
 int      nMod;                      // Record has been modified
 bool     update;                    // Update database
+bool     compactDB;                 // compact database after saving when true
 MbrInfo* info;
 MbrRcd   nilRcd;
 EntRcd   nilEnt;
@@ -23,15 +24,16 @@ String   ident;
 
 public:
 
-MbrRcd* rcd;                         // Local copies of pointers
-EntRcd* mbr;
-EntRcd* ice;
-EntRcd* empl;
+MbrRcd*  rcd;                       // Local copies of pointers
+EntRcd*  mbr;
+EntRcd*  ice;
+EntRcd*  empl;
 
-          CurMbr() : nMod(0), update(false), info(0), rcd(0), mbr(0), ice(0), empl(0) { }
+          CurMbr() : nMod(0), update(false), compactDB(false), info(0),
+                     rcd(0),  mbr(0),        ice(0),           empl(0) { }
          ~CurMbr() { }
 
-  void    initialize() {nMod = 0; info = 0; ident.clear(); clear();}
+  void    initialize() {nMod = 0; update = compactDB = false; info = 0; ident.clear(); clear();}
 
   void    clear() {rcd = 0; mbr = 0; ice = 0; empl = 0;}
 
@@ -50,6 +52,8 @@ EntRcd* empl;
   void    emplDirty() {if (info->emplEnt) setDirty(empl);}
 
   void    setDirty(EntRcd* ent) {if (!ent)  return;    ent->setDirty();   nMod++;}
+
+  void    setCompact() {compactDB = true;   update = true;}
 
   AdrRcd* addAdrTbl(AdrRcd& rcd) {AdrRcd* r = adrTbl.add(rcd);   nMod++;   return r;}
   CtyRcd* addCtyTbl(CtyRcd& rcd) {CtyRcd* r = ctyTbl.add(rcd);   nMod++;   return r;}

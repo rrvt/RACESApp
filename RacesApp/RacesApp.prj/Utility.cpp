@@ -223,10 +223,8 @@ void addCB(CComboBox& ctl, TCchar* key, void* rcd)
 
 // set field only if not equal
 
-bool setField(String& fld, TCchar* tc)
-                         {if (fld == tc)   return false;   fld = tc;     return true;}
-bool setField(int&   fld, int v)
-                                      {if (v == fld)    return false;   fld = v;      return true;}
+bool setField(String& fld, TCchar* tc) {if (fld ==  tc) return false;   fld = tc;    return true;}
+bool setField(int&    fld, int      v) {if (fld ==   v) return false;   fld =  v;    return true;}
 
 
 String& getTodayCmpr() {

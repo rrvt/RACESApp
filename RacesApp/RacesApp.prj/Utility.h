@@ -51,7 +51,7 @@ inline void    clrLbl(CEdit& ctl, TCchar* txt)
        bool    isEarlier(TCchar* updateDate);
 
        bool    setField(String& fld, TCchar* tc);        // only if not equal
-       bool    setField(int&   fld, int      v);
+       bool    setField(int&    fld, int      v);
 
        String& getTodayCmpr();                            // returns mmddyy
        String& getTodayExpd();                            // returns mm/dd/yy
