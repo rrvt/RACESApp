@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 3/8/25
+
+Fix Read Only stuck bug.  Allow modifying start date.
+
 ### Update 3/5/25
 
 Add MS Access compact to the App.  The App starts the Access app via the command line with a

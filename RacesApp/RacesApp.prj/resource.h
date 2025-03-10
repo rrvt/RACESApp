@@ -117,8 +117,6 @@
 #define ID_SuffixList                   417
 #define ID_FormerMbrs                   418
 #define ID_Options                      419
-#define ID_LoadRtrMbrs                  420
-#define ID_RemoveFmr                    421
 #define ID_SanitizeDB                   422
 #define ID_SetCompact                   423
 #define ID_Left                         424

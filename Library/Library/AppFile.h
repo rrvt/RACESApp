@@ -5,26 +5,6 @@
 #include "Expandable.h"
 #include "IterT.h"
 
-#if 0
-struct AppFolder {
-String name;
-String path;
-
-  AppFolder() { }
-  AppFolder(AppFolder& d) {copy(d);}
- ~AppFolder() { }
-
-  AppFolder& operator= (AppFolder& d) {copy(d); return *this;}
-
-  AppFolder& operator= (String& fullPath);
-  String     fullPath() {String s = path + name; return s;}
-
-private:
-
-  void copy(AppFolder& d) {name = d.name;   path = d.path;}
-  };
-#endif
-
 
 class AppFile;
 typedef IterT<AppFile, String> AppIter;

@@ -6,17 +6,25 @@
 #include "AppFile.h"
 #include "Executable.h"
 #include "FileSrch.h"
+#include "IniFile.h"
 
 
-
+static TCchar* Sect   = _T("MsAccess");
+static TCchar* ExeKey = _T("ExePath");
 
 void MsAccess::compact(TCchar* path) {
-AppFile    appFile(_T("C:\\Program Files\\Microsoft*"));
 String     exePath;
 FileSrch   fileSrch;
 Executable executable;
 
-  exePath = appFile.find(_T("*ACCESS*"));
+  if (!iniFile.read(Sect, ExeKey, exePath)) {
+
+    AppFile appFile(_T("C:\\Program Files\\Microsoft*"));
+
+    exePath = appFile.find(_T("*ACCESS*"));
+
+    iniFile.write(Sect, ExeKey, exePath);
+    }
 
   executable.start(3, exePath.str(), path, _T("/compact"));
 

@@ -38,7 +38,7 @@ IMPLEMENT_DYNAMIC(RacesAppDlg, CDialogEx)
 
 RacesAppDlg::RacesAppDlg(TCchar* helpPth, CWnd* pParent) : CDialogEx(IDD_RacesApp, pParent),
                                 helpPath(helpPth), toolBar(), statusBar(), dbLoaded(false),
-                                isInitialized(false), dlgSource(NilSrc), readOnly(false),
+                                isInitialized(false), dlgSource(NilSrc), readOnly(true),
                                 mbrStatus(statusCtl),
                                 mbrAvailability(availabilityCtl), mbrGeography(RespGeographyCtl),
                                 mbrPic(pictureCtl, *this), srch(0) {}
@@ -71,9 +71,6 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_MemberIDs,         &onMemberIDs)
   ON_COMMAND(      ID_SuffixList,        &onSuffixList)
   ON_COMMAND(      ID_FormerMbrs,        &onFormerList)
-
-  ON_COMMAND(      ID_LoadRtrMbrs,       &onLoadRtrMbrs)
-  ON_COMMAND(      ID_RemoveFmr,         &onRemoveFmr)
 
   ON_COMMAND(      ID_SanitizeDB,        &onSanitizeDB)
   ON_COMMAND(      ID_SetCompact,        &onSetCompact)
@@ -351,7 +348,7 @@ int         indx;
     mbrListCtl.SetItemDataPtr(indx, info);
     }
 
-  setStatus(src, true);
+  setStatus(src, readOnly);
   }
 
 
@@ -359,11 +356,13 @@ void RacesAppDlg::onEditRecords() {false;   setStatus(dlgSource, false);}
 
 
 
-void RacesAppDlg::onLeft() {setSrch();   if (srch->left()) onSelectMbr();}
+void RacesAppDlg::onLeft() {updateMbr();   setSrch();   if (srch->left()) onSelectMbr();}
 
 
 void RacesAppDlg::onFind() {
 SearchDlg dlg;
+
+  updateMbr();
 
   if (dlg.DoModal() == IDOK) {
 
@@ -380,7 +379,7 @@ SearchDlg dlg;
 
 
 void RacesAppDlg::onFindNext()
-                            {setSrch();   if (srch->findNext()) {onSelectMbr();   setCtlFocus();}}
+              {updateMbr();   setSrch();   if (srch->findNext()) {onSelectMbr();   setCtlFocus();}}
 
 
 void RacesAppDlg::setCtlFocus() {
@@ -484,7 +483,7 @@ String          tgt;
 
   mbrPic.set(curMbr.rcd->image);   mbrPic.set();
 
-  setStatus(dlgSource, true);   setTitle();
+  setStatus(dlgSource, readOnly);   setTitle();
   }
 
 
@@ -857,6 +856,7 @@ CtyRcd*    ctyRcd;
   if (setField(curMbr.rcd->fCCExpiration, compressDate(get(csExpDateCtl))))     curMbr.rcdDirty();
   if (setField(curMbr.rcd->badgeOK,       badgeOKCtl.GetCheck()))               curMbr.rcdDirty();
   if (setField(curMbr.rcd->badgeExpDate,  compressDate(get(badgeExpDateCtl))))  curMbr.rcdDirty();
+  if (setField(curMbr.rcd->startDate,     compressDate(get(startDateCtl))))     curMbr.rcdDirty();
 
   mbr.setFirstName(get(firstNameCtl));
   mbr.setMiddleInit(get(midInitialCtl));
