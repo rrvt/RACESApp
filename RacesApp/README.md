@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 3/12/25
+
+Modify command to toggle saving record changes.
+
 ### Update 3/8/25
 
 Fix Read Only stuck bug.  Allow modifying start date.

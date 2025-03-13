@@ -71,6 +71,7 @@
 #define IDC_Limitations                 353
 #define IDC_Comments                    354
 #define IDC_SkillCerts                  355
+#define DlgDepth                        355
 #define IDC_EOCCert                     356
 #define IDC_LastUpdate                  357
 #define IDC_NameCalSign                 358
@@ -123,19 +124,17 @@
 #define ID_Find                         425
 #define ID_FindNext                     426
 #define ID_Right                        427
+
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499
-
-
 #define DlgWidth                        506
-#define DlgDepth                        355
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        108
+#define _APS_NEXT_RESOURCE_VALUE        106
 #define _APS_NEXT_COMMAND_VALUE         428
 #define _APS_NEXT_CONTROL_VALUE         383
 #define _APS_NEXT_SYMED_VALUE           204

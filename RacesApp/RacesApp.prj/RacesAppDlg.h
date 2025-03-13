@@ -147,6 +147,7 @@ CStatic    lastUpdateCtl;
 
 protected:
 
+  virtual BOOL PreTranslateMessage(MSG* pMsg);
   virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
   virtual void OnOK() { }
 

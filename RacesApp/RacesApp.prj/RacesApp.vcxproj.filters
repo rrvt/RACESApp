@@ -294,9 +294,6 @@
     </None>
     <None Include="C:\Users\rrvt\AppData\Roaming\RacesApp\RacesApp.ini" />
     <None Include="..\README.md" />
-    <None Include="res\Toolbar14.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\Data\Two.csv">
       <Filter>App Reports</Filter>
     </None>
@@ -323,10 +320,7 @@
     <Image Include="res\Delete.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\Toolbar15.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Toolbar18.bmp">
+    <Image Include="res\Toolbar21.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

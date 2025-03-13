@@ -165,6 +165,9 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
+BOOL RacesAppDlg::PreTranslateMessage(MSG* pMsg) {return CDialogEx::PreTranslateMessage(pMsg);}
+
+
 void RacesAppDlg::DoDataExchange(CDataExchange* pDX) {
     CDialogEx::DoDataExchange(pDX);
     DDX_Control(pDX, IDC_MemberList, mbrListCtl);
@@ -352,7 +355,7 @@ int         indx;
   }
 
 
-void RacesAppDlg::onEditRecords() {false;   setStatus(dlgSource, false);}
+void RacesAppDlg::onEditRecords() {readOnly = !readOnly;   setStatus(dlgSource, readOnly);}
 
 
 
@@ -1411,4 +1414,3 @@ CtyRcd* ctyRcd = zipList.find(compressZip(get(emplZipCtl)));
 
     messageBox(s);
 #endif
-
