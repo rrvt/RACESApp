@@ -9,8 +9,8 @@ struct MbrInfo;
 
 class FormerRpt : public ReportBase {
 
-String beg;
-String end;
+uint beg;
+uint end;
 
 public:
 

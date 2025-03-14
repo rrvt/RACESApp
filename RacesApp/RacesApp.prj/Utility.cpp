@@ -243,6 +243,17 @@ Date          today;
   }
 
 
+// Get 2 char date for 1960 -- 2059
+
+uint getDate(TCchar* tc) {
+String s = tc;
+uint   pos;
+uint   dt = s.stoi(pos);
+
+  if (dt < 6000) dt += 10000;   return dt;
+  }
+
+
 ///------------
 
 #if 0

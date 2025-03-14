@@ -56,6 +56,9 @@ inline void    clrLbl(CEdit& ctl, TCchar* txt)
        String& getTodayCmpr();                            // returns mmddyy
        String& getTodayExpd();                            // returns mm/dd/yy
 
+       uint    getDate(TCchar* tc);                       // Get 2 char date for 1960 -- 2059
+
+
 #if 0
 void disableBttn(CButton& ctl);
 void enableBttn( CButton& ctl);

@@ -14,7 +14,7 @@ IMPLEMENT_DYNAMIC(FmrPeriodDlg, CDialogEx)
 
 
 FmrPeriodDlg::FmrPeriodDlg(CWnd* pParent) :
-                                       CDialogEx(IDD_Period, pParent), beginPeriod(_T("01/15")) { }
+                                       CDialogEx(IDD_Period, pParent), beginPeriod(_T("01/70")) { }
 FmrPeriodDlg::~FmrPeriodDlg() { }
 
 

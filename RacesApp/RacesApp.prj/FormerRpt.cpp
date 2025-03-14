@@ -15,7 +15,7 @@ MbrListIter iter(memberList);
 MbrInfo*    item;
 int         count;
 
-  beg = begPrd;   end = endPrd;
+  beg = getDate(begPrd);   end = getDate(endPrd);
 
   header();
 
@@ -91,11 +91,14 @@ bool FormerRpt::inPeriod(TCchar* tc) {
 String s   = compressDate(tc);
 int    lng = s.length();
 String yymm;
+uint   dt;
 
   if      (lng == 6) yymm = s.substr(4, 2) + s.substr(0, 2);
   else if (lng == 8) yymm = s.substr(6, 2) + s.substr(0, 2);
   else               yymm = s;
 
-  return beg <= yymm && yymm <= end;
+  dt = getDate(yymm);
+
+  return beg <= dt && dt <= end;
   }
 
