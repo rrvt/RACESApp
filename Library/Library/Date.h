@@ -29,7 +29,6 @@ static const int MinDate;           // Minimum No of Seconds allowed by MFC, Dat
   Date       operator= (String& s);                  // Translates m/d/yy h/m/s all digits to CTime
   Date       operator= (CString& cs) {String s = cs; *this = s; return *this;}
   Date&      operator= (CTime& tm)   {dt = tm;  return *this;}
-//  Date&      operator= (CTime  tm)   {dt = tm;  return *this;}
   Date&      operator= (time_t sec)  {dt = sec; return *this;}
   Date&      operator= (COleDateTime& ole);
 
@@ -54,6 +53,16 @@ static const int MinDate;           // Minimum No of Seconds allowed by MFC, Dat
   String   getHHMMSS();
   String   dayOfWeek();
   String   format(TCchar* f) {Cstring s; s = dt.Format(f);   return String(s);}
+
+  // get numeric representations of date components
+
+  int      getYear()      {return dt.GetYear();}
+  int      getMonth()     {return dt.GetMonth();}
+  int      getDay()       {return dt.GetDay();}
+  int      getDayOfWeek() {return dt.GetDayOfWeek();}
+  int      getHour()      {return dt.GetHour();}
+  int      getMinute()    {return dt.GetMinute();}
+  int      getSecond()    {return dt.GetSecond();}
 
   // Transform from Date to String with yyyymmddhhmmss format and from String to Date
 

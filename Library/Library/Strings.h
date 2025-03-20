@@ -114,6 +114,7 @@ static const int npos = -1;
 // Manipulating Functions
 
   void    clear() {((tstring*)this)->clear();}        // Erases all elements of a tstring
+  void    expunge();                                  // Expunge data, then clear string
 
   String& trim();                                     // Remove spaces/tabs/etc from both ends
   String& trimLeft();                                 // Remove spaces/tabs/etc from left end

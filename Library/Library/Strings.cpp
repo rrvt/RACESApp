@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <memory>
-
+#include <random>
 
 
 Cstring::Cstring(String& s) : CString(s.str()) {}
@@ -42,6 +42,17 @@ Cstring& Cstring::operator= (ulong  v)
                                 {String s = v;  CString& cs = *this;  cs = s.str();  return *this;}
 Cstring& Cstring::operator= (double v)
                                 {String s = v;  CString& cs = *this;  cs = s.str();  return *this;}
+
+
+void String::expunge() {
+static random_device       rd;
+mt19937                    gen(rd());
+uniform_int_distribution<> distribute(32, 127);
+int                        n = length();
+int                        i;
+
+  for (i = 0; i < n; i++) (*this)[i] = (TCchar) distribute(gen);   clear();
+  }
 
 
 String& String::trim() {trimLeft(); return trimRight();}

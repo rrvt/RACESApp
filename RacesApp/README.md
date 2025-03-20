@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 3/20/25
+
+Missed some fields in the save member function.
+
 ### Update 3/13/25
 
 Date range test modified to include 1961 to 2059.

@@ -856,10 +856,12 @@ CtyRcd*    ctyRcd;
   clrLabels();
 
   if (setField(curMbr.rcd->statusID,      mbrStatus.getID()))                   curMbr.rcdDirty();
+  if (setField(curMbr.rcd->callSign,      get(callSignCtl)))                    curMbr.rcdDirty();
   if (setField(curMbr.rcd->fCCExpiration, compressDate(get(csExpDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->badgeOK,       badgeOKCtl.GetCheck()))               curMbr.rcdDirty();
-  if (setField(curMbr.rcd->badgeExpDate,  compressDate(get(badgeExpDateCtl))))  curMbr.rcdDirty();
   if (setField(curMbr.rcd->startDate,     compressDate(get(startDateCtl))))     curMbr.rcdDirty();
+  if (setField(curMbr.rcd->dSWDate,       compressDate(get(dswDateCtl))))       curMbr.rcdDirty();
+  if (setField(curMbr.rcd->badgeExpDate,  compressDate(get(badgeExpDateCtl))))  curMbr.rcdDirty();
+  if (setField(curMbr.rcd->responder,     compressDate(get(responderDateCtl)))) curMbr.rcdDirty();
 
   mbr.setFirstName(get(firstNameCtl));
   mbr.setMiddleInit(get(midInitialCtl));
@@ -928,6 +930,7 @@ CtyRcd*    ctyRcd;
   if (setField(curMbr.rcd->comments, get(commentsCtl)))               curMbr.rcdDirty();
   if (setField(curMbr.rcd->skillCertifications, get(skillCertsCtl)))  curMbr.rcdDirty();
   if (setField(curMbr.rcd->eOC_Certifications, get(eocCertCtl)))      curMbr.rcdDirty();
+  if (setField(curMbr.rcd->badgeOK,       badgeOKCtl.GetCheck()))     curMbr.rcdDirty();
   if (setField(curMbr.rcd->image, get(picPathCtl)))                   curMbr.rcdDirty();
 
   curMbr.rcd->updateDate = getTodayCmpr();
