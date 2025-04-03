@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### update 4/3/25
+
+Corrected Update for new member.
+
 ### Update 3/20/25
 
 Missed some fields in the save member function.

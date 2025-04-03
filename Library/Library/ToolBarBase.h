@@ -61,18 +61,24 @@ protected:
   bool           add(TBCbxMenu&  button, uint id, const CbxItem cbxItem[], int n, TCchar* caption);
   void           dispatch(TBCbxMenu& cbxMenu);
 
-  bool           add(TBCboBx& button, uint id, int noChars);
-  bool           add(TBCboBx& button, uint id, int           idr,              TCchar* caption);
-  bool           add(TBCboBx& button, uint id, const CbxItem cbxItem[], int n, TCchar* caption);
+  void           clear(TBCboBx& button) {button.clear();}
+  bool           add(TBCboBx&   button, uint id, int noChars);
+  bool           add(TBCboBx&   button, uint id, int           idr,              TCchar* caption);
+  bool           add(TBCboBx&   button, uint id, const CbxItem cbxItem[], int n, TCchar* caption);
 
   bool           addItem(      TBCboBx& button, TCchar* txt, int data)
-                                                         {return button.addItem(txt, data);}
+                                                                {return button.addItem(txt, data);}
   bool           addItemSorted(TBCboBx& button, TCchar* txt, int data)
-                                                         {return button.addItemSorted(txt, data);}
+                                                          {return button.addItemSorted(txt, data);}
+
+  int            find(TBCboBx& button, TCchar* txt)      {return button.find(txt);}
+  bool           setCurSel(TBCboBx& button, int index)   {return button.setCurSel(index);}
+  bool           setCurSel(TBCboBx& button, TCchar* txt) {return button.setCurSel(txt);}
+
   void           setCaption(TBCboBx& button, TCchar* caption) {button.setCaption(caption);}
   void           setWidth(  TBCboBx& button) {button.setWidth();   AdjustLayout();}
   void           setHeight( TBCboBx& button) {button.setHeight();}
-  bool           getCurSel(TBCboBx& button, String& s, int& data)
+  bool           getCurSel(TBCboBx& button, String& s, void*& data)
                                                                 {return button.getCurSel(s, data);}
 
 private:

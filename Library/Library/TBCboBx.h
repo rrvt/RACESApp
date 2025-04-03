@@ -25,13 +25,19 @@ String caption;
   TBCboBx*    install(const CbxItem cbxItem[], int n, TCchar* caption);
 
   // The following functions deal with the installed combo box.
+  void        clear() {if (getActual()) actual->RemoveAllItems();}
   bool        setCaption();
   void        setCaption(TCchar* caption) {this->caption = caption;   setCaption();}
   bool        addItem(TCchar* txt, int val);
   bool        addItemSorted(TCchar* txt, int val);
+  uint        getCount() {return actual ? actual->GetCount() : 0;}
   void        setWidth();
   void        setHeight();
-  bool        getCurSel(String& s, int& data);
+  bool        getCurSel(String& s, void*& data);
+
+  int         find(TCchar* tc);
+  bool        setCurSel(int index);
+  bool        setCurSel(TCchar* tc);
 
   uint        getId() {return id;}
 

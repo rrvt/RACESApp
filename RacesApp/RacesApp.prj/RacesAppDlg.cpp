@@ -393,7 +393,7 @@ CWnd* wnd = GetDlgItem(id);
   }
 
 
-void RacesAppDlg::onRight() {setSrch();   if (srch->right()) onSelectMbr();}
+void RacesAppDlg::onRight() {updateMbr();   setSrch();   if (srch->right()) onSelectMbr();}
 
 
 void RacesAppDlg::onSelectMbr() {
@@ -516,17 +516,12 @@ String     sect;
 void RacesAppDlg::updateMbr() {
 SaveRcdDlg dlg;
 
-  if (curMbr.isEmpty()) return;
-
-//  dlg.editable = !readOnly;   if (readOnly && dlg.DoModal() != IDOK) return;
-
-//  readOnly = !dlg.editable;
-
   switch (dlgSource) {
     case NewMbrSrc    : saveNewMember(); break;
     case CurMbrSrc    :
     case FmrMbrSrc    :
-    case RtrMbrSrc    : if (!readOnly) saveMember();    break;
+    case RtrMbrSrc    : if (curMbr.isEmpty()) return;
+                        if (!readOnly) saveMember();    break;
     case NilSrc       :
     default           : break;
     }

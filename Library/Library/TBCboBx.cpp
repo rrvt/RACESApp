@@ -93,15 +93,35 @@ int maxHeight = (toolBarDim.height/25 - 3) * 25;
   }
 
 
-  bool TBCboBx::getCurSel(String& s, int& data) {
+bool TBCboBx::getCurSel(String& s, void*& data) {
 int i;
 
   if (!getActual()) return false;
 
   i = actual->GetCurSel();    if (i < 0) return false;
 
-   s = actual->GetItem(i);  data = actual->GetItemData(i);  return true;
+   s = actual->GetItem(i);  data = (void*) actual->GetItemData(i);  return true;
+  }
 
+
+int TBCboBx::find(TCchar* tc) {
+  if (!getActual()) return -1;
+
+  return actual->FindItem(tc);
+  }
+
+
+bool TBCboBx::setCurSel(int index) {
+  if (!getActual()) return false;
+
+  return actual->SelectItem(index, false);
+  }
+
+
+bool TBCboBx::setCurSel(TCchar* tc) {
+  if (!getActual()) return false;
+
+  return actual->SelectItem(tc);
   }
 
 
@@ -117,7 +137,7 @@ bool TBCboBx::add(TCchar* txt, int data) {
   setMaxChars(txt);
 
   return AddItem(txt, data) >= 0;
-  }
+  }                                                                  //BS_VCENTER
 
 
 TBCboBx* TBCboBx::finInstall(TCchar* caption) {
@@ -126,7 +146,7 @@ TBCboBx* TBCboBx::finInstall(TCchar* caption) {
 
   m_iWidth  = toolBarDim.getHoriz(maxChars) + 20;
 
-  m_dwStyle =  CBS_DROPDOWNLIST | WS_VSCROLL | BS_VCENTER;   SetFlatMode(true);
+  m_dwStyle =  CBS_DROPDOWNLIST | WS_VSCROLL;   SetFlatMode(true);
 
   return this;
   }

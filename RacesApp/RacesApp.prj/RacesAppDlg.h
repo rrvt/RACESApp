@@ -215,9 +215,9 @@ public:
   afx_msg void    onLoadDatabase();
   afx_msg void    onSelectMbr();
   afx_msg void    onNewMember();
-  afx_msg void    onLoadCurMbrs() {loadMbrs(CurMbrSrc);}
-  afx_msg void    onLoadFmrMbrs() {loadMbrs(FmrMbrSrc);}
-  afx_msg void    onLoadRtrMbrs() {loadMbrs(RtrMbrSrc);}
+  afx_msg void    onLoadCurMbrs() {updateMbr(); loadMbrs(CurMbrSrc);}
+  afx_msg void    onLoadFmrMbrs() {updateMbr(); loadMbrs(FmrMbrSrc);}
+  afx_msg void    onLoadRtrMbrs() {updateMbr(); loadMbrs(RtrMbrSrc);}
   afx_msg void    onEditRecords();
   afx_msg void    onCheckList();
 

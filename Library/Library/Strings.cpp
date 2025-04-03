@@ -16,6 +16,19 @@
 Cstring::Cstring(String& s) : CString(s.str()) {}
 
 
+// Expunge data, then clear string
+
+void Cstring::expunge() {
+static random_device       rd;
+mt19937                    gen(rd());
+uniform_int_distribution<> distribute(32, 127);
+int                        n = length();
+int                        i;
+
+  for (i = 0; i < n; i++) Insert(i, (TCchar) distribute(gen));   clear();
+  }
+
+
 int Cstring::stoi( uint& i, int base) {
 long   v;
 Tchar*  endPtr;
