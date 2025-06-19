@@ -6,6 +6,12 @@
 #include "CbxItem.h"
 #include "ToolBarDim.h"
 
+#include "MessageBox.h"
+
+
+TBCboBx::TBCboBx(uint myId) :
+              CMFCToolBarComboBoxButton(myId, -1), id(myId), maxChars(0), percent(1), actual(0) { }
+
 
 TBCboBx* TBCboBx::install(int noChars) {maxChars = noChars;   return finInstall(_T(""));}
 
@@ -43,7 +49,7 @@ bool TBCboBx::setCaption() {
 
   if (!getActual()) return false;
 
-  actual->SetText(caption);   return true;
+  actual->SetText(caption);   setMaxChars(caption);   return true;
   }
 
 
@@ -61,20 +67,42 @@ String s = txt;
 
 
 bool TBCboBx::addItemSorted(TCchar* txt, int val) {
+String tgt = txt;
+int    index;
 
   if (!getActual() || !txt) return false;
 
-  if (actual->FindItem(txt) >= 0) return true;
+  index = actual->FindItem(tgt);
 
-  setMaxChars(txt);   return actual->AddSortedItem(txt, val) >= 0;
+  if (index >= 0) tgt = findNext(index);
+
+  setMaxChars(tgt);   return actual->AddSortedItem(tgt, val) >= 0;
   }
+
+
+String TBCboBx::findNext(int index) {
+int     n   = actual->GetCount();
+String  tgt = actual->GetItem(index);
+int     lng = tgt.length();
+int     i;
+String  s;
+
+  for (++index, i = 1; index < n; index++, i++) {
+    s = actual->GetItem(index);
+
+    if (tgt != s.substr(0, lng)) break;
+    }
+
+  return s.format(_T("%s -- %i"), tgt.str(), i);
+  }
+
 
 
 void TBCboBx::setWidth() {
 
   if (!getActual()) return;
 
-  ((TBCboBx*)actual)->m_iWidth  = toolBarDim.getHoriz(maxChars) + 20;
+  ((TBCboBx*)actual)->m_iWidth  = toolBarDim.getHoriz(maxChars) * percent / 100 + 20;
   }
 
 
@@ -93,15 +121,17 @@ int maxHeight = (toolBarDim.height/25 - 3) * 25;
   }
 
 
+void* TBCboBx::getData(int index) {return (void*) (getActual() ? actual->GetItemData(index) : 0);}
+
+
 bool TBCboBx::getCurSel(String& s, void*& data) {
-int i;
+int i = getCurSel();   if (i < 0) return false;
 
-  if (!getActual()) return false;
-
-  i = actual->GetCurSel();    if (i < 0) return false;
-
-   s = actual->GetItem(i);  data = (void*) actual->GetItemData(i);  return true;
+  s = actual->GetItem(i);  data = (void*) actual->GetItemData(i);  return true;
   }
+
+
+int TBCboBx::getCurSel() {return getActual() ? actual->GetCurSel() : -1;}
 
 
 int TBCboBx::find(TCchar* tc) {

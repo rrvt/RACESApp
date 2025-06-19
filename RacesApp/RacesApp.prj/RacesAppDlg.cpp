@@ -32,6 +32,30 @@ static TCchar* GroupsKey    = _T("GroupsIO");
 static TCchar* TrainingKey  = _T("Training");
 
 
+// Labels in the fields just before being edited
+
+static TCchar* FirstNameLbl     = _T("<First Name>");
+static TCchar* MiddleInitialLbl = _T("<I>");
+static TCchar* LastNameLbl      = _T("<Last Name>");
+static TCchar* SuffixLbl        = _T("<Ttl>");
+static TCchar* CallLbl          = _T("<FCC>");
+static TCchar* CSExpDateLbl     = _T("<Expires>");
+static TCchar* BgExpDateLbl     = _T("<Expires>");
+static TCchar* StreetAddrLbl    = _T("<Street Address>");
+static TCchar* UnitNoLbl        = _T("<Unit #>");
+static TCchar* CityLbl          = _T("<City>");
+static TCchar* StateLbl         = _T("<S>");
+static TCchar* ZipLbl           = _T("<Zip>");
+static TCchar* CellPhLbl        = _T("<Cell Phone>");
+static TCchar* LandLineLbl      = _T("<Landline>");
+static TCchar* HomeZipLbl       = _T("<Home Zip>");
+static TCchar* EmailLbl         = _T("<eMail Address>");
+static TCchar* DateLbl          = _T("<m/d/yr>");
+static TCchar* CompanyNameLbl   = _T("<Company Name>");
+static TCchar* CompanyZipLbl    = _T("<Cmpy Zip>");
+static TCchar* PicPathLbl       = _T("<Picture Path>");
+
+
 IMPLEMENT_DYNAMIC(RacesAppDlg, CDialogEx)
 
 
@@ -170,71 +194,70 @@ BOOL RacesAppDlg::PreTranslateMessage(MSG* pMsg) {return CDialogEx::PreTranslate
 
 void RacesAppDlg::DoDataExchange(CDataExchange* pDX) {
     CDialogEx::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_MemberList, mbrListCtl);
-    DDX_Control(pDX, IDC_RecordID, recordIDCtl);
-    DDX_Control(pDX, IDC_MbrFirstName, firstNameCtl);
-    DDX_Control(pDX, IDC_MbrMiddleInitial, midInitialCtl);
-    DDX_Control(pDX, IDC_MbrLastName, lastNameCtl);
-    DDX_Control(pDX, IDC_Suffix, suffixCtl);
-    DDX_Control(pDX, IDC_MbrCallsign, callSignCtl);
-    DDX_Control(pDX, IDC_CallSignExpDate, csExpDateCtl);
-    DDX_Control(pDX, IDC_BadgeOK, badgeOKCtl);
-    DDX_Control(pDX, IDC_BadgeNo, badgeNoCtl);
-    DDX_Control(pDX, IDC_BadgeExpDate, badgeExpDateCtl);
-    DDX_Control(pDX, IDC_MbrStreetAdr, mbrStreetAdrCtl);
-    DDX_Control(pDX, IDC_MbrUnitNo, mbrUnitNoCtl);
-    DDX_Control(pDX, IDC_MbrCity, mbrCityCtl);
-    DDX_Control(pDX, IDC_MbrState, mbrStateCtl);
-    DDX_Control(pDX, IDC_MbrZip, mbrZipCtl);
-    DDX_Control(pDX, IDC_MbrCellPh, mbrCellPhCtl);
-    DDX_Control(pDX, IDC_MbrLandline, mbrLandlineCtl);
-    DDX_Control(pDX, IDC_MbrZipOnly, mbrZipOnlyCtl);
-    DDX_Control(pDX, IDC_MbrHomeZip, mbrHomeZipCtl);
-    DDX_Control(pDX, IDC_MbrEmail, mbrEmailCtl);
-    DDX_Control(pDX, IDC_StartDate, startDateCtl);
-    DDX_Control(pDX, IDC_DSWDate, dswDateCtl);
-    DDX_Control(pDX, IDC_ResponderDate, responderDateCtl);
-    DDX_Control(pDX, IDC_ICEFirstName, iceFirstNameCtl);
-    DDX_Control(pDX, IDC_ICEMiddleInitial, iceMidInitialCtl);
-    DDX_Control(pDX, IDC_ICELastName, iceLastNameCtl);
-    DDX_Control(pDX, IDC_ICEeMail, iceEmailCtl);
-    DDX_Control(pDX, IDC_ICEStreetAdr, iceStreetAdrCtl);
-    DDX_Control(pDX, IDC_ICEUnitNo, iceUnitNoCtl);
-    DDX_Control(pDX, IDC_ICECity, iceCityCtl);
-    DDX_Control(pDX, IDC_ICEState, iceStateCtl);
-    DDX_Control(pDX, IDC_ICEZip, iceZipCtl);
-    DDX_Control(pDX, IDC_ICECellPh, iceCellPhCtl);
-    DDX_Control(pDX, IDC_ICELandline, iceLandlineCtl);
-    DDX_Control(pDX, IDC_EmplName, emplNameCtl);
-    DDX_Control(pDX, IDC_EmplEmail, emplEmailCtl);
-    DDX_Control(pDX, IDC_EmplStreetAdr, emplStreetAdrCtl);
-    DDX_Control(pDX, IDC_EmplUnitNo, emplUnitNoCtl);
-    DDX_Control(pDX, IDC_EmplCity, emplCityCtl);
-    DDX_Control(pDX, IDC_EmplState, emplStateCtl);
-    DDX_Control(pDX, IDC_EmplZip, emplZipCtl);
-    DDX_Control(pDX, IDC_EmplCellPh, emplCellPhCtl);
-    DDX_Control(pDX, IDC_EmplLandline, emplLandlineCtl);
-    DDX_Control(pDX, IDC_EmplZipOnly, emplZipOnlyCtl);
-    DDX_Control(pDX, IDC_EmplCompanyZip, emplCmpZipCtl);
-    DDX_Control(pDX, IDC_HandHeld, handHeldCtl);
-    DDX_Control(pDX, IDC_PortMobile, portMobileCtl);
-    DDX_Control(pDX, IDC_PortPacket, portPacketCtl);
-    DDX_Control(pDX, IDC_OtherEquip, otherEquipCtl);
-    DDX_Control(pDX, IDC_Multilingual, multilingualCtl);
+    DDX_Control(pDX, IDC_MemberList,        mbrListCtl);
+    DDX_Control(pDX, IDC_RecordID,          recordIDCtl);
+    DDX_Control(pDX, IDC_MbrFirstName,      firstNameCtl);
+    DDX_Control(pDX, IDC_MbrMiddleInitial,  midInitialCtl);
+    DDX_Control(pDX, IDC_MbrLastName,       lastNameCtl);
+    DDX_Control(pDX, IDC_Suffix,            suffixCtl);
+    DDX_Control(pDX, IDC_MbrCallsign,       callSignCtl);
+    DDX_Control(pDX, IDC_CallSignExpDate,   csExpDateCtl);
+    DDX_Control(pDX, IDC_BadgeOK,           badgeOKCtl);
+    DDX_Control(pDX, IDC_BadgeNo,           badgeNoCtl);
+    DDX_Control(pDX, IDC_BadgeExpDate,      badgeExpDateCtl);
+    DDX_Control(pDX, IDC_MbrStreetAdr,      mbrStreetAdrCtl);
+    DDX_Control(pDX, IDC_MbrUnitNo,         mbrUnitNoCtl);
+    DDX_Control(pDX, IDC_MbrCity,           mbrCityCtl);
+    DDX_Control(pDX, IDC_MbrState,          mbrStateCtl);
+    DDX_Control(pDX, IDC_MbrZip,            mbrZipCtl);
+    DDX_Control(pDX, IDC_MbrCellPh,         mbrCellPhCtl);
+    DDX_Control(pDX, IDC_MbrLandline,       mbrLandlineCtl);
+    DDX_Control(pDX, IDC_MbrZipOnly,        mbrZipOnlyCtl);
+    DDX_Control(pDX, IDC_MbrHomeZip,        mbrHomeZipCtl);
+    DDX_Control(pDX, IDC_MbrEmail,          mbrEmailCtl);
+    DDX_Control(pDX, IDC_StartDate,         startDateCtl);
+    DDX_Control(pDX, IDC_DSWDate,           dswDateCtl);
+    DDX_Control(pDX, IDC_ResponderDate,     responderDateCtl);
+    DDX_Control(pDX, IDC_ICEFirstName,      iceFirstNameCtl);
+    DDX_Control(pDX, IDC_ICEMiddleInitial,  iceMidInitialCtl);
+    DDX_Control(pDX, IDC_ICELastName,       iceLastNameCtl);
+    DDX_Control(pDX, IDC_ICEeMail,          iceEmailCtl);
+    DDX_Control(pDX, IDC_ICEStreetAdr,      iceStreetAdrCtl);
+    DDX_Control(pDX, IDC_ICEUnitNo,         iceUnitNoCtl);
+    DDX_Control(pDX, IDC_ICECity,           iceCityCtl);
+    DDX_Control(pDX, IDC_ICEState,          iceStateCtl);
+    DDX_Control(pDX, IDC_ICEZip,            iceZipCtl);
+    DDX_Control(pDX, IDC_ICECellPh,         iceCellPhCtl);
+    DDX_Control(pDX, IDC_ICELandline,       iceLandlineCtl);
+    DDX_Control(pDX, IDC_EmplName,          emplNameCtl);
+    DDX_Control(pDX, IDC_EmplEmail,         emplEmailCtl);
+    DDX_Control(pDX, IDC_EmplStreetAdr,     emplStreetAdrCtl);
+    DDX_Control(pDX, IDC_EmplUnitNo,        emplUnitNoCtl);
+    DDX_Control(pDX, IDC_EmplCity,          emplCityCtl);
+    DDX_Control(pDX, IDC_EmplState,         emplStateCtl);
+    DDX_Control(pDX, IDC_EmplZip,           emplZipCtl);
+    DDX_Control(pDX, IDC_EmplCellPh,        emplCellPhCtl);
+    DDX_Control(pDX, IDC_EmplLandline,      emplLandlineCtl);
+    DDX_Control(pDX, IDC_EmplZipOnly,       emplZipOnlyCtl);
+    DDX_Control(pDX, IDC_EmplCompanyZip,    emplCmpZipCtl);
+    DDX_Control(pDX, IDC_HandHeld,          handHeldCtl);
+    DDX_Control(pDX, IDC_PortMobile,        portMobileCtl);
+    DDX_Control(pDX, IDC_PortPacket,        portPacketCtl);
+    DDX_Control(pDX, IDC_OtherEquip,        otherEquipCtl);
+    DDX_Control(pDX, IDC_Multilingual,      multilingualCtl);
     DDX_Control(pDX, IDC_OtherCapabilities, otherCapCtl);
-    DDX_Control(pDX, IDC_Limitations, limitationsCtl);
-    DDX_Control(pDX, IDC_Comments, commentsCtl);
-    DDX_Control(pDX, IDC_SkillCerts, skillCertsCtl);
-    DDX_Control(pDX, IDC_EOCCert, eocCertCtl);
-    DDX_Control(pDX, IDC_LastUpdate, lastUpdateCtl);
-    DDX_Control(pDX, IDC_Officer, officerCtl);
-    DDX_Control(pDX, IDC_MbrStatus, statusCtl);
-    DDX_Control(pDX, IDC_Geography, RespGeographyCtl);
-    DDX_Control(pDX, IDC_Availability, availabilityCtl);
-    DDX_Control(pDX, IDC_Picture, pictureCtl);
-    DDX_Control(pDX, IDC_PicPath, picPathCtl);
-}
-
+    DDX_Control(pDX, IDC_Limitations,       limitationsCtl);
+    DDX_Control(pDX, IDC_Comments,          commentsCtl);
+    DDX_Control(pDX, IDC_SkillCerts,        skillCertsCtl);
+    DDX_Control(pDX, IDC_EOCCert,           eocCertCtl);
+    DDX_Control(pDX, IDC_LastUpdate,        lastUpdateCtl);
+    DDX_Control(pDX, IDC_Officer,           officerCtl);
+    DDX_Control(pDX, IDC_MbrStatus,         statusCtl);
+    DDX_Control(pDX, IDC_Geography,         RespGeographyCtl);
+    DDX_Control(pDX, IDC_Availability,      availabilityCtl);
+    DDX_Control(pDX, IDC_Picture,           pictureCtl);
+    DDX_Control(pDX, IDC_PicPath,           picPathCtl);
+    }
 
 int RacesAppDlg::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
@@ -413,61 +436,61 @@ String          tgt;
   mbrGeography.set(curMbr.rcd);
 
   set(recordIDCtl,     get(curMbr.rcd->getId()));
-  set(firstNameCtl,    curMbr.mbr->firstName);
-  set(midInitialCtl,   curMbr.mbr->middleInitial);
-  set(lastNameCtl,     curMbr.mbr->lastName);
-  set(suffixCtl,       curMbr.mbr->suffix);
-  set(callSignCtl,     curMbr.rcd->callSign);
-  set(csExpDateCtl,    expandDate(curMbr.rcd->fCCExpiration));
+  set(firstNameCtl,    curMbr.mbr->firstName,                        LastNameLbl);
+  set(midInitialCtl,   curMbr.mbr->middleInitial,                    MiddleInitialLbl);
+  set(lastNameCtl,     curMbr.mbr->lastName,                         LastNameLbl);
+  set(suffixCtl,       curMbr.mbr->suffix,                           SuffixLbl);
+  set(callSignCtl,     curMbr.rcd->callSign,                         CallLbl);
+  set(csExpDateCtl,    expandDate(curMbr.rcd->fCCExpiration),        CSExpDateLbl);
   set(badgeOKCtl,      curMbr.rcd->badgeOK);
   set(badgeNoCtl,      get(curMbr.rcd->badgeNumber));
-  set(badgeExpDateCtl, expandDate(curMbr.rcd->badgeExpDate));
+  set(badgeExpDateCtl, expandDate(curMbr.rcd->badgeExpDate),         BgExpDateLbl);
 
   if (!setEntity(curMbr.mbr, adrRcd, ctyRcd)) return;
 
-  set(mbrStreetAdrCtl,        adrRcd->address1);
-  set(mbrUnitNoCtl,           adrRcd->address2);
-  set(mbrCityCtl,             ctyRcd->city);
-  set(mbrStateCtl,            ctyRcd->state);
-  set(mbrZipCtl,              expandZip(ctyRcd->zip));
-  set(mbrCellPhCtl,           expandPhone(curMbr.mbr->phone2));
-  set(mbrLandlineCtl,         expandPhone(curMbr.mbr->phone1));
+  set(mbrStreetAdrCtl,        adrRcd->address1,                      StreetAddrLbl);
+  set(mbrUnitNoCtl,           adrRcd->address2,                      UnitNoLbl);
+  set(mbrCityCtl,             ctyRcd->city,                          CityLbl);
+  set(mbrStateCtl,            ctyRcd->state,                         StateLbl);
+  set(mbrZipCtl,              expandZip(ctyRcd->zip),                ZipLbl);
+  set(mbrCellPhCtl,           expandPhone(curMbr.mbr->phone2),       CellPhLbl);
+  set(mbrLandlineCtl,         expandPhone(curMbr.mbr->phone1),       LandLineLbl);
   set(mbrZipOnlyCtl,          curMbr.mbr->addrIsPO);
-  set(mbrHomeZipCtl,          expandZip(curMbr.mbr->locationZip));
+  set(mbrHomeZipCtl,          expandZip(curMbr.mbr->locationZip),    HomeZipLbl);
 
-  set(mbrEmailCtl,            curMbr.mbr->eMail);
+  set(mbrEmailCtl,            curMbr.mbr->eMail,                     EmailLbl);
   set(officerCtl,             curMbr.rcd->isOfficer);
-  set(startDateCtl,           expandDate(curMbr.rcd->startDate));
-  set(dswDateCtl,             expandDate(curMbr.rcd->dSWDate));
-  set(responderDateCtl,       expandDate(curMbr.rcd->responder));
+  set(startDateCtl,           expandDate(curMbr.rcd->startDate),     DateLbl);
+  set(dswDateCtl,             expandDate(curMbr.rcd->dSWDate),       DateLbl);
+  set(responderDateCtl,       expandDate(curMbr.rcd->responder),     DateLbl);
 
   if (setEntity(curMbr.ice, adrRcd, ctyRcd)) {
-    set(iceFirstNameCtl,      curMbr.ice->firstName);
-    set(iceMidInitialCtl,     curMbr.ice->middleInitial);
-    set(iceLastNameCtl,       curMbr.ice->lastName);
-    set(iceEmailCtl,          curMbr.ice->eMail);
-    set(iceStreetAdrCtl,      adrRcd->address1);
-    set(iceUnitNoCtl,         adrRcd->address2);
+    set(iceFirstNameCtl,      curMbr.ice->firstName,                 FirstNameLbl);
+    set(iceMidInitialCtl,     curMbr.ice->middleInitial,             MiddleInitialLbl);
+    set(iceLastNameCtl,       curMbr.ice->lastName,                  LastNameLbl);
+    set(iceEmailCtl,          curMbr.ice->eMail,                     EmailLbl);
+    set(iceStreetAdrCtl,      adrRcd->address1,                      StreetAddrLbl);
+    set(iceUnitNoCtl,         adrRcd->address2,                      UnitNoLbl);
 
-    set(iceCityCtl,           ctyRcd->city);
-    set(iceStateCtl,          ctyRcd->state);
-    set(iceZipCtl,            expandZip(ctyRcd->zip));
-    set(iceCellPhCtl,         expandPhone(curMbr.ice->phone2));
-    set(iceLandlineCtl,       expandPhone(curMbr.ice->phone1));
+    set(iceCityCtl,           ctyRcd->city,                          CityLbl);
+    set(iceStateCtl,          ctyRcd->state,                         StateLbl);
+    set(iceZipCtl,            expandZip(ctyRcd->zip),                ZipLbl);
+    set(iceCellPhCtl,         expandPhone(curMbr.ice->phone2),       CellPhLbl);
+    set(iceLandlineCtl,       expandPhone(curMbr.ice->phone1),       LandLineLbl);
     }
 
   if (setEntity(curMbr.empl, adrRcd, ctyRcd)) {
-    set(emplNameCtl,            curMbr.empl->firstName);
-    set(emplEmailCtl,           curMbr.empl->eMail);
-    set(emplStreetAdrCtl,       adrRcd->address1);
-    set(emplUnitNoCtl,          adrRcd->address2);
-    set(emplCityCtl,            ctyRcd->city);
-    set(emplStateCtl,           ctyRcd->state);
-    set(emplZipCtl,             expandZip(ctyRcd->zip));
-    set(emplCellPhCtl,          expandPhone(curMbr.empl->phone2));
-    set(emplLandlineCtl,        expandPhone(curMbr.empl->phone1));
+    set(emplNameCtl,            curMbr.empl->firstName,              CompanyNameLbl);
+    set(emplEmailCtl,           curMbr.empl->eMail,                  EmailLbl);
+    set(emplStreetAdrCtl,       adrRcd->address1,                    StreetAddrLbl);
+    set(emplUnitNoCtl,          adrRcd->address2,                    UnitNoLbl);
+    set(emplCityCtl,            ctyRcd->city,                        CityLbl);
+    set(emplStateCtl,           ctyRcd->state,                       StateLbl);
+    set(emplZipCtl,             expandZip(ctyRcd->zip),              ZipLbl);
+    set(emplCellPhCtl,          expandPhone(curMbr.empl->phone2),    CellPhLbl);
+    set(emplLandlineCtl,        expandPhone(curMbr.empl->phone1),    LandLineLbl);
     set(emplZipOnlyCtl,         curMbr.empl->addrIsPO);
-    set(emplCmpZipCtl,          expandZip(curMbr.empl->locationZip));
+    set(emplCmpZipCtl,          expandZip(curMbr.empl->locationZip), CompanyZipLbl);
     }
   set(handHeldCtl,              curMbr.rcd->handHeld);
   set(portMobileCtl,            curMbr.rcd->portMobile);
@@ -607,30 +630,6 @@ void RacesAppDlg::initScreen() {
   clear(commentsCtl);       clear(skillCertsCtl);     clear(eocCertCtl);
   clear(lastUpdateCtl);     mbrPic.clear();
   }
-
-
-// Labels in the fields just before being edited
-
-static TCchar* FirstNameLbl     = _T("<First Name>");
-static TCchar* MiddleInitialLbl = _T("<I>");
-static TCchar* LastNameLbl      = _T("<Last Name>");
-static TCchar* SuffixLbl        = _T("<Ttl>");
-static TCchar* CallLbl          = _T("<FCC>");
-static TCchar* CSExpDateLbl     = _T("<Expires>");
-static TCchar* BgExpDateLbl     = _T("<Expires>");
-static TCchar* StreetAddrLbl    = _T("<Street Address>");
-static TCchar* UnitNoLbl        = _T("<Unit #>");
-static TCchar* CityLbl          = _T("<City>");
-static TCchar* StateLbl         = _T("<S>");
-static TCchar* ZipLbl           = _T("<Zip>");
-static TCchar* CellPhLbl        = _T("<Cell Phone>");
-static TCchar* LandLineLbl      = _T("<Landline>");
-static TCchar* HomeZipLbl       = _T("<Home Zip>");
-static TCchar* EmailLbl         = _T("<eMail Address>");
-static TCchar* DateLbl          = _T("<m/d/yr>");
-static TCchar* CompanyNameLbl   = _T("<Company Name>");
-static TCchar* CompanyZipLbl    = _T("<Cmpy Zip>");
-static TCchar* PicPathLbl       = _T("<Picture Path>");
 
 
 void RacesAppDlg::setLabels() {

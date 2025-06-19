@@ -12,11 +12,18 @@ inline TCchar* get(CComboBox& ctl) {static Cstring cs;   ctl.GetWindowText(cs); 
 inline TCchar* get(int          v) {static String   s;   s = v;                   return s;}
 
 
+inline bool    set(CButton&   ctl, bool    chk) {ctl.SetCheck(chk);   return chk;}
        TCchar* set(CStatic&   ctl, TCchar* txt);
        TCchar* set(CEdit&     ctl, TCchar* txt);
        TCchar* set(CComboBox& ctl, TCchar* txt);
-inline bool    set(CButton&   ctl, bool    chk) {ctl.SetCheck(chk);   return chk;}
 
+       TCchar* set(CStatic&   ctl, TCchar* txt, TCchar* lbl);     // If txt empty, set lbl
+       TCchar* set(CEdit&     ctl, TCchar* txt, TCchar* lbl);
+       TCchar* set(CComboBox& ctl, TCchar* txt, TCchar* lbl);
+
+inline bool    isLabel(CStatic&   ctl, TCchar* lbl) {return (get(ctl) == lbl);}
+inline bool    isLabel(CEdit&     ctl, TCchar* lbl) {return (get(ctl) == lbl);}
+inline bool    isLabel(CComboBox& ctl, TCchar* lbl) {return (get(ctl) == lbl);}
 
        void    addCB(CComboBox& ctl, TCchar* key, void* rcd);
 

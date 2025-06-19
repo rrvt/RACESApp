@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 6/19/25
+
+Corrected problem with empty fields in records.
+
 ### update 4/3/25
 
 Corrected Update for new member.

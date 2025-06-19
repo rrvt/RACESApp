@@ -11,12 +11,18 @@
 static String adjFrag(String& frag);
 
 
-TCchar* set(CStatic&   ctl, TCchar* txt)
-                        {String s = txt;   if (!s.isEmpty()) ctl.SetWindowText(txt);   return txt;}
-TCchar* set(CEdit&     ctl, TCchar* txt) //{ctl.SetWindowText(txt);   return txt;}
-                        {String s = txt;   if (!s.isEmpty()) ctl.SetWindowText(txt);   return txt;}
-TCchar* set(CComboBox& ctl, TCchar* txt) //{ctl.SetWindowText(txt);   return txt;}
-                        {String s = txt;   if (!s.isEmpty()) ctl.SetWindowText(txt);   return txt;}
+TCchar* set(CStatic&   ctl, TCchar* txt) {String s = txt;   ctl.SetWindowText(s);   return s;}
+TCchar* set(CEdit&     ctl, TCchar* txt) {String s = txt;   ctl.SetWindowText(s);   return s;}
+TCchar* set(CComboBox& ctl, TCchar* txt) {String s = txt;   ctl.SetWindowText(s);   return s;}
+
+
+TCchar* set(CStatic&   ctl, TCchar* txt, TCchar* lbl)
+                                  {String s = txt && *txt ? txt : lbl;    set(ctl, s);   return s;}
+TCchar* set(CEdit&     ctl, TCchar* txt, TCchar* lbl)
+                                  {String s = txt && *txt ? txt : lbl;    set(ctl, s);   return s;}
+TCchar* set(CComboBox& ctl, TCchar* txt, TCchar* lbl)
+                                  {String s = txt && *txt ? txt : lbl;    set(ctl, s);   return s;}
+
 
 
 
