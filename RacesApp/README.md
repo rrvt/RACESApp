@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 6/20/25
+
+Big hole in viewing records is plugged.
+
 ### Update 6/19/25
 
 Corrected problem with empty fields in records.

@@ -170,6 +170,7 @@
     <ClInclude Include="MyToolBar.h" />
     <ClInclude Include="ChkListDlg.h" />
     <ClInclude Include="PriorityList.h" />
+    <ClInclude Include="ProblemEntriesRpt.h" />
     <ClInclude Include="RacesApp.h" />
     <ClInclude Include="RacesAppDlg.h" />
     <ClInclude Include="Reports.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="PrepCtyRcd.cpp" />
     <ClCompile Include="PrepEntRcd.cpp" />
     <ClCompile Include="PriorityList.cpp" />
+    <ClCompile Include="ProblemEntriesRpt.cpp" />
     <ClCompile Include="RacesApp.cpp" />
     <ClCompile Include="RacesAppDlg.cpp" />
     <ClCompile Include="Reports.cpp" />
@@ -246,6 +248,7 @@
     <Image Include="res\RacesApp.ico" />
     <Image Include="res\ShortToolbar.bmp" />
     <Image Include="res\Toolbar21.bmp" />
+    <Image Include="res\Toolbar23.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library\Library.vcxproj">

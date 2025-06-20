@@ -13,6 +13,7 @@
 #include "GetPathDlg.h"
 #include "GoogleRpt.h"
 #include "MbrIDs.h"
+#include "ProblemEntriesRpt.h"
 #include "ResponderCntRpt.h"
 
 
@@ -130,6 +131,17 @@ FmrPeriodDlg dlg;
 
   if (dlg.DoModal() == IDOK) rpt(dlg.begP, dlg.endP);
   }
+
+
+void Reports::problemEntries() {
+PathDlgDsc        dsc = {_T("Problem Entries"), getPathDsc(_T("ProblemEntries")),
+                                                                           _T("csv"), _T("*.csv")};
+String            path = getOutputPath(dsc);
+ProblemEntriesRpt rpt(path);
+
+  rpt();
+  }
+
 
 
 String& Reports::getPathDsc(TCchar* fileName) {

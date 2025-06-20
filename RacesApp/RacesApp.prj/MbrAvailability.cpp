@@ -11,8 +11,8 @@ static TCchar* AvailList[6][2] = {{_T("P"), _T("Primary")},
                                   {_T("E"), _T("Secondary")},
                                   {_T("G"), _T("May Respond")},
                                   {_T("L"), _T("Last Resort")},
-                                  {_T("A"), _T("ARES")},
                                   {_T("O"), _T("Other")},
+                                  {_T("A"), _T("ARES Only")}
                                   };
 
 
@@ -38,7 +38,7 @@ int     i;
   }
 
 
-void MbrAvailability::setDefault() {listCtl.SelectString(-1, AvailList[0][1]);}
+void MbrAvailability::setDefault() {listCtl.SelectString(-1, AvailList[4][1]);}
 
 
 int MbrAvailability::getID() {

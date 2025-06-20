@@ -28,8 +28,24 @@ bool MyToolBar::addMenu(uint id, CbxItem cbxItem[], int n, TCchar* caption) {
   }
 
 
+void MyToolBar::setWthPercent(uint id, int prcnt) {
+  if (id == rptMenu.getId()) {ToolBarBase::setWthPercent(rptMenu,     prcnt);   return;}
+  }
+
+
+void MyToolBar::setWidth(uint id) {
+  if (id == rptMenu.getId()) {ToolBarBase::setWidth(rptMenu);      return;}
+  Invalidate();
+  }
+
+
+void MyToolBar::setHeight( uint id) {
+  if (id == rptMenu.getId()) ToolBarBase::setHeight(rptMenu);
+  }
+
+
 void MyToolBar::dispatch(uint id) {
-  if (id == rptMenu.getId())  ToolBarBase::dispatch(rptMenu);
+  if (id == rptMenu.getId()) ToolBarBase::dispatch(rptMenu);
   }
 
 

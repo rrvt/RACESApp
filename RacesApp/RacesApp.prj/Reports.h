@@ -28,6 +28,8 @@ public:
   void    suffixList();
   void    formerList();
 
+  void    problemEntries();
+
 private:
 
   String& getPathDsc(TCchar* fileName);

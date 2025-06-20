@@ -161,6 +161,8 @@ private:
 
   bool            setEntity(EntRcd* ent, AdrRcd*& adr, CtyRcd*& cty);
 
+  void            selectMbr();
+
   void            updateMbr();
   void            saveMember();
   void            saveNewMember();
@@ -210,6 +212,8 @@ private:
   void            setSrch() {if (!srch) srch = new MbrSearch(mbrListCtl);}
   void            setCtlFocus();
 
+  TCchar*         getDbPathKey();
+
 public:
 
   afx_msg void    onLoadDatabase();
@@ -234,6 +238,7 @@ public:
   afx_msg void    onMemberIDs()      {reports.memberIDs();}
   afx_msg void    onSuffixList()     {reports.suffixList();}
   afx_msg void    onFormerList()     {reports.formerList();}
+  afx_msg void    onProblemEntries() {reports.problemEntries();}
 
   afx_msg void    onLeft();
   afx_msg void    onFind();

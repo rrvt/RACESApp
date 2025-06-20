@@ -26,6 +26,7 @@
 
 static TCchar* GlobalSect   = _T("Global");
 static TCchar* DBFileKey    = _T("DBfile");
+static TCchar* DBDbgFileKey = _T("DBDbgFile");
 static TCchar* ApplProcdKey = _T("ApplProcd");
 static TCchar* PictureKey   = _T("Picture");
 static TCchar* GroupsKey    = _T("GroupsIO");
@@ -95,6 +96,7 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_MemberIDs,         &onMemberIDs)
   ON_COMMAND(      ID_SuffixList,        &onSuffixList)
   ON_COMMAND(      ID_FormerMbrs,        &onFormerList)
+  ON_COMMAND(      ID_ProblemEntries,    &onProblemEntries)
 
   ON_COMMAND(      ID_SanitizeDB,        &onSanitizeDB)
   ON_COMMAND(      ID_SetCompact,        &onSetCompact)
@@ -284,8 +286,7 @@ CRect winRect;
 
   winPos.initialPos(this, winRect);   toolBar.move(winRect);   statusBar.move(winRect);
 
-  iniFile.read(GlobalSect, DBFileKey, path);   loadDatabase();
-
+  iniFile.read(GlobalSect, getDbPathKey(), path);   loadDatabase();
 
   isInitialized = true;  setTitle();    readOnly = true;
 
@@ -298,10 +299,19 @@ PathDlgDsc dsc(_T("Database"), 0, _T("accdb"), _T("*.accdb"));
 
   if (!getOpenDlg(dsc, path)) return;
 
-  iniFile.writeString(GlobalSect, DBFileKey, path);
+  iniFile.writeString(GlobalSect, getDbPathKey(), path);
 
   loadDatabase();   curMbr.initialize();
   }
+
+
+
+#ifdef _DEBUG
+  TCchar* RacesAppDlg::getDbPathKey() {return DBDbgFileKey;}
+#else
+  TCchar* RacesAppDlg::getDbPathKey() {return DBFileKey;}
+#endif
+
 
 
 void RacesAppDlg::loadDatabase() {
@@ -374,7 +384,7 @@ int         indx;
     mbrListCtl.SetItemDataPtr(indx, info);
     }
 
-  setStatus(src, readOnly);
+  setStatus(src, readOnly);    mbrListCtl.SetWindowText(_T("Member List"));
   }
 
 
@@ -382,7 +392,7 @@ void RacesAppDlg::onEditRecords() {readOnly = !readOnly;   setStatus(dlgSource, 
 
 
 
-void RacesAppDlg::onLeft() {updateMbr();   setSrch();   if (srch->left()) onSelectMbr();}
+void RacesAppDlg::onLeft() {updateMbr();   setSrch();   if (srch->left()) selectMbr();}
 
 
 void RacesAppDlg::onFind() {
@@ -399,13 +409,13 @@ SearchDlg dlg;
     srch->caseSensitive = dlg.caseSensitive;
     srch->attributes    = dlg.attributes;
 
-    if (srch->find(dlg.target)) {onSelectMbr();   setCtlFocus();}
+    if (srch->find(dlg.target)) {selectMbr();   setCtlFocus();}
     }
   }
 
 
 void RacesAppDlg::onFindNext()
-              {updateMbr();   setSrch();   if (srch->findNext()) {onSelectMbr();   setCtlFocus();}}
+              {updateMbr();   setSrch();   if (srch->findNext()) {selectMbr();   setCtlFocus();}}
 
 
 void RacesAppDlg::setCtlFocus() {
@@ -416,18 +426,19 @@ CWnd* wnd = GetDlgItem(id);
   }
 
 
-void RacesAppDlg::onRight() {updateMbr();   setSrch();   if (srch->right()) onSelectMbr();}
+void RacesAppDlg::onRight() {updateMbr();   setSrch();   if (srch->right()) selectMbr();}
 
 
-void RacesAppDlg::onSelectMbr() {
+void RacesAppDlg::onSelectMbr() {updateMbr();   selectMbr();}
+
+
+void RacesAppDlg::selectMbr() {
 int             indx = mbrListCtl.GetCurSel();    if (indx < 0) return;
 AdrRcd*         adrRcd;
 CtyRcd*         ctyRcd;
 String          tgt;
 
-  updateMbr();
-
-  setLabels();   mbrPic.clear();
+  initScreen();
 
   if (!curMbr.set((MbrInfo*)mbrListCtl.GetItemDataPtr(indx))) return;
 
@@ -519,7 +530,6 @@ String     sect;
 
   if (dlgSource == NilSrc) return;
 
-//  sect = curMbr.ent->firstName + _T(' ') + curMbr.ent->lastName + _T(", ") + mbrRcd->callSign;
   sect = curMbr.getIdent();
 
   dlg.nameCallSign = sect;
@@ -633,6 +643,7 @@ void RacesAppDlg::initScreen() {
 
 
 void RacesAppDlg::setLabels() {
+
   setFirstName();                           set(  midInitialCtl, MiddleInitialLbl);
   set(    lastNameCtl, LastNameLbl);        set(  suffixCtl,     SuffixLbl);
   set(    callSignCtl, CallLbl);
@@ -849,13 +860,15 @@ CtyRcd*    ctyRcd;
 
   clrLabels();
 
-  if (setField(curMbr.rcd->statusID,      mbrStatus.getID()))                   curMbr.rcdDirty();
-  if (setField(curMbr.rcd->callSign,      get(callSignCtl)))                    curMbr.rcdDirty();
-  if (setField(curMbr.rcd->fCCExpiration, compressDate(get(csExpDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->startDate,     compressDate(get(startDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->dSWDate,       compressDate(get(dswDateCtl))))       curMbr.rcdDirty();
-  if (setField(curMbr.rcd->badgeExpDate,  compressDate(get(badgeExpDateCtl))))  curMbr.rcdDirty();
-  if (setField(curMbr.rcd->responder,     compressDate(get(responderDateCtl)))) curMbr.rcdDirty();
+  if (setField(curMbr.rcd->statusID,       mbrStatus.getID()))                   curMbr.rcdDirty();
+  if (setField(curMbr.rcd->assgnPrefID,    mbrAvailability.getID()))             curMbr.rcdDirty();
+  if (setField(curMbr.rcd->locationPrefID, mbrGeography.getID()))                curMbr.rcdDirty();
+  if (setField(curMbr.rcd->callSign,       get(callSignCtl)))                    curMbr.rcdDirty();
+  if (setField(curMbr.rcd->fCCExpiration,  compressDate(get(csExpDateCtl))))     curMbr.rcdDirty();
+  if (setField(curMbr.rcd->startDate,      compressDate(get(startDateCtl))))     curMbr.rcdDirty();
+  if (setField(curMbr.rcd->dSWDate,        compressDate(get(dswDateCtl))))       curMbr.rcdDirty();
+  if (setField(curMbr.rcd->badgeExpDate,   compressDate(get(badgeExpDateCtl))))  curMbr.rcdDirty();
+  if (setField(curMbr.rcd->responder,      compressDate(get(responderDateCtl)))) curMbr.rcdDirty();
 
   mbr.setFirstName(get(firstNameCtl));
   mbr.setMiddleInit(get(midInitialCtl));
@@ -1115,7 +1128,11 @@ LRESULT RacesAppDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar(
 void RacesAppDlg::setupToolBar() {
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
-  toolBar.addMenu(ID_ReportMenu,  IDR_ReportMenu, _T("Reports"));
+  toolBar.setWthPercent(ID_ReportMenu, 75);
+  toolBar.addMenu(      ID_ReportMenu,  IDR_ReportMenu, _T("Reports"));
+  toolBar.setWidth(     ID_ReportMenu);
+  toolBar.setHeight(    ID_ReportMenu);
+
   toolBar.setSeparator(15);
   }
 
@@ -1130,284 +1147,3 @@ BOOL RacesAppDlg::OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
 
 ////--------------
 
-#if 0
-bool RacesAppDlg::setPtrs(MbrInfo* info) {
-
-  if (!info) return false;
-
-  currentInfo = info;
-  curMbr.rcd      = info->curMbr.rcd  ? info->curMbr.rcd  : &nilRcd;
-  curMbr.ent      = info->curMbr.ent  ? info->curMbr.ent  : &nilEnt;
-  curMbr.empl     = info->curMbr.empl ? info->curMbr.empl : &nilEnt;
-  curMbr.ice      = info->curMbr.ice  ? info->curMbr.ice  : &nilEnt;
-
-  setTitle();   return true;
-  }
-#endif
-#if 1
-#else
-  if (msgYesNoBox(_T("Update database?")) == IDYES) {
-
-    adrTbl.store(dbPath);
-    ctyTbl.store(dbPath);
-    entTbl.store(dbPath);
-    mbrTbl.store(dbPath);
-    }
-#endif
-#if 1
-#else
-  setLabels();              reset(mbrListCtl);        clear(badgeOKCtl);
-  clear(badgeNoCtl);        clear(recordIDCtl);       clear(mbrZipOnlyCtl);
-  clear(officerCtl);        clear(emplZipOnlyCtl);    clear(handHeldCtl);
-  clear(portMobileCtl);     clear(portPacketCtl);     clear(otherEquipCtl);
-  clear(multilingualCtl);   clear(otherCapCtl);       clear(limitationsCtl);
-  clear(commentsCtl);       clear(skillCertsCtl);     clear(eocCertCtl);
-  clear(lastUpdateCtl);     mbrPic.clear();
-#endif
-#if 1
-#else
-String first;
-String last;
-String call;
-
-  if (curMbr.ent && curMbr.rcd) {
-    first = curMbr.ent->firstName;
-    last  = curMbr.ent->lastName;
-    call  = curMbr.rcd->callSign;
-    }
-
-  if (!first.isEmpty()) title  = first;
-  if (!last.isEmpty())  title += _T(' ') + last;
-  if (!call.isEmpty())  title += _T(", ") + call;
-#endif
-#if 0
-String RacesAppDlg::expandDate(TCchar* tc) {
-String dt = tc;
-String s;
-
-  if (!dt.length() || dt.find(_T('/')) > 0) return dt;
-
-  s = dt.substr(0, 2) + _T('/') + dt.substr(2, 2) + _T('/') + dt.substr(4);   return s;
-  }
-
-
-String RacesAppDlg::compressDate(TCchar* cs) {
-String dt = cs;
-int    pos;
-int    pos2;
-String frag;
-String s;
-
-  pos = dt.find(_T('/'));             if (pos < 0) return dt;
-
-  frag = dt.substr(0, pos);           s = adjFrag(frag);   pos++;
-
-  pos2 = dt.find(_T('/'), pos);       if (pos < 0) {s += dt.substr(pos);   return s;}
-
-  frag = dt.substr(pos, pos2-pos);    s += adjFrag(frag);   pos2++;
-
-  frag = dt.substr(pos2);             s += adjFrag(frag);
-
-  return s;
-  }
-
-
-// 4085551212 becomes 408.555.1212
-
-String RacesAppDlg::expandPhone(TCchar* tc) {
-String s   = tc;      s.trim();
-int    lng = s.length();
-String t;
-
-  if (!lng) return s;
-
-  if (s.find(_T('.')) > 0 || s.find(_T('-')) > 0) return s;
-
-  if (lng >= 10) {t = s.substr(0, 3) + _T('.');   s = s.substr(3);}
-
-  t += s.substr(0, 3) + _T('.') + s.substr(3);   return t;
-  }
-
-
-// (408) 555-1212 becomes 4085551212 or
-// 408.555.1212 becomes 4085551212 or
-// 408-555-1212 becomes 4085551212 or combinations of "()", ' ', '.' & '-'
-
-String RacesAppDlg::compressPhone(TCchar* tc) {
-String s = tc;      s.trim();
-int    lng = s.length();
-int    pos = 0;
-int    pos2;
-Tchar  ch;
-String t;
-
-  if (lng <= 7) return s;
-
-  if (lng > 8) {
-    if (s[0] == _T('(')) {
-      pos = s.findOneOf(_T(") -."), 1);     if (pos < 0) {t = s.substr(1);   return t;}
-      t = s.substr(1, pos-1);               pos++;
-      for (ch = s[pos]; ch == _T(' '); ch = s[++pos]) continue;    // Remove blanks (408) 555-1212
-      }
-    else {
-      pos = s.findOneOf(_T("-. "));         if (pos < 0) return s;
-
-      t = s.substr(0, pos);                 pos++;
-      }
-    }
-
-  pos2 = s.findOneOf(_T("-. "), pos);       if (pos2 < 0) {t += s.substr(pos);   return t;}
-
-  t += s.substr(pos, pos2-pos);   pos2++;   t += s.substr(pos2);   return t;
-  }
-
-
-String RacesAppDlg::adjFrag(String& frag) {
-int lng;
-
-  for (lng = frag.length(); lng != 2; lng = frag.length()) {
-    if (lng > 2) {
-      if      (frag[0]     == _T('0')) frag = frag.substr(1);
-      else if (frag[lng-1] == _T('0')) frag = frag.substr(0, lng-1);
-      else                             frag = frag.substr(0, 2);
-      continue;
-      }
-
-    frag = _T('0') + frag;
-    }
-
-  return frag;
-  }
-#endif
-#if 1
-#else
-  mbrEnt  = entTbl.find(rcd.mbrEntityID);    if (mbrEnt) rcd.textMsgPh1  = mbrEnt->phone2;
-#endif
-#if 1
-#else
-  emplEnt = entTbl.find(rcd.emplEntityID);   if (emplEnt) rcd.textMsgPh2 = emplEnt->phone2;
-#endif
-#if 0
-void RacesAppDlg::onFindICEAddr() {
-AddressDlg dlg;
-
-  if (readOnly) return;
-
-  dlg.tgt = get(iceStreetAdrCtl);
-
-  if (dlg.DoModal() == IDOK && dlg.adrRcd) {
-    set(iceStreetAdrCtl, dlg.adrRcd->address1);
-    set(iceUnitNoCtl,    dlg.adrRcd->address2);
-    }
-  }
-
-
-void RacesAppDlg::onFindICEZip() {
-CityStateDlg dlg;
-
-  if (readOnly) return;
-
-  dlg.tgt = get(iceZipCtl);
-
-  if (dlg.DoModal() == IDOK && dlg.ctyRcd) {
-    set(iceCityCtl,  dlg.ctyRcd->city);
-    set(iceStateCtl, dlg.ctyRcd->state);
-    set(iceZipCtl,   expandZip(dlg.ctyRcd->zip));
-    }
-  }
-
-
-void RacesAppDlg::onFindEmplAddr() {
-AddressDlg dlg;
-
-  if (readOnly) return;
-
-  dlg.tgt = get(emplStreetAdrCtl);
-
-  if (dlg.DoModal() == IDOK && dlg.adrRcd) {
-    set(emplStreetAdrCtl, dlg.adrRcd->address1);
-    set(emplUnitNoCtl,    dlg.adrRcd->address2);
-    }
-  }
-
-
-void RacesAppDlg::onFindEmplZip() {
-CityStateDlg dlg;
-
-  if (readOnly) return;
-
-  dlg.tgt = get(emplZipCtl);
-
-  if (dlg.DoModal() == IDOK && dlg.ctyRcd) {
-    set(emplCityCtl,  dlg.ctyRcd->city);
-    set(emplStateCtl, dlg.ctyRcd->state);
-    set(emplZipCtl,   expandZip(dlg.ctyRcd->zip));
-    }
-  }
-#endif
-#if 0
-  ON_BN_CLICKED(   IDC_FindICEAddr,  &onFindICEAddr)
-  ON_BN_CLICKED(   IDC_FindICEZip,   &onFindICEZip)
-  ON_BN_CLICKED(   IDC_FindEmplAddr, &onFindEmplAddr)
-  ON_BN_CLICKED(   IDC_FindEmplZip,  &onFindEmplZip)
-#endif
-#if 1
-#else
-CtyRcd* ctyRcd = zipList.find(compressZip(get(mbrZipCtl)));
-
-  if (ctyRcd) {
-    set(mbrCityCtl,  ctyRcd->city);
-    set(mbrStateCtl, ctyRcd->state);
-    set(mbrZipCtl,   expandZip(ctyRcd->zip));
-    }
-#endif
-#if 1
-#else
-CtyRcd* ctyRcd = zipList.find(compressZip(get(iceZipCtl)));
-
-  if (ctyRcd) {
-    set(iceCityCtl,  ctyRcd->city);
-    set(iceStateCtl, ctyRcd->state);
-    set(iceZipCtl,   expandZip(ctyRcd->zip));
-    }
-#endif
-#if 1
-#else
-CtyRcd* ctyRcd = zipList.find(compressZip(get(emplZipCtl)));
-
-  if (ctyRcd) {
-    set(emplCityCtl,  ctyRcd->city);
-    set(emplStateCtl, ctyRcd->state);
-    set(emplZipCtl,   expandZip(ctyRcd->zip));
-    }
-#endif
-
-//void RacesAppDlg::OnCbnCloseupMbrstreetadr() {addrList.set(mbrStreetAdrCtl,  mbrUnitNoCtl);}
-//void RacesAppDlg::OnCbnEditchangeMbrstreetadr() {}
-//  ON_CBN_CLOSEUP(  IDC_MbrStreetAdr,     &OnCbnCloseupMbrstreetadr)
-//      ON_CBN_EDITCHANGE(IDC_MbrStreetAdr, &RacesAppDlg::OnCbnEditchangeMbrstreetadr)
-#if 0
-  addrList.load(mbrStreetAdrCtl);
-  addrList.load(iceStreetAdrCtl);
-  addrList.load(emplStreetAdrCtl);
-  zipList.load(mbrZipCtl);
-  zipList.load(mbrHomeZipCtl);
-   zipList.load(iceZipCtl);
-   zipList.load(emplZipCtl);
-   zipList.load(emplCmpZipCtl);
-#endif
-#if 0
-    String s = dlg.target;
-    if (dlg.wholeWord)     s += _T(" wholeWord");
-    if (dlg.curFldOnly)    s += _T(" curFldOnly");
-    if (dlg.caseSensitive) s += _T(" caseSensitive");
-
-    switch (dlg.attributes) {
-      case 0  : s += _T(" Whole field");  break;
-      case 1  : s += _T(" Anywhere In");  break;
-      case 2  : s += _T(" Beginning Of"); break;
-      default : s += _T(" Whoops!");      break;
-      }
-
-    messageBox(s);
-#endif

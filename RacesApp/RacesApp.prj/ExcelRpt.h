@@ -19,7 +19,7 @@ public:
 private:
 
   void header();
-  void output(MbrInfo& rcd);
+  void output(MbrInfo& info);
 
   ExcelRpt() : ReportBase(0) { }
   };

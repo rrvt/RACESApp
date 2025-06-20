@@ -129,18 +129,7 @@ bool    avail           = addrAvail(r, addrRcd);
   appdAttr(s, _T("Port:"),  rcd.portMobile);
   appdAttr(s, _T("Pkt:"),   rcd.portPacket);
   appdAttr(s, _T("Other:"), rcd.otherEquip);
-#if 0
-  if (!rcd.handHeld.isEmpty())                   s  = _T("HT: ")    + replaceCrlf(rcd.handHeld);
 
-  if (!rcd.portMobile.isEmpty())
-                {if (!s.isEmpty()) s+= _T("; "); s += _T("Port: ")  + replaceCrlf(rcd.portMobile);}
-
-  if (!rcd.portPacket.isEmpty())
-                {if (!s.isEmpty()) s+= _T("; "); s += _T("Pkt: ")   + replaceCrlf(rcd.portPacket);}
-
-  if (!rcd.otherEquip.isEmpty())
-                {if (!s.isEmpty()) s+= _T("; "); s += _T("Other: ") + replaceCrlf(rcd.otherEquip);}
-#endif
   csv << s << Comma;
 
   csv << replaceCrlf(rcd.otherEquip) << Comma;
@@ -207,4 +196,16 @@ String  responder       = rcd.responder.trim();
 String  dsw             = rcd.dSWDate.trim();
 #endif
 
+#if 0
+  if (!rcd.handHeld.isEmpty())                   s  = _T("HT: ")    + replaceCrlf(rcd.handHeld);
+
+  if (!rcd.portMobile.isEmpty())
+                {if (!s.isEmpty()) s+= _T("; "); s += _T("Port: ")  + replaceCrlf(rcd.portMobile);}
+
+  if (!rcd.portPacket.isEmpty())
+                {if (!s.isEmpty()) s+= _T("; "); s += _T("Pkt: ")   + replaceCrlf(rcd.portPacket);}
+
+  if (!rcd.otherEquip.isEmpty())
+                {if (!s.isEmpty()) s+= _T("; "); s += _T("Other: ") + replaceCrlf(rcd.otherEquip);}
+#endif
 
