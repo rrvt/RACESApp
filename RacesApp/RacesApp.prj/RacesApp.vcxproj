@@ -149,6 +149,7 @@
     <ClInclude Include="DeadRcds.h" />
     <ClInclude Include="EverBridgeRpt.h" />
     <ClInclude Include="ExcelRpt.h" />
+    <ClInclude Include="FixDB.h" />
     <ClInclude Include="FmrPeriodDlg.h" />
     <ClInclude Include="FormerRpt.h" />
     <ClInclude Include="GoogleRpt.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="DeadRcds.cpp" />
     <ClCompile Include="EverBridgeRpt.cpp" />
     <ClCompile Include="ExcelRpt.cpp" />
+    <ClCompile Include="FixDB.cpp" />
     <ClCompile Include="FmrPeriodDlg.cpp" />
     <ClCompile Include="FormerRpt.cpp" />
     <ClCompile Include="GoogleRpt.cpp" />

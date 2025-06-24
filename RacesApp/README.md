@@ -63,6 +63,12 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 6/23/25
+
+Work on the memory leak problem.  Mostly it was a Visual Studio problem with false positives
+that occur before all the static variables and objects release their storage.  Also found a
+couple of records that were saved with labels, yuk.
+
 ### Update 6/20/25
 
 Big hole in viewing records is plugged.

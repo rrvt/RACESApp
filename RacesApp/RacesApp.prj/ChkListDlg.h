@@ -12,7 +12,7 @@ class ChkListDlg : public CDialogEx {
   DECLARE_DYNAMIC(ChkListDlg)
 
 public:
-CString nameCallSign;
+Cstring nameCallSign;
 BOOL    applicationProc;
 BOOL    picture;
 BOOL    groupsIO;

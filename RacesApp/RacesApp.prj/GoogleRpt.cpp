@@ -111,7 +111,7 @@ bool    avail           = addrAvail(r, addrRcd);
     }
   else csv << _T("Anywhere") << Comma;
 
-  csv << replaceCrlf(rcd.limitations) << Comma;
+  csv << utl.replaceCrlf(rcd.limitations) << Comma;
 
   csv << addrType << Comma;
 
@@ -132,9 +132,9 @@ bool    avail           = addrAvail(r, addrRcd);
 
   csv << s << Comma;
 
-  csv << replaceCrlf(rcd.otherEquip) << Comma;
+  csv << utl.replaceCrlf(rcd.otherEquip) << Comma;
 
-  csv << replaceCrlf(rcd.comments) << Comma;
+  csv << utl.replaceCrlf(rcd.comments) << Comma;
 
   s = mbrEnt->lastName + _T(" - ") + rcd.callSign;  if (workAddr) s += _T(" - Wrk");
 

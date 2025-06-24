@@ -122,10 +122,11 @@
 
 #define ID_SanitizeDB                   422
 #define ID_SetCompact                   423
-#define ID_Left                         424
-#define ID_Find                         425
-#define ID_FindNext                     426
-#define ID_Right                        427
+#define ID_FixRecords                   424
+#define ID_Left                         425
+#define ID_Find                         426
+#define ID_FindNext                     427
+#define ID_Right                        428
 
 #define ID_About                        497
 #define ID_IntroHelp                    498

@@ -15,7 +15,8 @@ struct MbrInfo;
 class CurMbr {
 
 int      nMod;                      // Record has been modified
-bool     update;                    // Update database
+bool     saveDB;                    // Update database
+
 bool     compactDB;                 // compact database after saving when true
 MbrInfo* info;
 MbrRcd   nilRcd;
@@ -29,11 +30,11 @@ EntRcd*  mbr;
 EntRcd*  ice;
 EntRcd*  empl;
 
-          CurMbr() : nMod(0), update(false), compactDB(false), info(0),
+          CurMbr() : nMod(0), saveDB(false), compactDB(false), info(0),
                      rcd(0),  mbr(0),        ice(0),           empl(0) { }
          ~CurMbr() { }
 
-  void    initialize() {nMod = 0; update = compactDB = false; info = 0; ident.clear(); clear();}
+  void    initialize() {nMod = 0; saveDB = compactDB = false; info = 0; ident.clear(); clear();}
 
   void    clear() {rcd = 0; mbr = 0; ice = 0; empl = 0;}
 
@@ -42,7 +43,8 @@ EntRcd*  empl;
   bool    isEmpty() {return !info;}
 
   bool    isModified()    {return nMod != 0;}
-  void    resetModified() {if (nMod) update |= true;   nMod = 0;}
+  void    shiftModified() {if (nMod) saveDB |= true;   nMod = 0;}
+  void    setSaveDB()     {saveDB = true;}
 
   String& getIdent();
 
@@ -53,7 +55,7 @@ EntRcd*  empl;
 
   void    setDirty(EntRcd* ent) {if (!ent)  return;    ent->setDirty();   nMod++;}
 
-  void    setCompact() {compactDB = true;   update = true;}
+  void    setCompact() {compactDB = true;   saveDB = true;}
 
   AdrRcd* addAdrTbl(AdrRcd& rcd) {AdrRcd* r = adrTbl.add(rcd);   nMod++;   return r;}
   CtyRcd* addCtyTbl(CtyRcd& rcd) {CtyRcd* r = ctyTbl.add(rcd);   nMod++;   return r;}

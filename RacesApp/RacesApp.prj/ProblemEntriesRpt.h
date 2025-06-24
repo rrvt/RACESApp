@@ -20,6 +20,7 @@ private:
 
   bool isProblem(MbrInfo& info);
 
+  void header();
   void output(MbrInfo& info);
   };
 

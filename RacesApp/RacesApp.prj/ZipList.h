@@ -48,7 +48,6 @@ public:
 
   void    load();
 
-//  int     add(CEdit& cityCtl, CEdit& stateCtl, CEdit& zipCtl);
   int     add(CComboBox& zipCtl, CEdit& cityCtl, CEdit& stateCtl);
 
   CtyRcd* add(CtyRcd* ctyRcd);
@@ -72,3 +71,10 @@ private:
 
 
 extern ZipList zipList;
+
+
+
+///////------------------
+
+//  int     add(CEdit& cityCtl, CEdit& stateCtl, CEdit& zipCtl);
+

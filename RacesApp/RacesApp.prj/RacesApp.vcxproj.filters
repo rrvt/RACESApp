@@ -157,6 +157,9 @@
     <ClInclude Include="ProblemEntriesRpt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FixDB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -280,6 +283,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProblemEntriesRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixDB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

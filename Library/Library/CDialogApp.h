@@ -15,11 +15,7 @@ String appID;
 String version;
 
   CDialogApp(CDialogApp* app);
- ~CDialogApp() {
-    #ifdef DebugMemoryLeaks
-      _CrtDumpMemoryLeaks();
-    #endif
-    }
+ ~CDialogApp();
 
   virtual BOOL InitInstance() {return CWinAppEx::InitInstance();}
   virtual int  ExitInstance();

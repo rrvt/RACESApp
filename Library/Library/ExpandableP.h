@@ -143,6 +143,12 @@ the operations supported are:
 #pragma once
 #include "NewAllocator.h"
 
+//#define DebugAlloc
+
+#ifdef DebugAlloc
+#include "MessageBox.h"
+#endif
+
 
 #define ExpandableException _T("Corrupted Expandable(P) structure")
 
@@ -203,8 +209,12 @@ public:
 
   ExpandableP& operator-= (ExpandableP& e);     // moves the data from e to this
 
+#ifdef DebugAlloc
+  Datum*    allocate();
+#else
   Datum*    allocate()           {NewAlloc(Datum); return AllocNode;}     // allocate a heap
                                                                           // record
+#endif
   void      deallocate(Datum* p) {NewAlloc(Datum); FreeNode(p);}          // Does not clear array
                                                                           // entry.
   DatumPtr* getDatumPtr(int i) {return 0 <= i && i < endN ? &tbl[i] : 0;} // Used for difficult
@@ -313,7 +323,20 @@ ExpandableP<Datum, Key, DatumPtr, n>&
   ExpandableP<Datum, Key, DatumPtr, n>::operator-= (ExpandableP& e)
                                                                   {clear(); move(e); return *this;}
 
+#ifdef DebugAlloc
+// allocate a heap record
 
+template <class Datum, class Key, class DatumPtr, const int n>
+Datum*    ExpandableP<Datum, Key, DatumPtr, n>::allocate() {
+NewAlloc(Datum);
+
+  if (sizeof(Datum) == 32) {
+    messageBox(_T("Got one"));
+    }
+
+  return AllocNode;
+  }
+#endif
 
 
 // return the reference

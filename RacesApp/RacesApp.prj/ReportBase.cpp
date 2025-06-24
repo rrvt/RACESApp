@@ -185,12 +185,12 @@ void ReportBase::putDates(MbrRcd& rcd) {
 
 
 void ReportBase::putHandHeld(MbrRcd& rcd) {
-  csv << replaceCrlf(rcd.handHeld)          << Comma;
-  csv << replaceCrlf(rcd.portMobile)        << Comma;
-  csv << replaceCrlf(rcd.portPacket)        << Comma;
-  csv << replaceCrlf(rcd.otherEquip)        << Comma;
-  csv << replaceCrlf(rcd.multilingual)      << Comma;
-  csv << replaceCrlf(rcd.otherCapabilities) << Comma;
+  csv << utl.replaceCrlf(rcd.handHeld)          << Comma;
+  csv << utl.replaceCrlf(rcd.portMobile)        << Comma;
+  csv << utl.replaceCrlf(rcd.portPacket)        << Comma;
+  csv << utl.replaceCrlf(rcd.otherEquip)        << Comma;
+  csv << utl.replaceCrlf(rcd.multilingual)      << Comma;
+  csv << utl.replaceCrlf(rcd.otherCapabilities) << Comma;
   }
 
 
@@ -221,8 +221,8 @@ void ReportBase::putSts(StsRcd* stsRcd) {
 
 
 void ReportBase::putSkills(MbrRcd& rcd) {
-  csv << replaceCrlf(rcd.skillCertifications) << Comma;
-  csv << replaceCrlf(rcd.eOC_Certifications)  << Comma;
+  csv << utl.replaceCrlf(rcd.skillCertifications) << Comma;
+  csv << utl.replaceCrlf(rcd.eOC_Certifications)  << Comma;
   csv << expandDate(rcd.updateDate)           << Comma;
 
   csv << rcd.badgeOK             << Comma;

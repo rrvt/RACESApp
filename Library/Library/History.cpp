@@ -6,9 +6,21 @@
 #include "FileIO.h"
 #include "GetPathDlg.h"
 
+#include "MessageBox.h"
 
-History history;                // There is only one of these!
 
+#if 0
+History::History()  {
+#if 0
+int    eData = (int)&data[128] + sizeof(HistData);
+String s;   s.format(_T("History (0x%08X, 0x%08X"), &data[0], eData);
+messageBox(s);
+#endif
+  }
+
+
+History::~History() { }
+#endif
 
 void History::saveData() {
 PathDlgDsc dsc;

@@ -68,13 +68,13 @@ StsRcd* stsRcd  =  info.stsRcd;
 
   putHandHeld(rcd);
 
-  csv << replaceCrlf(rcd.limitations) << Comma;
+  csv << utl.replaceCrlf(rcd.limitations) << Comma;
 
   putAsn(asnRcd);
 
   putLoc(locRcd);
 
-  csv << replaceCrlf(rcd.comments) << Comma;
+  csv << utl.replaceCrlf(rcd.comments) << Comma;
 
   csv << rcd.shirtSize << Comma;
   csv << rcd.isOfficer << Comma;

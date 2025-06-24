@@ -44,7 +44,7 @@ String& CurMbr::getIdent() {
 
 bool CurMbr::updateDB(TCchar* dbPath) {
 
-  if (update && msgYesNoBox(_T("Update database?")) == IDYES) {
+  if (saveDB && msgYesNoBox(_T("Update database?")) == IDYES) {
 
     backupCopy(dbPath, 10);
 
@@ -55,7 +55,9 @@ bool CurMbr::updateDB(TCchar* dbPath) {
 
     database.close();
 
-    if (compactDB) {MsAccess msAccess; msAccess.compact(dbPath);}
+    if (compactDB) {MsAccess msAccess; msAccess.compact(dbPath);   compactDB = false;}
+
+    saveDB = false;
     }
 
   return true;

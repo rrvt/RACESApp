@@ -69,7 +69,7 @@ RacesAppDlg::RacesAppDlg(TCchar* helpPth, CWnd* pParent) : CDialogEx(IDD_RacesAp
                                 mbrPic(pictureCtl, *this), srch(0) {}
 
 
-RacesAppDlg::~RacesAppDlg() {winPos.~WinPos();}                             //deleteCtl.CleanUp();
+RacesAppDlg::~RacesAppDlg() {winPos.~WinPos();}
 
 
 
@@ -100,6 +100,8 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
 
   ON_COMMAND(      ID_SanitizeDB,        &onSanitizeDB)
   ON_COMMAND(      ID_SetCompact,        &onSetCompact)
+  ON_COMMAND(      ID_FixRecords,        &onFixRecords)
+
 
   ON_COMMAND(      ID_IntroHelp,         &onHelp)
   ON_COMMAND(      ID_About,             &onAbout)
@@ -188,6 +190,7 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_NOTIFY_EX(         TTN_NEEDTEXT, 0,     &OnTtnNeedText)         // Do ToolTips
   ON_WM_MOVE()
   ON_WM_SIZE()
+  ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -297,6 +300,8 @@ CRect winRect;
 void RacesAppDlg::onLoadDatabase() {
 PathDlgDsc dsc(_T("Database"), 0, _T("accdb"), _T("*.accdb"));
 
+  saveCurrentDB();
+
   if (!getOpenDlg(dsc, path)) return;
 
   iniFile.writeString(GlobalSect, getDbPathKey(), path);
@@ -344,7 +349,7 @@ MbrBadgeNo      mbrBadgeNo;
 
   mbrStatus.setDefault();   mbrAvailability.setDefault();   mbrGeography.setDefault();
 
-  set(startDateCtl, getTodayExpd());
+  set(startDateCtl, utl.getTodayExpd());
 
   setStatus(NewMbrSrc, false);
 
@@ -446,7 +451,7 @@ String          tgt;
   mbrAvailability.set(curMbr.rcd);
   mbrGeography.set(curMbr.rcd);
 
-  set(recordIDCtl,     get(curMbr.rcd->getId()));
+  set(recordIDCtl,     utl.get(curMbr.rcd->getId()));
   set(firstNameCtl,    curMbr.mbr->firstName,                        LastNameLbl);
   set(midInitialCtl,   curMbr.mbr->middleInitial,                    MiddleInitialLbl);
   set(lastNameCtl,     curMbr.mbr->lastName,                         LastNameLbl);
@@ -454,7 +459,7 @@ String          tgt;
   set(callSignCtl,     curMbr.rcd->callSign,                         CallLbl);
   set(csExpDateCtl,    expandDate(curMbr.rcd->fCCExpiration),        CSExpDateLbl);
   set(badgeOKCtl,      curMbr.rcd->badgeOK);
-  set(badgeNoCtl,      get(curMbr.rcd->badgeNumber));
+  set(badgeNoCtl,      utl.get(curMbr.rcd->badgeNumber));
   set(badgeExpDateCtl, expandDate(curMbr.rcd->badgeExpDate),         BgExpDateLbl);
 
   if (!setEntity(curMbr.mbr, adrRcd, ctyRcd)) return;
@@ -559,7 +564,7 @@ SaveRcdDlg dlg;
     default           : break;
     }
 
-  curMbr.resetModified();
+  curMbr.shiftModified();
   }
 
 
@@ -581,9 +586,16 @@ DeadRcds deadRcds(csvPath);
 int      n;
 String   s;
 
-  n = deadRcds.fix();   if (n) {curMbr.resetModified();   curMbr.setCompact();}
+  n = deadRcds.fix();   if (n) {curMbr.shiftModified();   curMbr.setCompact();}
 
   s.format(_T("%i Records Marked as Deleted"), n);   messageBox(s);
+  }
+
+
+void RacesAppDlg::onFixRecords() {
+FixDB fixDB;
+
+  if (fixDB.addr()) {curMbr.setSaveDB(); saveCurrentDB();}
   }
 
 
@@ -597,13 +609,15 @@ String topic = helpPath; topic += _T(">Introduction");
 void RacesAppDlg::onAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 
 
-void RacesAppDlg::onUpdateDbExit() {
+void RacesAppDlg::OnClose()        {saveCurrentDB();   CDialogEx::OnClose();}
+void RacesAppDlg::onUpdateDbExit() {saveCurrentDB();   CDialogEx::OnOK();}
+
+
+void RacesAppDlg::saveCurrentDB() {
 
   updateMbr();
 
   if (!curMbr.updateDB(dbPath)) messageBox(_T("Something went wrong while updating database!"));
-
-  CDialogEx::OnOK();
   }
 
 
@@ -725,22 +739,22 @@ void RacesAppDlg::onClearEmplLandline()     {clrLbl(emplLandlineCtl,   LandLineL
 
 
 void RacesAppDlg::onLeaveMbrCellPh()
-               {String s = compressPhone(get(mbrCellPhCtl));    set(mbrCellPhCtl, expandPhone(s));}
+               {String s = compressPhone(utl.get(mbrCellPhCtl));    set(mbrCellPhCtl, expandPhone(s));}
 
 void RacesAppDlg::onLeaveMbrlandline()
-           {String s = compressPhone(get(mbrLandlineCtl));    set(mbrLandlineCtl, expandPhone(s));}
+           {String s = compressPhone(utl.get(mbrLandlineCtl));    set(mbrLandlineCtl, expandPhone(s));}
 
 void RacesAppDlg::onLeaveIceCellPh()
-               {String s = compressPhone(get(iceCellPhCtl));    set(iceCellPhCtl, expandPhone(s));}
+               {String s = compressPhone(utl.get(iceCellPhCtl));    set(iceCellPhCtl, expandPhone(s));}
 
 void RacesAppDlg::onLeaveICELandline()
-           {String s = compressPhone(get(iceLandlineCtl));    set(iceLandlineCtl, expandPhone(s));}
+           {String s = compressPhone(utl.get(iceLandlineCtl));    set(iceLandlineCtl, expandPhone(s));}
 
 void RacesAppDlg::onLeaveEmplCellPh()
-             {String s = compressPhone(get(emplCellPhCtl));    set(emplCellPhCtl, expandPhone(s));}
+             {String s = compressPhone(utl.get(emplCellPhCtl));    set(emplCellPhCtl, expandPhone(s));}
 
 void RacesAppDlg::onLeaveEmplLandline()
-         {String s = compressPhone(get(emplLandlineCtl));    set(emplLandlineCtl, expandPhone(s));}
+         {String s = compressPhone(utl.get(emplLandlineCtl));    set(emplLandlineCtl, expandPhone(s));}
 
 
 void RacesAppDlg::onStartMbrStreetAdr()
@@ -774,7 +788,7 @@ void RacesAppDlg::onLeaveMbrHomeZip()  {zipList.add(mbrHomeZipCtl, mbrCityCtl,  
 void RacesAppDlg::onLeaveIceName() {
 PrepAdrRcd prepRcd;
 
-  prepRcd.setAddress(get(mbrStreetAdrCtl));   prepRcd.setUnitNo(get(mbrUnitNoCtl));
+  prepRcd.setAddress(utl.get(mbrStreetAdrCtl));   prepRcd.setUnitNo(utl.get(mbrUnitNoCtl));
 
   addrList.add(prepRcd.add());
   }
@@ -830,7 +844,7 @@ String          s;
      skillCertsCtl.GetWindowText(cs);    rcd.skillCertifications = cs;
         eocCertCtl.GetWindowText(cs);    rcd.eOC_Certifications  = cs;
         picPathCtl.GetWindowText(cs);    rcd.image               = cs;
-                                         rcd.updateDate          = getTodayCmpr();
+                                         rcd.updateDate          = utl.getTodayCmpr();
 
   if (rcd.mbrEntityID                   ||   !rcd.callSign.isEmpty()            ||
       !rcd.fCCExpiration.isEmpty()      ||   !rcd.badgeOK                       ||
@@ -863,27 +877,27 @@ CtyRcd*    ctyRcd;
   if (setField(curMbr.rcd->statusID,       mbrStatus.getID()))                   curMbr.rcdDirty();
   if (setField(curMbr.rcd->assgnPrefID,    mbrAvailability.getID()))             curMbr.rcdDirty();
   if (setField(curMbr.rcd->locationPrefID, mbrGeography.getID()))                curMbr.rcdDirty();
-  if (setField(curMbr.rcd->callSign,       get(callSignCtl)))                    curMbr.rcdDirty();
-  if (setField(curMbr.rcd->fCCExpiration,  compressDate(get(csExpDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->startDate,      compressDate(get(startDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->dSWDate,        compressDate(get(dswDateCtl))))       curMbr.rcdDirty();
-  if (setField(curMbr.rcd->badgeExpDate,   compressDate(get(badgeExpDateCtl))))  curMbr.rcdDirty();
-  if (setField(curMbr.rcd->responder,      compressDate(get(responderDateCtl)))) curMbr.rcdDirty();
+  if (setField(curMbr.rcd->callSign,       utl.get(callSignCtl)))                    curMbr.rcdDirty();
+  if (setField(curMbr.rcd->fCCExpiration,  compressDate(utl.get(csExpDateCtl))))     curMbr.rcdDirty();
+  if (setField(curMbr.rcd->startDate,      compressDate(utl.get(startDateCtl))))     curMbr.rcdDirty();
+  if (setField(curMbr.rcd->dSWDate,        compressDate(utl.get(dswDateCtl))))       curMbr.rcdDirty();
+  if (setField(curMbr.rcd->badgeExpDate,   compressDate(utl.get(badgeExpDateCtl))))  curMbr.rcdDirty();
+  if (setField(curMbr.rcd->responder,      compressDate(utl.get(responderDateCtl)))) curMbr.rcdDirty();
 
-  mbr.setFirstName(get(firstNameCtl));
-  mbr.setMiddleInit(get(midInitialCtl));
-  mbr.setLastName(get(lastNameCtl));
-  mbr.setSuffix(get(suffixCtl));
-  mbr.setAddress(get(mbrStreetAdrCtl));
-  mbr.setUnitNo(get(mbrUnitNoCtl));
-  mbr.setCity(get(mbrCityCtl));
-  mbr.setState(get(mbrStateCtl));
-  mbr.setZip(get(mbrZipCtl));
+  mbr.setFirstName(utl.get(firstNameCtl));
+  mbr.setMiddleInit(utl.get(midInitialCtl));
+  mbr.setLastName(utl.get(lastNameCtl));
+  mbr.setSuffix(utl.get(suffixCtl));
+  mbr.setAddress(utl.get(mbrStreetAdrCtl));
+  mbr.setUnitNo(utl.get(mbrUnitNoCtl));
+  mbr.setCity(utl.get(mbrCityCtl));
+  mbr.setState(utl.get(mbrStateCtl));
+  mbr.setZip(utl.get(mbrZipCtl));
   mbr.setZipOnly(mbrZipOnlyCtl.GetCheck());
-  mbr.setLocZip(get(mbrHomeZipCtl));
-  mbr.setEmail(get(mbrEmailCtl));
-  mbr.setCellPh(get(mbrCellPhCtl));
-  mbr.setLandLine(get(mbrLandlineCtl));
+  mbr.setLocZip(utl.get(mbrHomeZipCtl));
+  mbr.setEmail(utl.get(mbrEmailCtl));
+  mbr.setCellPh(utl.get(mbrCellPhCtl));
+  mbr.setLandLine(utl.get(mbrLandlineCtl));
   if (setField(curMbr.rcd->textMsgPh1, mbr.getTxtPh())) curMbr.rcdDirty();
 
   if (!setEntity(curMbr.mbr, adrRcd, ctyRcd)) return;
@@ -891,56 +905,56 @@ CtyRcd*    ctyRcd;
   curMbr.rcd->mbrEntityID = mbr.updateRcd(curMbr.mbr);
 
   mbr.clear();
-  mbr.setFirstName(get(iceFirstNameCtl));
-  mbr.setMiddleInit(get(iceMidInitialCtl));
-  mbr.setLastName(get(iceLastNameCtl));
-  mbr.setAddress(get(iceStreetAdrCtl));
-  mbr.setUnitNo(get(iceUnitNoCtl));
-  mbr.setCity(get(iceCityCtl));
-  mbr.setState(get(iceStateCtl));
-  mbr.setZip(get(iceZipCtl));
-  mbr.setEmail(get(iceEmailCtl));
-  mbr.setCellPh(get(iceCellPhCtl));
-  mbr.setLandLine(get(iceLandlineCtl));
+  mbr.setFirstName(utl.get(iceFirstNameCtl));
+  mbr.setMiddleInit(utl.get(iceMidInitialCtl));
+  mbr.setLastName(utl.get(iceLastNameCtl));
+  mbr.setAddress(utl.get(iceStreetAdrCtl));
+  mbr.setUnitNo(utl.get(iceUnitNoCtl));
+  mbr.setCity(utl.get(iceCityCtl));
+  mbr.setState(utl.get(iceStateCtl));
+  mbr.setZip(utl.get(iceZipCtl));
+  mbr.setEmail(utl.get(iceEmailCtl));
+  mbr.setCellPh(utl.get(iceCellPhCtl));
+  mbr.setLandLine(utl.get(iceLandlineCtl));
 
   if (!setEntity(curMbr.ice, adrRcd, ctyRcd)) return;
   mbr.setAdrRcd(adrRcd);   mbr.setCtyRcd(ctyRcd);
   curMbr.rcd->iCE_EntityID = mbr.updateRcd(curMbr.ice);
 
   mbr.clear();
-  mbr.setFirstName(get(emplNameCtl));
-  mbr.setAddress(get(emplStreetAdrCtl));
-  mbr.setUnitNo(get(emplUnitNoCtl));
-  mbr.setCity(get(emplCityCtl));
-  mbr.setState(get(emplStateCtl));
-  mbr.setZip(get(emplZipCtl));
+  mbr.setFirstName(utl.get(emplNameCtl));
+  mbr.setAddress(utl.get(emplStreetAdrCtl));
+  mbr.setUnitNo(utl.get(emplUnitNoCtl));
+  mbr.setCity(utl.get(emplCityCtl));
+  mbr.setState(utl.get(emplStateCtl));
+  mbr.setZip(utl.get(emplZipCtl));
   mbr.setZipOnly(emplZipOnlyCtl.GetCheck());
-  mbr.setLocZip(get(emplCmpZipCtl));
-  mbr.setEmail(get(emplEmailCtl));
-  mbr.setCellPh(get(emplCellPhCtl));
-  mbr.setLandLine(get(emplLandlineCtl));
+  mbr.setLocZip(utl.get(emplCmpZipCtl));
+  mbr.setEmail(utl.get(emplEmailCtl));
+  mbr.setCellPh(utl.get(emplCellPhCtl));
+  mbr.setLandLine(utl.get(emplLandlineCtl));
   if (setField(curMbr.rcd->textMsgPh2, mbr.getTxtPh())) curMbr.rcdDirty();
 
   if (!setEntity(curMbr.empl, adrRcd, ctyRcd)) return;
   mbr.setAdrRcd(adrRcd);   mbr.setCtyRcd(ctyRcd);
   curMbr.rcd->emplEntityID = mbr.updateRcd(curMbr.empl);
 
-  if (setField(curMbr.rcd->handHeld, get(handHeldCtl)))               curMbr.rcdDirty();
-  if (setField(curMbr.rcd->portMobile, get(portMobileCtl)))           curMbr.rcdDirty();
-  if (setField(curMbr.rcd->portPacket, get(portPacketCtl)))           curMbr.rcdDirty();
-  if (setField(curMbr.rcd->otherEquip, get(otherEquipCtl)))           curMbr.rcdDirty();
-  if (setField(curMbr.rcd->multilingual, get(multilingualCtl)))       curMbr.rcdDirty();
+  if (setField(curMbr.rcd->handHeld, utl.get(handHeldCtl)))               curMbr.rcdDirty();
+  if (setField(curMbr.rcd->portMobile, utl.get(portMobileCtl)))           curMbr.rcdDirty();
+  if (setField(curMbr.rcd->portPacket, utl.get(portPacketCtl)))           curMbr.rcdDirty();
+  if (setField(curMbr.rcd->otherEquip, utl.get(otherEquipCtl)))           curMbr.rcdDirty();
+  if (setField(curMbr.rcd->multilingual, utl.get(multilingualCtl)))       curMbr.rcdDirty();
 
-  if (setField(curMbr.rcd->otherCapabilities, get(otherCapCtl)))      curMbr.rcdDirty();
+  if (setField(curMbr.rcd->otherCapabilities, utl.get(otherCapCtl)))      curMbr.rcdDirty();
 
-  if (setField(curMbr.rcd->limitations, get(limitationsCtl)))         curMbr.rcdDirty();
-  if (setField(curMbr.rcd->comments, get(commentsCtl)))               curMbr.rcdDirty();
-  if (setField(curMbr.rcd->skillCertifications, get(skillCertsCtl)))  curMbr.rcdDirty();
-  if (setField(curMbr.rcd->eOC_Certifications, get(eocCertCtl)))      curMbr.rcdDirty();
+  if (setField(curMbr.rcd->limitations, utl.get(limitationsCtl)))         curMbr.rcdDirty();
+  if (setField(curMbr.rcd->comments, utl.get(commentsCtl)))               curMbr.rcdDirty();
+  if (setField(curMbr.rcd->skillCertifications, utl.get(skillCertsCtl)))  curMbr.rcdDirty();
+  if (setField(curMbr.rcd->eOC_Certifications, utl.get(eocCertCtl)))      curMbr.rcdDirty();
   if (setField(curMbr.rcd->badgeOK,       badgeOKCtl.GetCheck()))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->image, get(picPathCtl)))                   curMbr.rcdDirty();
+  if (setField(curMbr.rcd->image, utl.get(picPathCtl)))               curMbr.rcdDirty();
 
-  curMbr.rcd->updateDate = getTodayCmpr();
+  curMbr.rcd->updateDate = utl.getTodayCmpr();
   }
 
 
@@ -953,6 +967,7 @@ String title;
 
   SetWindowText(title);
   }
+
 
 void RacesAppDlg::clrLabels() {
   onClearMbrfirstname();      onClearMbrMiddleInitial();    onClearMbrLastName();
@@ -1146,4 +1161,10 @@ BOOL RacesAppDlg::OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
 
 
 ////--------------
+#if 1
+#else
+  updateMbr();
+
+  if (!curMbr.updateDB(dbPath)) messageBox(_T("Something went wrong while updating database!"));
+#endif
 

@@ -7,10 +7,15 @@
 #include "NotePad.h"
 #include "Random.h"
 
+#include "MessageBox.h"
+
 
 static String blks = _T("                                                                       ")
                      _T("                                                                       ")
                      _T("                                                                       ");
+
+
+void clearLibUtilities() {blks.~String();}
 
 
 String addSepTab(String& s, int max) {
@@ -154,6 +159,19 @@ String* p;
   }
 
 
+String formatPhone(TCchar* ph, Tchar sep) {
+String s = ph;
+String t;
+int    n = s.length();   if (!n) return _T("          ");
+
+  t = s.substr(0, 3);   s = t + sep + s.substr(3);
+
+  t = s.substr(0, 7);   s = t + sep + s.substr(7);   return s;
+  }
+
+
+/////////--------------------
+
 #if 0
 void expunge(String& s) {
 int    i;
@@ -189,15 +207,12 @@ Random rnd;
     }
   }
 #endif
-
-
-String formatPhone(TCchar* ph, Tchar sep) {
-String s = ph;
-String t;
-int    n = s.length();   if (!n) return _T("          ");
-
-  t = s.substr(0, 3);   s = t + sep + s.substr(3);
-
-  t = s.substr(0, 7);   s = t + sep + s.substr(7);   return s;
+#if 0
+void dspStatic() {
+int bStatic = (int)&blks[0];
+int eStatic = (int)&blks[blks.length()-1] + sizeof(Tchar);
+String s;  s.format(_T("dspStatic (0x%08x, 0x%08x, %i)"), bStatic, eStatic, eStatic - bStatic);
+  messageBox(s);
   }
+#endif
 

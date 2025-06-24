@@ -46,6 +46,10 @@
 
 // TODO: reference additional headers your program requires here
 
+#ifdef _DEBUG
+#define DebugMemoryLeaks
+#endif
+
 #include "std.h"
 
 using namespace std;

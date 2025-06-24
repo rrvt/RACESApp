@@ -8,7 +8,6 @@
 #include "MbrTbl.h"
 
 
-MemberList memberList;
 
 
 void MemberList::create() {

@@ -3,8 +3,11 @@
 
 #include "pch.h"
 #include "RacesApp.h"
-#include "RacesAppDlg.h"
+#include "AddrList.h"
 #include "IniFile.h"
+#include "MemberList.h"
+#include "RacesAppDlg.h"
+#include "Utilities.h"
 
 
 #ifdef _DEBUG
@@ -12,9 +15,11 @@
 #endif
 
 
-RacesApp theApp;                         // The one and only RacesApp object
-IniFile   iniFile;
-
+RacesApp   theApp;                          // The one and only RacesApp object
+IniFile    iniFile(theApp);
+MemberList memberList;
+AddrList   addrList;                        // The one Address List sorted by address1
+Utilities  utl;
 
 // RacesApp construction
 
@@ -28,7 +33,7 @@ RacesAppDlg dlg(m_pszHelpFilePath);
 
   CWinApp::InitInstance();
 
-  iniFile.setAppDataPath(m_pszHelpFilePath, *this);
+  iniFile.setAppDataPath(m_pszHelpFilePath);
 
   dlg.DoModal();
 
@@ -36,5 +41,10 @@ RacesAppDlg dlg(m_pszHelpFilePath);
   }
 
 
-int RacesApp::ExitInstance() {return CWinApp::ExitInstance();}
+int RacesApp::ExitInstance() {
+
+  clearLibUtilities();
+
+  return CDialogApp::ExitInstance();
+  }
 

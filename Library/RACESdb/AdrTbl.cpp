@@ -6,6 +6,8 @@
 #include "NotePad.h"
 #include "Utilities.h"
 
+#include "MessageBox.h"
+
 
 AdrRcd::AdrRcd() : id(0), dirty(false), remove(false) { }
 
@@ -40,6 +42,12 @@ void AdrRcd::load(AdrSet* set) {
   id       = set->addressID;
   address1 = set->address1;
   address2 = set->address2;
+#if 0
+  if (leak.track(address1)) {
+    String s;  s.format(_T("%i: %s, %s "), id, address1.str(), address2.str());
+    messageBox(s);
+    }
+#endif
   }
 
 
@@ -83,6 +91,11 @@ void AdrRcd::copy(AdrRcd& r) {
   remove   = r.remove;
   address1 = r.address1;
   address2 = r.address2;
+#if 0
+  if (leak.track(address1)) {
+    messageBox(_T("AdrRcd::copy"));
+    }
+#endif
   }
 
 
@@ -157,3 +170,19 @@ int     n;
   }
 
 
+
+////---------------
+
+#if 0
+void AdrTbl::clear() {
+
+  for (int i = 0; i < nData(); i++) {
+
+    AdrRcd* p = data[i].p;
+    if (p && leak.track(p->address1))
+      messageBox(_T("AdrTbl::clear"));
+
+    NewAlloc(AdrRcd);   FreeNode(data[i].p);   data[i].p = 0;
+    }
+  }
+#endif

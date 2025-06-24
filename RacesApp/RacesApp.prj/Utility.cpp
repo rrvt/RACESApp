@@ -34,28 +34,6 @@ uint    pos;
 
 
 
-String& replaceCrlf(TCchar* tc) {
-String        s;
-static String t;   t.clear();
-int           i;
-int           n;
-
-  if (!tc) return t;
-
-  s = tc;
-
-  for (n = s.length(), i = 0; i < n; i++) {
-    Tchar ch = s[i];
-
-    if (ch == _T('\r')) continue;
-    if (ch == _T('\n')) {t += _T("; "); continue;}
-    t += ch;
-    }
-  return t;
-  }
-
-
-
 // 4085551212 becomes 408.555.1212
 
 String expandPhone(TCchar* tc) {
@@ -185,7 +163,7 @@ String& appdAttr(String& s, TCchar* prefix, String& body) {
 
   if (body.isEmpty()) return s;
 
-  if (!s.isEmpty()) s+= _T("; "); s += prefix;  s += _T(' ') + replaceCrlf(body);   return s;
+  if (!s.isEmpty()) s+= _T("; "); s += prefix;  s += _T(' ') + utl.replaceCrlf(body);   return s;
   }
 
 
@@ -232,22 +210,6 @@ bool setField(String& fld, TCchar* tc) {if (fld ==  tc) return false;   fld = tc
 bool setField(int&    fld, int      v) {if (fld ==   v) return false;   fld =  v;    return true;}
 
 
-String& getTodayCmpr() {
-static String s;
-Date          today;
-
-  today.getToday();   return s = today.format(_T("%m%d%y"));
-  }
-
-
-String& getTodayExpd() {
-static String s;
-Date          today;
-
-  today.getToday();   return s = today.format(_T("%m/%d/%y"));
-  }
-
-
 // Get 2 char date for 1960 -- 2059
 
 uint getDate(TCchar* tc) {
@@ -259,81 +221,41 @@ uint   dt = s.stoi(pos);
   }
 
 
+String& Utilities::replaceCrlf(TCchar* tc) {
+String s;
+int    i;
+int    n;
+
+  t.clear();   if (!tc) return t;
+
+  s = tc;
+
+  for (n = s.length(), i = 0; i < n; i++) {
+    Tchar ch = s[i];
+
+    if (ch == _T('\r')) continue;
+    if (ch == _T('\n')) {t += _T("; "); continue;}
+    t += ch;
+    }
+
+  return t;
+  }
+
+
+String& Utilities::getTodayCmpr() {
+Date today;
+
+  today.getToday();   return s = today.format(_T("%m%d%y"));
+  }
+
+
+String& Utilities::getTodayExpd() {
+Date today;
+
+  today.getToday();   return s = today.format(_T("%m/%d/%y"));
+  }
+
+
 ///------------
 
-#if 0
-void disableBttn(CButton& ctl) {
-uint style = ctl.GetButtonStyle();
-uint before = style;
-
-  style |= WS_DISABLED;
-
-String s;   s.format(_T("Before %0x, After %0x"), before, style);
-messageBox(s);
-  ctl.SetButtonStyle(style);
-  }
-
-
-void enableBttn(CButton& ctl) {
-uint style = ctl.GetButtonStyle();
-uint before = style;
-
-  style &= WS_DISABLED ^ -1;
-
-  String s;   s.format(_T("Before %0x, After %0x"), before, style);
-  messageBox(s);
-
-  ctl.SetButtonStyle(style);
-  }
-#endif
-
-
-///--------------------
-
-#if 1
-#else
-HBITMAP hBitmap = image.Detach();   if (!hBitmap) return;
-
-        ctl.SetBitmap(hBitmap);
-
-
-
-  ctl.GetClientRect(&rect);
-
-  ctl.ReleaseDC(dc);
-#endif
-#if 0
-CImage image;
-    if (SUCCEEDED(image.Load(_T("path/to/your/image.jpg")))) // Replace with your image path
-    {
-        // Get the picture control's device context
-        CDC* pDC = m_pictureCtrl.GetDC();
-        if (pDC)
-        {
-            // Get the picture control's rectangle
-            CRect rect;
-            m_pictureCtrl.GetClientRect(&rect);
-
-            // Draw the image
-            image.StretchBlt(*pDC, rect);
-
-            // Release the device context
-            m_pictureCtrl.ReleaseDC(pDC);
-///----------------
-void CMyDialog::LoadImage(const CString& filePath)
-{
-    if (m_pictureCtrl.Load(filePath))
-    {
-        // Adjust Picture Control size to fit the image
-        m_pictureCtrl.SetBitmapDimension(m_pictureCtrl.GetImageWidth(), m_pictureCtrl.GetImageHeight());
-        m_pictureCtrl.Invalidate();
-    }
-    else
-    {
-        // Handle loading error
-        MessageBox(_T("Failed to load image."), _T("Error"), MB_OK | MB_ICONERROR);
-    }
-}
-
-#endif
 

@@ -7,6 +7,7 @@
 #include "CtyTbl.h"
 #include "CurMbr.h"
 #include "EntTbl.h"
+#include "FixDB.h"
 #include "MbrAvailability.h"
 #include "MbrGeography.h"
 #include "MbrSearch.h"
@@ -19,7 +20,6 @@
 #include "Utility.h"
 #include "WinPos.h"
 
-class  StatusBar;
 struct MbrInfo;
 class  PathDlgDsc;
 
@@ -45,7 +45,6 @@ bool            isInitialized;
 
 DlgSource       dlgSource;
 bool            readOnly;
-
 
 AdrRcd          nilAdr;
 CtyRcd          nilCty;
@@ -166,6 +165,7 @@ private:
   void            updateMbr();
   void            saveMember();
   void            saveNewMember();
+  void            saveCurrentDB();
 
   int             getMbrEntity();
   int             getICEEntity();
@@ -175,7 +175,6 @@ private:
   TCchar*         getTxtPh(int entId);
 
   int             getChk(CButton& ctl);
-
 
   void            setDate(CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandDate(txt));}
   void            setZip( CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandZip(txt));}
@@ -247,6 +246,7 @@ public:
 
   afx_msg void    onHelp();
   afx_msg void    onUpdateDbExit();
+  afx_msg void    OnClose();
 
   afx_msg int     OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg LRESULT OnResetToolBar(WPARAM wParam, LPARAM lParam);
@@ -258,6 +258,7 @@ public:
 
   afx_msg void    onSanitizeDB();
   afx_msg void    onSetCompact() {curMbr.setCompact();}
+  afx_msg void    onFixRecords();// {FixDB fixDB;   fixDB.addr();}
 
   afx_msg void    onClearMbrfirstname();
   afx_msg void    onClearMbrMiddleInitial();

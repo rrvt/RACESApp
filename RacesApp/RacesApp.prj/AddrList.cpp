@@ -7,7 +7,6 @@
 #include "Utility.h"
 
 
-AddrList addrList;                      // The one Address List sorted by address1
 
 
 static String get(String& addr1, String& addr2);
