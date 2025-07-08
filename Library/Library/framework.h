@@ -1,4 +1,4 @@
-// pch.h in the form of pch.h/framework.h ...
+// stdafx.h in the form of pch.h/framework.h ...
 
 #pragma once
 
@@ -48,10 +48,6 @@
 #include <tchar.h>
 
 // TODO: reference additional headers your program requires here
-
-//#ifdef _DEBUG
-//#define new DEBUG_NEW
-//#endif
 
 #include "std.h"
 

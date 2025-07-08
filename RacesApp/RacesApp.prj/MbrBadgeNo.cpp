@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #include "MbrBadgeNo.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "MbrTbl.h"
 #include "MessageBox.h"
 

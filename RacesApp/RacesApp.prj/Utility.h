@@ -88,14 +88,3 @@ inline void    clrLbl(CEdit& ctl, TCchar* txt)
 
 ////////----------------
 
-#if 0
-void disableBttn(CButton& ctl);
-void enableBttn( CButton& ctl);
-#endif
-
-
-//inline TCchar* get(CStatic&   ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
-//inline TCchar* get(CEdit&     ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
-//inline TCchar* get(CComboBox& ctl) {static Cstring cs;   ctl.GetWindowText(cs);   return cs;}
-//inline TCchar* get(int          v) {static String   s;   s = v;                   return s;}
-

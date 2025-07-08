@@ -143,9 +143,9 @@ the operations supported are:
 #pragma once
 #include "NewAllocator.h"
 
-//#define DebugAlloc
+//#define DebugAllocP
 
-#ifdef DebugAlloc
+#ifdef DebugAllocP
 #include "MessageBox.h"
 #endif
 
@@ -209,7 +209,7 @@ public:
 
   ExpandableP& operator-= (ExpandableP& e);     // moves the data from e to this
 
-#ifdef DebugAlloc
+#ifdef DebugAllocP
   Datum*    allocate();
 #else
   Datum*    allocate()           {NewAlloc(Datum); return AllocNode;}     // allocate a heap
@@ -288,8 +288,16 @@ private:
 // Constructor
 
 template <class Datum, class Key, class DatumPtr, const int n>
-ExpandableP<Datum, Key, DatumPtr, n>::ExpandableP() : endN(0), tblN(n > 0 ? n : 1)
-           {NewArray(DatumPtr); tbl = AllocArray(tblN);  ZeroMemory(tbl, tblN * sizeof(DatumPtr));}
+ExpandableP<Datum, Key, DatumPtr, n>::ExpandableP() : endN(0), tblN(n > 0 ? n : 1) {
+NewArray(DatumPtr); tbl = AllocArray(tblN);  ZeroMemory(tbl, tblN * sizeof(DatumPtr));
+
+#ifdef DebugAllocP
+int n = tblN * sizeof(DatumPtr) + sizeof(int);
+  if (n == 8) {
+    messageBox(_T("ExpandableP"));
+    }
+#endif
+  }
 
 
 // We have placed ptrs to nodes in the array.  But now we need to free the nodes and clear the
@@ -323,15 +331,15 @@ ExpandableP<Datum, Key, DatumPtr, n>&
   ExpandableP<Datum, Key, DatumPtr, n>::operator-= (ExpandableP& e)
                                                                   {clear(); move(e); return *this;}
 
-#ifdef DebugAlloc
+#ifdef DebugAllocP
 // allocate a heap record
 
 template <class Datum, class Key, class DatumPtr, const int n>
 Datum*    ExpandableP<Datum, Key, DatumPtr, n>::allocate() {
 NewAlloc(Datum);
 
-  if (sizeof(Datum) == 32) {
-    messageBox(_T("Got one"));
+  if (sizeof(Datum) == 9948) {
+    messageBox(_T("ExpandableP"));
     }
 
   return AllocNode;
@@ -515,6 +523,14 @@ int       j;
   for (     ; j < tblN;   j++) tbl[j].p = 0;
 
   FreeArray(q);
+
+#ifdef DebugAllocP
+int n = tblN * sizeof(DatumPtr) + sizeof(int);
+  if (n == 9936) {
+    messageBox(_T("ExpandableP expand"));
+    }
+#endif
+
   }
 
 

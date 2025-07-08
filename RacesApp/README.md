@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 7/7/25
+
+Update Database objects to suppress memory leak reporting.  Factored IniFile into three classes.
+
 ### Update 6/23/25
 
 Work on the memory leak problem.  Mostly it was a Visual Studio problem with false positives

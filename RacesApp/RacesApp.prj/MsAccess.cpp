@@ -6,7 +6,7 @@
 #include "AppFile.h"
 #include "Executable.h"
 #include "FileSrch.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 
 
 static TCchar* Sect   = _T("MsAccess");

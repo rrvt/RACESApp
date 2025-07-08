@@ -186,26 +186,3 @@ String        s;
 
 ///---------------
 
-#if 0
-int     mbrID           = rcd.mbrEntityID;
-int     emplID          = rcd.emplEntityID;
-int     assgnPrefID     = rcd.assgnPrefID;
-int     locPrefID       = rcd.locationPrefID;
-int     statusID        = rcd.statusID;
-String  responder       = rcd.responder.trim();
-String  dsw             = rcd.dSWDate.trim();
-#endif
-
-#if 0
-  if (!rcd.handHeld.isEmpty())                   s  = _T("HT: ")    + replaceCrlf(rcd.handHeld);
-
-  if (!rcd.portMobile.isEmpty())
-                {if (!s.isEmpty()) s+= _T("; "); s += _T("Port: ")  + replaceCrlf(rcd.portMobile);}
-
-  if (!rcd.portPacket.isEmpty())
-                {if (!s.isEmpty()) s+= _T("; "); s += _T("Pkt: ")   + replaceCrlf(rcd.portPacket);}
-
-  if (!rcd.otherEquip.isEmpty())
-                {if (!s.isEmpty()) s+= _T("; "); s += _T("Other: ") + replaceCrlf(rcd.otherEquip);}
-#endif
-

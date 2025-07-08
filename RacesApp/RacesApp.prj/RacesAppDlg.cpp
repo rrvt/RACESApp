@@ -11,7 +11,7 @@
 #include "DeadRcds.h"
 #include "GetPathDlg.h"
 #include "History.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "MbrBadgeNo.h"
 #include "MemberList.h"
 #include "MessageBox.h"

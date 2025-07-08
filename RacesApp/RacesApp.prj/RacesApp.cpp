@@ -4,7 +4,8 @@
 #include "pch.h"
 #include "RacesApp.h"
 #include "AddrList.h"
-#include "IniFile.h"
+#include "Database.h"
+#include "IniFileEx.h"
 #include "MemberList.h"
 #include "RacesAppDlg.h"
 #include "Utilities.h"
@@ -16,7 +17,16 @@
 
 
 RacesApp   theApp;                          // The one and only RacesApp object
-IniFile    iniFile(theApp);
+IniFileEx  iniFile(theApp);
+Database   database;
+AccessDB   accessDB;
+AdrTbl     adrTbl;
+AsnTbl     asnTbl;
+CtyTbl     ctyTbl;
+EntTbl     entTbl;
+LocTbl     locTbl;
+MbrTbl     mbrTbl;
+StsTbl     stsTbl;
 MemberList memberList;
 AddrList   addrList;                        // The one Address List sorted by address1
 Utilities  utl;
@@ -41,10 +51,5 @@ RacesAppDlg dlg(m_pszHelpFilePath);
   }
 
 
-int RacesApp::ExitInstance() {
-
-  clearLibUtilities();
-
-  return CDialogApp::ExitInstance();
-  }
+int RacesApp::ExitInstance() {clearLibUtilities();   return CDialogApp::ExitInstance();}
 

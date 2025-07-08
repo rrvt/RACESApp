@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #include "SearchDlg.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "Resource.h"
 
 static TCchar* Section          = _T("SearchDefaults");

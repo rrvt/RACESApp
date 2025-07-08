@@ -53,8 +53,6 @@ bool CurMbr::updateDB(TCchar* dbPath) {
     if (!entTbl.store(dbPath)) return false;
     if (!mbrTbl.store(dbPath)) return false;
 
-    database.close();
-
     if (compactDB) {MsAccess msAccess; msAccess.compact(dbPath);   compactDB = false;}
 
     saveDB = false;

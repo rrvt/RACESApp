@@ -2,6 +2,10 @@
 
 #pragma once
 
+#ifdef _DEBUG
+#define DebugMemoryLeaks
+#endif
+
 #ifdef DebugMemoryLeaks
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -45,10 +49,6 @@
 #include <tchar.h>
 
 // TODO: reference additional headers your program requires here
-
-#ifdef _DEBUG
-#define DebugMemoryLeaks
-#endif
 
 #include "std.h"
 

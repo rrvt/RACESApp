@@ -62,13 +62,6 @@ uint   lng;
   if (!VerQueryValue(resData, _T("\\"), (LPVOID*) &fileInfo, &lng) || !lng) return;
 
   success = true;
-
-#if 0
-int    eResData = (int)resData + dataSize;
-String s;   s.format(_T("ResData (0x%08X, 0x%08X, 0x%08X"), resData, eResData, (int)lpTranslate);
-messageBox(s);
-
-#endif
   }
 
 

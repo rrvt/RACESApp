@@ -234,24 +234,3 @@ void ReportBase::msgCount(int count)
 
 
 
-#if 0
-String& ReportBase::replaceCrlf(TCchar* tc) {
-String        s;
-static String t;
-int           i;
-int           n;
-
-  if (!tc) return t;
-
-  s = tc;
-
-  for (n = s.length(), i = 0; i < n; i++) {
-    Tchar ch = s[i];
-
-    if (ch == _T('\r')) continue;
-    if (ch == _T('\n')) {t += _T("; "); continue;}
-    t += ch;
-    }
-  return t;
-  }
-#endif
