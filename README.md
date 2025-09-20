@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 9/19/25
+
+changes to accomodate modifications to ExpandableP.
+
 ### Update 7/7/25
 
 Update Database objects to suppress memory leak reporting.  Factored IniFile into three classes.
