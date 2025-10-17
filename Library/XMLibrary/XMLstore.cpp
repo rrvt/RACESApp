@@ -3,10 +3,11 @@
 
 #include "pch.h"
 #include "XMLstore.h"
+#include "NotePad.h"
 #include "qsort.h"
 
 
-void XMLstore::load(Archive& ar) {
+void XMLstore::load(ArchiveB& ar) {
 XMLparser xmlParser(*this);
 
   xmlParser.input(ar);
@@ -198,7 +199,7 @@ int      i;
   }
 
 
-void XMLtree::output(Archive& ar) {
+void XMLtree::output(ArchiveB& ar) {
 XMLiter   iter(*this);
 XMLbase* p;
 
@@ -251,7 +252,6 @@ String s;
 
   if (!tag.isEmpty()) notePad << nTab << tag;   else notePad << nTab << _T("   ");
   }
-
 
 
 ////////////--------------------

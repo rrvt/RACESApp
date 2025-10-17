@@ -18,6 +18,7 @@ public:
   void load();
 
   void setDefault();
+  int  isDefault();                     // is Default setting or clear
   void set(MbrRcd* rcd);
   int  getID();
 

@@ -87,19 +87,17 @@
 class NotePad;
 
 
-class CDoc;
+class ArchiveB;
 
-class Archive;
-
-typedef ManipT<Archive>    ArManip;
-typedef ManipIntT<Archive> ArManipInt;
-typedef ManipDblT<Archive> ArManipDbl;
-typedef ManipStgT<Archive> ArManipStg;
+typedef ManipT<ArchiveB>    ArManip;
+typedef ManipIntT<ArchiveB> ArManipInt;
+typedef ManipDblT<ArchiveB> ArManipDbl;
+typedef ManipStgT<ArchiveB> ArManipStg;
 
 
 
-class Archive : public ArchPos {
-
+class ArchiveB : public ArchPos {
+protected:
 ArchLine arLine;
 
 NoteNmbr nmbr;
@@ -108,36 +106,36 @@ public:
 
 enum Mode {Read=1, Write=2, Create=4};
 
-           Archive(TCchar* fileName, int mode) : ArchPos(fileName, mode)       {initialize();}
-           Archive(String& fileName, int mode) : ArchPos(fileName.str(), mode) {initialize();}
-           Archive(void*   arbObj,   int mode) : ArchPos(arbObj, mode) { }
-          ~Archive() { }
+           ArchiveB(TCchar* fileName, int mode) : ArchPos(fileName, mode)       {initialize();}
+           ArchiveB(String& fileName, int mode) : ArchPos(fileName.str(), mode) {initialize();}
+           ArchiveB(void*   arbObj,   int mode) : ArchPos(arbObj, mode) { }
+          ~ArchiveB() { }
 
   bool     isOpen()    {return ArchFile::isOpen();}
   bool     isStoring() {return ArchFile::isStoring();}
   void     seekEnd()   {ArchFile::seekEnd();}
 
-  Archive& operator << (NotePad& np);                   // Archive the content of specified notepad
+  virtual ArchiveB& operator << (NotePad& np) {return *this;}
+                                                              // Archive notepad content (doc/view)
+  ArchiveB& operator << (TCchar*        tc) {return append(tc);}
+  ArchiveB& operator << (String&         s) {return append(s);}
+  ArchiveB& operator << (const CString& cs) {return append(cs);}
+  ArchiveB& operator << (const bstr_t   bs) {return append((TCchar*) bs);}
+  ArchiveB& operator << (Tchar          ch) {arLine.append(ch); return *this;}
 
-  Archive& operator << (TCchar*        tc) {return append(tc);}
-  Archive& operator << (String&         s) {return append(s);}
-  Archive& operator << (const CString& cs) {return append(cs);}
-  Archive& operator << (const bstr_t   bs) {return append((TCchar*) bs);}
-  Archive& operator << (Tchar          ch) {arLine.append(ch); return *this;}
+  ArchiveB& operator << (int             v) {return append((long) v);}
+  ArchiveB& operator << (long            v) {return append(v);}
+  ArchiveB& operator << (ulong           v) {return append(v);}
 
-  Archive& operator << (int             v) {return append((long) v);}
-  Archive& operator << (long            v) {return append(v);}
-  Archive& operator << (ulong           v) {return append(v);}
+  ArchiveB& operator << (double          v) {return append(v);}
+  ArchiveB& operator << (Date&          dt) {return append(dt);}
 
-  Archive& operator << (double          v) {return append(v);}
-  Archive& operator << (Date&          dt) {return append(dt);}
-
-  Archive& operator <<(ArManip&        m) {return m.func(*this);}
-  Archive& operator <<(ArManipInt&     m)
+  ArchiveB& operator <<(ArManip&        m) {return m.func(*this);}
+  ArchiveB& operator <<(ArManipInt&     m)
                             {NewAlloc(ArManipInt); m.func(*this, m.v); FreeNode(&m); return *this;}
-  Archive& operator <<(ArManipDbl&     m)
+  ArchiveB& operator <<(ArManipDbl&     m)
                             {NewAlloc(ArManipDbl); m.func(*this, m.v); FreeNode(&m); return *this;}
-  Archive& operator <<(ArManipStg&     m)
+  ArchiveB& operator <<(ArManipStg&     m)
                             {NewAlloc(ArManipStg); m.func(*this, m.v); FreeNode(&m); return *this;}
 
   // Read from file, interpreting \n or \r
@@ -164,55 +162,57 @@ enum Mode {Read=1, Write=2, Create=4};
 private:
 
   void     initialize();
-  Archive& append(TCchar* tc) {arLine.append(tc);   return *this;}
-  Archive& append(Cchar*  cs);
-  Archive& append(long     v);
-  Archive& append(ulong    v);
-  Archive& append(double   v);
-  Archive& append(Date&   dt);
 
 
-  static Archive& doSetLMargin(Archive& n, double v);   // Left Margin relative to physical left
+  static ArchiveB& doSetLMargin(ArchiveB& n, double v);   // Left Margin relative to physical left
                                                         // edge, eg 2 spaces from left edge of file
-  static Archive& doSetRMargin(Archive& n, double v);   // Right Margin relative to page Width
-  static Archive& doPageWidth( Archive& n, int    v);   // Page width in characters (default 99)
+  static ArchiveB& doSetRMargin(ArchiveB& n, double v);   // Right Margin relative to page Width
+  static ArchiveB& doPageWidth( ArchiveB& n, int    v);   // Page width in characters (default 99)
 
-  static Archive& doSetTab(    Archive& n, int    v);
-  static Archive& doSetRTab(   Archive& n, int    v);
-
-
-  static Archive& doSetWidth(Archive& n, int v);        // double width and precision
-  static Archive& doSetPrec( Archive& n, int v);
+  static ArchiveB& doSetTab(    ArchiveB& n, int    v);
+  static ArchiveB& doSetRTab(   ArchiveB& n, int    v);
 
 
-  Archive& setLMargin(double v) {flush();   ArchPos::setLMargin(v);     return *this;}
-  Archive& setRMargin(double v) {flush();   ArchPos::setRMargin(v);     return *this;}
-  Archive& setPageWidth(int  v) {flush();   ArchPos::setPageWidth(v);   return *this;}
-  Archive& setTab(      int  v) {flush();   ArchPos::setTab(v, false);  return *this;}
-  Archive& setRTab(     int  v) {flush();   ArchPos::setTab(v, true);   return *this;}
-  Archive& clrTabs()            {flush();   ArchPos::clrTabs();         return *this;}
-  Archive& tab()                {flush();   arLine.tabSeen   = true;    return *this;}
-  Archive& center()             {flush();   arLine.centerIt  = true;    return *this;}
-  Archive& right()              {flush();   arLine.rightLine = true;    return *this;}
-  Archive& beginULine()         {           arLine.begUndrLn = true;    return *this;}
-  Archive& endULine()           {flush();   arLine.endUndrLn = true;    return *this;}
-  Archive& setHex()             {flush();   nmbr.hex         = true;    return *this;}
-  Archive& crlf()               {flush();   ArchPos::crlf();            return *this;}
+  static ArchiveB& doSetWidth(ArchiveB& n, int v);        // double width and precision
+  static ArchiveB& doSetPrec( ArchiveB& n, int v);
 
-  Archive& flush();
+protected:
 
-  static Archive& doClrTabs(  Archive& n) {n.flush(); return n.clrTabs();}
-  static Archive& doTab(      Archive& n) {n.flush(); return n.tab();}
-  static Archive& doCenter(   Archive& n) {n.flush(); return n.center();}
-  static Archive& doRight(    Archive& n) {n.flush(); return n.right();}
+  ArchiveB& append(TCchar* tc) {arLine.append(tc);   return *this;}
+  ArchiveB& append(Cchar*  cs);
+  ArchiveB& append(long     v);
+  ArchiveB& append(ulong    v);
+  ArchiveB& append(double   v);
+  ArchiveB& append(Date&   dt);
 
-  static Archive& doBeginLine(Archive& n) {n.flush(); return n.beginULine();}
-  static Archive& doEndLine(  Archive& n) {n.flush(); return n.endULine();};
-  static Archive& doSetHex(   Archive& n) {n.flush(); return n.setHex();}
+  ArchiveB& setLMargin(double v) {flush();   ArchPos::setLMargin(v);     return *this;}
+  ArchiveB& setRMargin(double v) {flush();   ArchPos::setRMargin(v);     return *this;}
+  ArchiveB& setPageWidth(int  v) {flush();   ArchPos::setPageWidth(v);   return *this;}
+  ArchiveB& setTab(      int  v) {flush();   ArchPos::setTab(v, false);  return *this;}
+  ArchiveB& setRTab(     int  v) {flush();   ArchPos::setTab(v, true);   return *this;}
+  ArchiveB& clrTabs()            {flush();   ArchPos::clrTabs();         return *this;}
+  ArchiveB& tab()                {flush();   arLine.tabSeen   = true;    return *this;}
+  ArchiveB& center()             {flush();   arLine.centerIt  = true;    return *this;}
+  ArchiveB& right()              {flush();   arLine.rightLine = true;    return *this;}
+  ArchiveB& beginULine()         {           arLine.begUndrLn = true;    return *this;}
+  ArchiveB& endULine()           {flush();   arLine.endUndrLn = true;    return *this;}
+  ArchiveB& setHex()             {flush();   nmbr.hex         = true;    return *this;}
+  ArchiveB& crlf()               {flush();   ArchPos::crlf();            return *this;}
 
-  static Archive& doCrlf(     Archive& n) {n.flush(); return n.crlf();}
+  ArchiveB& flush();
 
-  Archive() : ArchPos((TCchar*)0, 0) { }
+  static ArchiveB& doClrTabs(  ArchiveB& n) {n.flush(); return n.clrTabs();}
+  static ArchiveB& doTab(      ArchiveB& n) {n.flush(); return n.tab();}
+  static ArchiveB& doCenter(   ArchiveB& n) {n.flush(); return n.center();}
+  static ArchiveB& doRight(    ArchiveB& n) {n.flush(); return n.right();}
+
+  static ArchiveB& doBeginLine(ArchiveB& n) {n.flush(); return n.beginULine();}
+  static ArchiveB& doEndLine(  ArchiveB& n) {n.flush(); return n.endULine();};
+  static ArchiveB& doSetHex(   ArchiveB& n) {n.flush(); return n.setHex();}
+
+  static ArchiveB& doCrlf(     ArchiveB& n) {n.flush(); return n.crlf();}
+
+  ArchiveB() : ArchPos((TCchar*)0, 0) { }
 
   friend ArManipDbl& aSetLMargin(double val);   // Set left margin (no. chars)
   friend ArManipDbl& aSetRMargin(double val);   // Set right margin (no. chars)
@@ -221,8 +221,8 @@ private:
   friend ArManipInt& aSetRTab(   int    val);   // Set a right tab (end of fragment ends at tab)
   friend ArManipInt& aSetWidth(  int    val);   // Set width of double output (padded with spaces)
   friend ArManipInt& aSetPrec(   int    prec);  // Set no. of digits after decimal point of double
-//  friend class NotePad;
-  friend class ArchiveNtPd;
+
+  friend class ArchiveBaseNtPd;
   };
 
 

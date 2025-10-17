@@ -112,6 +112,8 @@ BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
   ON_COMMAND(      ID_FindNext,          &onFindNext)
   ON_COMMAND(      ID_Right,             &onRight)
 
+  ON_COMMAND(      ID_SaveMember,        &onSaveMember)
+
   ON_BN_CLICKED(   IDC_PickPicPath,      &onPickPicPath)
 
   ON_EN_SETFOCUS(  IDC_MbrFirstName,     &onClearMbrfirstname)
@@ -281,7 +283,7 @@ CRect winRect;
 
   if (!toolBar.create(this, IDR_TOOLBAR)) return false;
 
-  SetBackgroundColor(RGB(255,255,255));               // toolBar.move(winRect);
+  SetBackgroundColor(RGB(255,255,255));
 
   if (!statusBar.create(this, IDC_StatusBar)) return false;
 
@@ -289,9 +291,11 @@ CRect winRect;
 
   winPos.initialPos(this, winRect);   toolBar.move(winRect);   statusBar.move(winRect);
 
+  chkMbrPicture();
+
   iniFile.read(GlobalSect, getDbPathKey(), path);   loadDatabase();
 
-  isInitialized = true;  setTitle();    readOnly = true;
+  isInitialized = true;   setTitle();   readOnly = true;
 
   return true;
   }
@@ -336,25 +340,38 @@ void RacesAppDlg::loadDatabase() {
 
 
 void RacesAppDlg::onNewMember() {
-String          s;
-MbrBadgeNo      mbrBadgeNo;
 
   updateMbr();
 
   reset(mbrListCtl);    curMbr.initialize();   setTitle();
 
-  initScreen();
-
-  s.format(_T("%i"), mbrBadgeNo.findNext());   set(badgeNoCtl, s);
-
-  mbrStatus.setDefault();   mbrAvailability.setDefault();   mbrGeography.setDefault();
-
-  set(startDateCtl, utl.getTodayExpd());
+  initScreen();   setBadgeNo();   initNewMbrDefaults();   setStartDate();
 
   setStatus(NewMbrSrc, false);
 
   firstNameCtl.SetFocus();    setFirstName();   firstNameCtl.SetSel(0, -1);
   }
+
+void RacesAppDlg::setBadgeNo() {
+MbrBadgeNo mbrBadgeNo;
+String     s;
+
+  s.format(_T("%i"), mbrBadgeNo.findNext());   set(badgeNoCtl, s);
+  }
+
+
+void RacesAppDlg::initNewMbrDefaults()
+             {mbrStatus.setDefault();   mbrAvailability.setDefault();   mbrGeography.setDefault();}
+
+
+void RacesAppDlg::setNewMbrDefaults() {
+  if (!mbrStatus.isDefault())       mbrStatus.setDefault();
+  if (!mbrAvailability.isDefault()) mbrAvailability.setDefault();
+  if (!mbrGeography.isDefault())    mbrGeography.setDefault();
+  }
+
+
+void RacesAppDlg::setStartDate() {set(startDateCtl, utl.getTodayExpd());}
 
 
 // onLoadCurMbrs, onLoadFmrMbrs, onLoadRtrMbrs
@@ -432,6 +449,35 @@ CWnd* wnd = GetDlgItem(id);
 
 
 void RacesAppDlg::onRight() {updateMbr();   setSrch();   if (srch->right()) selectMbr();}
+
+
+void RacesAppDlg::onSaveMember() {
+
+  readOnly = false;  setStatus(dlgSource, readOnly);
+
+  if (dlgSource != NewMbrSrc && curMbr.isEmpty() && !isEmpty()) {
+    dlgSource = NewMbrSrc;   setBadgeNo();   setNewMbrDefaults();   setStartDate();
+    }
+
+  updateMbr();
+  }
+
+
+bool RacesAppDlg::isEmpty() {
+Cstring cs;
+int     n = 0;
+
+  firstNameCtl.GetWindowText(cs);   if (!cs.isEmpty() && cs != FirstNameLbl) n++;
+   lastNameCtl.GetWindowText(cs);   if (!cs.isEmpty() && cs != LastNameLbl)  n++;
+  if (!isCallSignEmpty(cs))                                                  n++;
+
+  return n < 2;
+  }
+
+
+bool RacesAppDlg::isCallSignEmpty(Cstring& cs) {
+  callSignCtl.GetWindowText(cs);   return cs.isEmpty() || cs == CallLbl;
+  }
 
 
 void RacesAppDlg::onSelectMbr() {updateMbr();   selectMbr();}
@@ -523,7 +569,7 @@ String          tgt;
 
   set(lastUpdateCtl,            expandDate(curMbr.rcd->updateDate));
 
-  mbrPic.set(curMbr.rcd->image);   mbrPic.set();
+  mbrPic.set(curMbr.rcd->image);   //mbrPic.set();
 
   setStatus(dlgSource, readOnly);   setTitle();
   }
@@ -555,16 +601,17 @@ void RacesAppDlg::updateMbr() {
 SaveRcdDlg dlg;
 
   switch (dlgSource) {
-    case NewMbrSrc    : saveNewMember(); break;
+    case NewMbrSrc    : if (!saveNewMember())           return;
+                        loadMbrs(CurMbrSrc);            break;
     case CurMbrSrc    :
     case FmrMbrSrc    :
-    case RtrMbrSrc    : if (curMbr.isEmpty()) return;
+    case RtrMbrSrc    : if (curMbr.isEmpty())           return;
                         if (!readOnly) saveMember();    break;
     case NilSrc       :
     default           : break;
     }
 
-  curMbr.shiftModified();
+  curMbr.shiftModified();   resetLabels();
   }
 
 
@@ -652,22 +699,22 @@ void RacesAppDlg::initScreen() {
   clear(portMobileCtl);     clear(portPacketCtl);     clear(otherEquipCtl);
   clear(multilingualCtl);   clear(otherCapCtl);       clear(limitationsCtl);
   clear(commentsCtl);       clear(skillCertsCtl);     clear(eocCertCtl);
-  clear(lastUpdateCtl);     mbrPic.clear();
+  clear(lastUpdateCtl);
   }
 
 
 void RacesAppDlg::setLabels() {
 
-  setFirstName();                           set(  midInitialCtl, MiddleInitialLbl);
-  set(    lastNameCtl, LastNameLbl);        set(  suffixCtl,     SuffixLbl);
-  set(    callSignCtl, CallLbl);
-  set(   csExpDateCtl, CSExpDateLbl);       set(     badgeOKCtl, false);
-  set(     badgeNoCtl, _T("123"));          set(badgeExpDateCtl, BgExpDateLbl);
+  setFirstName();                           set(   midInitialCtl, MiddleInitialLbl);
+  set(     lastNameCtl, LastNameLbl);       set(       suffixCtl, SuffixLbl);
+  set(     callSignCtl, CallLbl);
+  set(    csExpDateCtl, CSExpDateLbl);      set(      badgeOKCtl, false);
+  set(      badgeNoCtl, _T("123"));         set( badgeExpDateCtl, BgExpDateLbl);
 
-  set(mbrStreetAdrCtl, StreetAddrLbl);      set(   mbrUnitNoCtl, UnitNoLbl);
-  set(     mbrCityCtl, CityLbl);            set(    mbrStateCtl, StateLbl);
-  set(      mbrZipCtl, ZipLbl);             set(   mbrCellPhCtl, CellPhLbl);
-  set( mbrLandlineCtl, LandLineLbl);        set(  mbrHomeZipCtl, HomeZipLbl);
+  set( mbrStreetAdrCtl, StreetAddrLbl);     set(    mbrUnitNoCtl, UnitNoLbl);
+  set(      mbrCityCtl, CityLbl);           set(     mbrStateCtl, StateLbl);
+  set(       mbrZipCtl, ZipLbl);            set(    mbrCellPhCtl, CellPhLbl);
+  set(  mbrLandlineCtl, LandLineLbl);       set(   mbrHomeZipCtl, HomeZipLbl);
 
   set(     mbrEmailCtl, EmailLbl);          set(      officerCtl, false);
   set(    startDateCtl, DateLbl);           set(      dswDateCtl, DateLbl);
@@ -680,12 +727,47 @@ void RacesAppDlg::setLabels() {
   set(       iceZipCtl, ZipLbl);            set(    iceCellPhCtl, CellPhLbl);
   set(  iceLandlineCtl, LandLineLbl);
 
-  set(       emplNameCtl, CompanyNameLbl);  set(      emplEmailCtl, EmailLbl);
-  set(  emplStreetAdrCtl, StreetAddrLbl);   set(     emplUnitNoCtl, UnitNoLbl);
-  set(       emplCityCtl, CityLbl);         set(      emplStateCtl, StateLbl);
-  set(        emplZipCtl, ZipLbl);          set(     emplCellPhCtl, CellPhLbl);
-  set(   emplLandlineCtl, LandLineLbl);     set( emplCmpZipCtl, CompanyZipLbl);
-  set(        picPathCtl, PicPathLbl);
+  set(     emplNameCtl, CompanyNameLbl);    set(    emplEmailCtl, EmailLbl);
+  set(emplStreetAdrCtl, StreetAddrLbl);     set(   emplUnitNoCtl, UnitNoLbl);
+  set(     emplCityCtl, CityLbl);           set(    emplStateCtl, StateLbl);
+  set(      emplZipCtl, ZipLbl);            set(   emplCellPhCtl, CellPhLbl);
+  set( emplLandlineCtl, LandLineLbl);       set(   emplCmpZipCtl, CompanyZipLbl);
+  set(      picPathCtl, PicPathLbl);        mbrPic.clear();   //mbrPic.set();
+  }
+
+
+// Initialize fields that have been cleared
+
+void RacesAppDlg::resetLabels() {
+
+  setLbl(   firstNameCtl, FirstNameLbl);       setLbl(   midInitialCtl, MiddleInitialLbl);
+  setLbl(    lastNameCtl, LastNameLbl);        setLbl(       suffixCtl, SuffixLbl);
+  setLbl(    callSignCtl, CallLbl);
+  setLbl(   csExpDateCtl, CSExpDateLbl);
+  setLbl(     badgeNoCtl, _T("123"));          setLbl( badgeExpDateCtl, BgExpDateLbl);
+
+  setLbl(mbrStreetAdrCtl, StreetAddrLbl);      setLbl(    mbrUnitNoCtl, UnitNoLbl);
+  setLbl(     mbrCityCtl, CityLbl);            setLbl(     mbrStateCtl, StateLbl);
+  setLbl(      mbrZipCtl, ZipLbl);             setLbl(    mbrCellPhCtl, CellPhLbl);
+  setLbl( mbrLandlineCtl, LandLineLbl);        setLbl(   mbrHomeZipCtl, HomeZipLbl);
+
+  setLbl(     mbrEmailCtl, EmailLbl);
+  setLbl(    startDateCtl, DateLbl);           setLbl(      dswDateCtl, DateLbl);
+  setLbl(responderDateCtl, DateLbl);
+
+  setLbl( iceFirstNameCtl, FirstNameLbl);      setLbl(iceMidInitialCtl, MiddleInitialLbl);
+  setLbl(  iceLastNameCtl, LastNameLbl);       setLbl(     iceEmailCtl, EmailLbl);
+  setLbl( iceStreetAdrCtl, StreetAddrLbl);     setLbl(    iceUnitNoCtl, UnitNoLbl);
+  setLbl(      iceCityCtl, CityLbl);           setLbl(     iceStateCtl, StateLbl);
+  setLbl(       iceZipCtl, ZipLbl);            setLbl(    iceCellPhCtl, CellPhLbl);
+  setLbl(  iceLandlineCtl, LandLineLbl);
+
+  setLbl(     emplNameCtl, CompanyNameLbl);    setLbl(    emplEmailCtl, EmailLbl);
+  setLbl(emplStreetAdrCtl, StreetAddrLbl);     setLbl(   emplUnitNoCtl, UnitNoLbl);
+  setLbl(     emplCityCtl, CityLbl);           setLbl(    emplStateCtl, StateLbl);
+  setLbl(      emplZipCtl, ZipLbl);            setLbl(   emplCellPhCtl, CellPhLbl);
+  setLbl( emplLandlineCtl, LandLineLbl);       setLbl(   emplCmpZipCtl, CompanyZipLbl);
+  setLbl(      picPathCtl, PicPathLbl);
   }
 
 
@@ -808,12 +890,18 @@ void RacesAppDlg::onSelectEmplCompanyZip() {zipList.set(emplCmpZipCtl, emplCityC
 void RacesAppDlg::onLeaveEmplCompanyZip()  {zipList.add(emplCmpZipCtl, emplCityCtl, emplStateCtl);}
 
 
-void RacesAppDlg::saveNewMember() {
+bool RacesAppDlg::saveNewMember() {
 Cstring         cs;
 MbrRcd          rcd;
 String          s;
 
+  if (isCallSignEmpty(cs)) {messageBox(_T("Please add a call sign to the record"));  return false;}
+
+  if (memberList.isPresent(cs))
+              {s.format(_T("%s is already in the database"), cs);   messageBox(s);   return false;}
+
   curMbr.clear();   clrLabels();
+
   rcd.badgeNumber    = getInt(badgeNoCtl);
   rcd.statusID       = mbrStatus.getID();
   rcd.assgnPrefID    = mbrAvailability.getID();
@@ -844,6 +932,7 @@ String          s;
      skillCertsCtl.GetWindowText(cs);    rcd.skillCertifications = cs;
         eocCertCtl.GetWindowText(cs);    rcd.eOC_Certifications  = cs;
         picPathCtl.GetWindowText(cs);    rcd.image               = cs;
+        mbrPic.set(rcd.image);           //mbrPic.set();
                                          rcd.updateDate          = utl.getTodayCmpr();
 
   if (rcd.mbrEntityID                   ||   !rcd.callSign.isEmpty()            ||
@@ -861,7 +950,7 @@ String          s;
     curMbr.rcdDirty();   curMbr.mbrDirty();   curMbr.iceDirty();   curMbr.emplDirty();
     }
 
-  setStatus(dlgSource, false);
+  setStatus(dlgSource, false);   return true;
   }
 
 
@@ -1108,6 +1197,11 @@ void RacesAppDlg::OnMove(int x, int y)
       {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
 
 
+void RacesAppDlg::invalidate() {
+CRect winRect;   GetClientRect(&winRect);   InvalidateRect(winRect);
+}
+
+
 void RacesAppDlg::OnSize(UINT nType, int cx, int cy) {
 CRect r;
 
@@ -1149,6 +1243,8 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
   toolBar.setHeight(    ID_ReportMenu);
 
   toolBar.setSeparator(15);
+
+  toolBar.addButton(ID_SaveMember, _T("Save"));
   }
 
 

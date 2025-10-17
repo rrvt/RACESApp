@@ -128,6 +128,8 @@
 #define ID_FindNext                     427
 #define ID_Right                        428
 
+#define ID_SaveMember                   429
+
 #define ID_About                        497
 #define ID_IntroHelp                    498
 #define ID_UpdateDBExit                 499

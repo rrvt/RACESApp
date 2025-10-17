@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #include "XMLparser.h"
-#include "MessageBox.h"
+//#include "MessageBox.h"
 #include "XMLstore.h"
 
 
@@ -28,7 +28,7 @@ private:
 
 
 
-void XMLparser::input(Archive& ar) {
+void XMLparser::input(ArchiveB& ar) {
 String   line;
 XMLType  typ;
 String   tag;
@@ -74,7 +74,7 @@ XMLleaf*  attrib;
 
 
 
-bool XMLparser::readLine(Archive& ar, String& s) {
+bool XMLparser::readLine(ArchiveB& ar, String& s) {
 Tchar  tch;
 
   s.clear();
@@ -163,7 +163,7 @@ String err;
   }
 
 
-void XMLparser::output(Archive& ar) {xmlStore.output(ar);}
+void XMLparser::output(ArchiveB& ar) {xmlStore.output(ar);}
 
 
 

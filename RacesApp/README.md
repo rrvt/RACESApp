@@ -63,9 +63,15 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 10/17/25
+
+Added a Save Record button, allow new record addition upon startup of App.
+
+Factoring of Library for Doc/View, Dialog and general purpose modules.  Probably not completed.
+
 ### Update 9/19/25
 
-changes to accomodate modifications to ExpandableP.
+Changes to accomodate modifications to ExpandableP.
 
 ### Update 7/7/25
 

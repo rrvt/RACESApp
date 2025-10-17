@@ -20,6 +20,11 @@ MbrRcd*  rcd;
   }
 
 
+bool MemberList::isPresent(TCchar* callSign) {
+  return mbrTbl.find(callSign) != 0;
+  }
+
+
 MbrInfo* MemberList::add(MbrRcd* rcd) {
 MbrInfo* info;
 MbrRcd*  r;

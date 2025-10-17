@@ -16,7 +16,7 @@ considered to be a separate field in the CSV file.
 
 
 #pragma once
-#include "Archive.h"
+#include "ArchiveB.h"
 #include "Date.h"
 
 
@@ -30,11 +30,11 @@ typedef ManipIntT<CSVOut> CSVManipInt;
 
 
 class CSVOut {
-Archive& ar;
+ArchiveB& ar;
 
 public:
 
-  CSVOut(Archive& a) : ar(a) {initialize();}
+  CSVOut(ArchiveB& a) : ar(a) {initialize();}
 
   CSVOut& operator<< (String&    s)     {ar << quotes(s);              return *this;}
   CSVOut& operator<< (TCchar*    p)     {ar << quotes(p);              return *this;}
@@ -58,7 +58,7 @@ private:
 
   static CSVOut& doCrlf(CSVOut& n) {n.crlf(); return n;}
 
-  CSVOut() : ar(*( Archive*) 0) { }
+  CSVOut() : ar(*( ArchiveB*) 0) { }
 
   friend CSVManipInt& nCommas(int val);
   };

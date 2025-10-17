@@ -138,6 +138,8 @@ CStatic    lastUpdateCtl;
 
   virtual BOOL OnInitDialog();
 
+          void invalidate();
+
 // Dialog Data
 
 #ifdef AFX_DESIGN_TIME
@@ -158,13 +160,21 @@ private:
   void            loadDatabase();
   void            loadMbrs(DlgSource src);
 
+  void            setBadgeNo();
+  void            initNewMbrDefaults();
+  void            setNewMbrDefaults();
+  void            setStartDate();
+
   bool            setEntity(EntRcd* ent, AdrRcd*& adr, CtyRcd*& cty);
 
   void            selectMbr();
 
+  bool            isEmpty();
+  bool            isCallSignEmpty(Cstring& cs);
+
   void            updateMbr();
   void            saveMember();
-  void            saveNewMember();
+  bool            saveNewMember();
   void            saveCurrentDB();
 
   int             getMbrEntity();
@@ -181,7 +191,8 @@ private:
   void            setPhn( CEdit& ctl, TCchar* txt) {ctl.SetWindowText(expandPhone(txt));}
 
   void            initScreen();
-  void            setLabels();
+  void            setLabels();                // Initialize all fields which take labels
+  void            resetLabels();              // Initialize fields that have been cleared
   void            setFirstName();
   void            clrLabels();
 
@@ -202,6 +213,16 @@ private:
 
   void            clrLbl(CStatic& ctl, TCchar* txt)
                              {Cstring lbl;   ctl.GetWindowText(lbl);   if (lbl == txt) clear(ctl);}
+
+// Set label only when control is empty
+  void            setLbl(CEdit& ctl, TCchar* lbl)
+                             {Cstring t;   ctl.GetWindowText(t);   if (t.isEmpty()) set(ctl, lbl);}
+
+  void            setLbl(CComboBox& ctl, TCchar* lbl)
+                             {Cstring t;   ctl.GetWindowText(t);   if (t.isEmpty()) set(ctl, lbl);}
+
+  void            setLbl(CStatic& ctl, TCchar* lbl)
+                             {Cstring t;   ctl.GetWindowText(t);   if (t.isEmpty()) set(ctl, lbl);}
 
   void            setTitle();
   void            setStatus(DlgSource src, bool rdOnly);
@@ -243,6 +264,8 @@ public:
   afx_msg void    onFind();
   afx_msg void    onFindNext();
   afx_msg void    onRight();
+
+  afx_msg void    onSaveMember();
 
   afx_msg void    onHelp();
   afx_msg void    onUpdateDbExit();

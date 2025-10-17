@@ -8,8 +8,8 @@
 #include "MessageBox.h"
 
 
-APicture::APicture(CStatic& picCtl, CDialog& dialog) : ctl(picCtl), visible(false), dlg(dialog),
-horzLowBnd(0), horzUpBnd(0), vertLowBnd(0), vertUpBnd(0) { }
+APicture::APicture(CStatic& picCtl, CDialog& dialog) : ctl(picCtl), visible(true), dlg(dialog),
+                                      horzLowBnd(0), horzUpBnd(0), vertLowBnd(0), vertUpBnd(0) { }
 
 
 void APicture::check(int w, int h) {
@@ -45,7 +45,7 @@ CRect r;
   }
 
 
-void APicture::clear() {path.clear();   visible = false;   set();}
+void APicture::clear() {path.clear();   set();}
 
 
 void APicture::set() {
@@ -54,8 +54,9 @@ CDC*   dc;
 CRect  rect;
 POINT  point;
 
-  if (!visible)              image.LoadFromResource(AfxGetInstanceHandle(), IDB_PuppyBitMap);
-  else if (path.isEmpty() || image.Load(path) < 0) return;
+  if (path.isEmpty() || path == dbRootPath || !visible)
+                                   image.LoadFromResource(AfxGetInstanceHandle(), IDB_PuppyBitMap);
+  else if (image.Load(path) < 0) return;
 
   dc = ctl.GetDC();   if (!dc) return;
 

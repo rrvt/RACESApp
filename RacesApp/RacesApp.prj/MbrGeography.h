@@ -19,6 +19,7 @@ public:
   void load();
   void set(MbrRcd* rcd);
   void setDefault();
+  int  isDefault();
   int  getID();
 
 private:

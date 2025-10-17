@@ -6,7 +6,9 @@
 #include "MbrTbl.h"
 #include "StsTbl.h"
 
-#include "MessageBox.h"
+//#include "MessageBox.h"
+
+static const int DefaultSts = 0;
 
 
 static TCchar* StatusList[3][2] = {{_T("Act"), _T("Active")},
@@ -25,7 +27,21 @@ int index;
   }
 
 
-void MbrStatus::setDefault() {listCtl.SelectString(-1, StatusList[0][1]);}
+void MbrStatus::setDefault() {listCtl.SelectString(-1, StatusList[DefaultSts][1]);}
+
+
+// is Default setting
+
+int  MbrStatus::isDefault() {
+int k;
+int i;
+
+  k = listCtl.GetCurSel();
+
+  i = 0 <= k && k < noElements(StatusList) ? listCtl.GetItemData(k) : -1;
+
+  return i == DefaultSts;
+  }
 
 
 

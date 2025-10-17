@@ -27,14 +27,13 @@ public:
 
   void setRootPath(TCchar* path) {dbRootPath = getPath(path);}
 
-  void set(TCchar* picPath) {path = dbRootPath + picPath;   visible = true;   set();}
+  void set(TCchar* picPath) {path = dbRootPath + picPath;   set();}
 
   void check(int w, int h);
 
-  void set();
-
 private:
 
+  void set();
   void setBnds();
   };
 

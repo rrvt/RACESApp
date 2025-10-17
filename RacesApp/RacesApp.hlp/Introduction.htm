@@ -65,7 +65,8 @@ The toolbar contains the following commands:
 <li>Find Record -- Uses a dialog box to specify the target string and attributes of the search</li>
 <li>Find Next Record -- Uses the target string and attributes to find the next record</li>
 <li>Display Next Record -- Saves any changes in current displayed record and load the next record in the current list</li>
-<li>Reports -- Pop up a Menu of Reports, each report asks for a file name (a default name being supplied) then the report is generated from the appropriate subset of the master list and stored</li>
+<li>Reports -- Pop up a Menu of Reports, each report asks for a file name (a default name being supplied) 
+then the report is generated from the appropriate subset of the master list and stored</li>
 <ul>
 <li>Excel CSV Report -- Outputs the full record for each member in the current member list</li>
 <li>Google Earth Report -- Outputs each record in the current member list suitable for Google Earch</li>
@@ -79,6 +80,14 @@ The toolbar contains the following commands:
 <li>Member IDs by Call Sign -- Call sign and name sorted by call sign</li>
 <li>Member IDs by Suffix -- Call sign and name sorted by call sign suffix</li>
 <li>Former Members -- Outputs the full record for each former member contained in the database.</li>
+</ul>
+<li>Save Record -- There are three cases:</li>
+<ul>
+<li>A record is displayed in the dialog and it has been updated, Save will save the updates if any</li>
+<li>A new record command has been executed, the record fully or partially filled in, Save will add the new record to the current 
+member list</li>
+<li>Neither a new or current record has been requested but at least two fields of First Name, Last Name and Call Sign
+have been set by the user, Save will add the new record to the current member list</li>
 </ul>
 </ul>
 

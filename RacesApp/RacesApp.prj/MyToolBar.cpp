@@ -5,13 +5,20 @@
 #include "MyToolBar.h"
 #include "Resource.h"
 
-static int NoOfButtonControls =  0;
+static int NoOfButtonControls =  2;
 static int NoOfButtons        =  6;
 
 
 
-MyToolBar::MyToolBar() : rptMenu(ID_ReportMenu)
+MyToolBar::MyToolBar() : rptMenu(ID_ReportMenu), button(ID_SaveMember)
                         {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
+
+
+bool MyToolBar::addButton( uint id, TCchar* caption) {
+  if (id == button.getId()) return add(button,  id, caption);
+
+  return false;
+  }
 
 
 bool MyToolBar::addMenu(uint id, int idr, TCchar* caption) {

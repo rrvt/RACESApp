@@ -38,6 +38,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RACESdb", "..\..\Library\RA
 		{71D1CFB5-A2ED-487B-B473-17EEE02E6F6B} = {71D1CFB5-A2ED-487B-B473-17EEE02E6F6B}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dialog", "..\..\Library\Dialog\Dialog.vcxproj", "{F9033CDA-E37D-4F43-BBC5-D881C6EDCE9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -67,6 +69,10 @@ Global
 		{12084586-A769-4348-B54D-336FA036A1FB}.Debug|x86.Build.0 = Debug|Win32
 		{12084586-A769-4348-B54D-336FA036A1FB}.Release|x86.ActiveCfg = Release|Win32
 		{12084586-A769-4348-B54D-336FA036A1FB}.Release|x86.Build.0 = Release|Win32
+		{F9033CDA-E37D-4F43-BBC5-D881C6EDCE9A}.Debug|x86.ActiveCfg = Debug|Win32
+		{F9033CDA-E37D-4F43-BBC5-D881C6EDCE9A}.Debug|x86.Build.0 = Debug|Win32
+		{F9033CDA-E37D-4F43-BBC5-D881C6EDCE9A}.Release|x86.ActiveCfg = Release|Win32
+		{F9033CDA-E37D-4F43-BBC5-D881C6EDCE9A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,6 +29,8 @@ public:
 
   void     create();
 
+  bool     isPresent(TCchar* callSign);
+
   MbrInfo* add(MbrRcd* mbrRcd);
 
 private:

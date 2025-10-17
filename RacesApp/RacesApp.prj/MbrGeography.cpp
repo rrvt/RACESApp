@@ -7,7 +7,7 @@
 #include "MbrTbl.h"
 
 
-
+static const int DefaultGeo = 0;
 
 
 static TCchar* Geography[5][2] = {{_T("A"), _T("Any Where")},
@@ -40,7 +40,21 @@ int     i;
   }
 
 
-void MbrGeography::setDefault() {listCtl.SelectString(-1, Geography[0][1]);}
+void MbrGeography::setDefault() {listCtl.SelectString(-1, Geography[DefaultGeo][1]);}
+
+
+// is Default setting
+
+int  MbrGeography::isDefault() {
+int k;
+int i;
+
+  k = listCtl.GetCurSel();
+
+  i = 0 <= k && k < noElements(Geography) ? listCtl.GetItemData(k) : -1;
+
+  return i == DefaultGeo;
+  }
 
 
 int MbrGeography::getID() {

@@ -2,7 +2,7 @@
 
 
 #pragma once
-#include "Archive.h"
+#include "ArchiveB.h"
 
 class XMLstore;
 
@@ -20,12 +20,12 @@ public:
   XMLparser(XMLstore& store) : xmlStore(store) { }
  ~XMLparser() { }
 
-  void input(Archive& ar);
-  void output(Archive& ar);
+  void input(ArchiveB& ar);
+  void output(ArchiveB& ar);
 
 private:
 
-  bool    readLine(Archive& ar, String& s);
+  bool    readLine(ArchiveB& ar, String& s);
   XMLType getType(String& s, String& tag);
 
   XMLparser() : xmlStore(*(XMLstore*)0) { }

@@ -7,6 +7,8 @@
 #include "MbrTbl.h"
 
 
+static const int DefaultAvail = 4;
+
 static TCchar* AvailList[6][2] = {{_T("P"), _T("Primary")},
                                   {_T("E"), _T("Secondary")},
                                   {_T("G"), _T("May Respond")},
@@ -38,7 +40,21 @@ int     i;
   }
 
 
-void MbrAvailability::setDefault() {listCtl.SelectString(-1, AvailList[4][1]);}
+void MbrAvailability::setDefault() {listCtl.SelectString(-1, AvailList[DefaultAvail][1]);}
+
+
+// is Default setting
+
+int  MbrAvailability::isDefault() {
+int k;
+int i;
+
+  k = listCtl.GetCurSel();
+
+  i = 0 <= k && k < noElements(AvailList) ? listCtl.GetItemData(k) : -1;
+
+  return i == DefaultAvail;
+  }
 
 
 int MbrAvailability::getID() {
