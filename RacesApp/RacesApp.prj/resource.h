@@ -135,6 +135,8 @@
 #define ID_UpdateDBExit                 499
 #define DlgWidth                        506
 
+#define Msg_InitDatabase                WM_USER + 1
+
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED

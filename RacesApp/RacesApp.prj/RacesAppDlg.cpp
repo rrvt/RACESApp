@@ -75,6 +75,9 @@ RacesAppDlg::~RacesAppDlg() {winPos.~WinPos();}
 
 
 BEGIN_MESSAGE_MAP(RacesAppDlg, CDialogEx)
+
+  ON_MESSAGE(      Msg_InitDatabase,     onInitDatabase)
+
   ON_COMMAND(      ID_LoadDatabase,      &onLoadDatabase)
   ON_COMMAND(      ID_NewMember,         &onNewMember)
   ON_COMMAND(      ID_LoadCurMbrs,       &onLoadCurMbrs)
@@ -293,12 +296,17 @@ CRect winRect;
 
   chkMbrPicture();
 
-  iniFile.read(GlobalSect, getDbPathKey(), path);   loadDatabase();
+  iniFile.read(GlobalSect, getDbPathKey(), path);   PostMessage(Msg_InitDatabase, 0, 0);
 
   isInitialized = true;   setTitle();   readOnly = true;
 
   return true;
   }
+
+
+// Load Data and initialize dialog (including puppy picture which needs the window initialized)
+
+LRESULT RacesAppDlg::onInitDatabase(WPARAM wParam, LPARAM lParam) {loadDatabase();   return 0;}
 
 
 void RacesAppDlg::onLoadDatabase() {

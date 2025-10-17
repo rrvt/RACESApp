@@ -371,6 +371,8 @@ public:
 
   afx_msg void    onPickPicPath();
   afx_msg void    onRemoveFmr();
+
+  afx_msg LRESULT onInitDatabase(WPARAM wParam, LPARAM lParam);
   };
 
 

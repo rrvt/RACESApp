@@ -63,6 +63,12 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 10/17/25a
+
+Added an extension of the dialog's InitInstance function that executes after the window is
+initialized.  The extension executes as the result of a message posted from the InitInstance
+function.  This allows the Puppy picture to be displayed, go figure...
+
 ### Update 10/17/25
 
 Added a Save Record button, allow new record addition upon startup of App.
