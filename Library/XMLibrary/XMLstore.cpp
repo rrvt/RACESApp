@@ -7,7 +7,7 @@
 #include "qsort.h"
 
 
-void XMLstore::load(ArchiveB& ar) {
+void XMLstore::load(Archive& ar) {
 XMLparser xmlParser(*this);
 
   xmlParser.input(ar);
@@ -199,7 +199,7 @@ int      i;
   }
 
 
-void XMLtree::output(ArchiveB& ar) {
+void XMLtree::output(Archive& ar) {
 XMLiter   iter(*this);
 XMLbase* p;
 

@@ -28,7 +28,7 @@ private:
 
 
 
-void XMLparser::input(ArchiveB& ar) {
+void XMLparser::input(Archive& ar) {
 String   line;
 XMLType  typ;
 String   tag;
@@ -74,7 +74,7 @@ XMLleaf*  attrib;
 
 
 
-bool XMLparser::readLine(ArchiveB& ar, String& s) {
+bool XMLparser::readLine(Archive& ar, String& s) {
 Tchar  tch;
 
   s.clear();
@@ -163,7 +163,7 @@ String err;
   }
 
 
-void XMLparser::output(ArchiveB& ar) {xmlStore.output(ar);}
+void XMLparser::output(Archive& ar) {xmlStore.output(ar);}
 
 
 

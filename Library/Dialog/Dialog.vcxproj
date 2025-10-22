@@ -113,15 +113,19 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Library\Archive.cpp" />
+    <ClCompile Include="..\Library\CSVOut.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Library\Archive.h" />
+    <ClInclude Include="..\Library\CSVOut.h" />
+    <ClInclude Include="..\Library\CSVRcdsT.h" />
+    <ClInclude Include="LibGlobals.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Library\Library.vcxproj">
       <Project>{cf57f3ec-d3db-4469-8519-3f9d73785d9b}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Archive.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Archive.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

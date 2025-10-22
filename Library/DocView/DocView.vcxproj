@@ -113,7 +113,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Archive.h" />
+    <ClInclude Include="..\Library\Archive.h" />
+    <ClInclude Include="..\Library\CSVOut.h" />
+    <ClInclude Include="..\Library\CSVRcdsT.h" />
     <ClInclude Include="ByteBlock.h" />
     <ClInclude Include="CalibDspPrt.h" />
     <ClInclude Include="CApp.h" />
@@ -134,26 +136,24 @@
     <ClInclude Include="DevStream.h" />
     <ClInclude Include="DevTabs.h" />
     <ClInclude Include="FontMgr.h" />
-    <ClInclude Include="framework.h" />
     <ClInclude Include="Horiz.h" />
     <ClInclude Include="Invalidate.h" />
+    <ClInclude Include="LibGlobals.h" />
     <ClInclude Include="ManageDevBase.h" />
     <ClInclude Include="ManageDisplay.h" />
     <ClInclude Include="ManagePrinter.h" />
     <ClInclude Include="NotePad.h" />
     <ClInclude Include="NtPdToDev.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="ReportBase.h" />
     <ClInclude Include="ReportNtPd.h" />
-    <ClInclude Include="std.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="TextAccm.h" />
     <ClInclude Include="UndrLn.h" />
     <ClInclude Include="VertMgmt.h" />
     <ClInclude Include="Wrap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Archive.cpp" />
+    <ClCompile Include="..\Library\Archive.cpp" />
+    <ClCompile Include="..\Library\CSVOut.cpp" />
     <ClCompile Include="ByteBlock.cpp" />
     <ClCompile Include="CalibDpsPrt.cpp" />
     <ClCompile Include="CApp.cpp" />
@@ -179,10 +179,6 @@
     <ClCompile Include="ManagePrinter.cpp" />
     <ClCompile Include="NotePad.cpp" />
     <ClCompile Include="NtPdToDev.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="ReportBase.cpp" />
     <ClCompile Include="ReportNtPd.cpp" />
     <ClCompile Include="TextAccm.cpp" />

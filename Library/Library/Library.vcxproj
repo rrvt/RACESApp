@@ -14,7 +14,6 @@
   <ItemGroup>
     <ClCompile Include="AppFile.cpp" />
     <ClCompile Include="ArchFile.cpp" />
-    <ClCompile Include="ArchiveB.cpp" />
     <ClCompile Include="ArchPos.cpp" />
     <ClCompile Include="ArchULines.cpp" />
     <ClCompile Include="CDialogApp.cpp" />
@@ -24,7 +23,6 @@
     <ClCompile Include="CryptDe.cpp" />
     <ClCompile Include="CryptEn.cpp" />
     <ClCompile Include="CryptInit.cpp" />
-    <ClCompile Include="CSVOut.cpp" />
     <ClCompile Include="Currency.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -73,7 +71,6 @@
   <ItemGroup>
     <ClInclude Include="AppFile.h" />
     <ClInclude Include="ArchFile.h" />
-    <ClInclude Include="ArchiveB.h" />
     <ClInclude Include="ArchPos.h" />
     <ClInclude Include="ArchULines.h" />
     <ClInclude Include="CbxItem.h" />
@@ -82,8 +79,6 @@
     <ClInclude Include="ComboBox.h" />
     <ClInclude Include="CopyFile.h" />
     <ClInclude Include="Crypt.h" />
-    <ClInclude Include="CSVOut.h" />
-    <ClInclude Include="CSVRcdsT.h" />
     <ClInclude Include="Currency.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="DebugBlk.h" />

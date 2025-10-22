@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 10/21/25
+
+Factored library into three parts, Library, Dialog, DocView.
+
 ### Update 10/17/25a
 
 Added an extension of the dialog's InitInstance function that executes after the window is

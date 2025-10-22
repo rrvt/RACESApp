@@ -2,7 +2,7 @@
 
 
 #pragma once
-#include "ArchiveB.h"
+#include "Archive.h"
 #include "ExpandableP.h"
 #include "IterT.h"
 //#include "NotePad.h"
@@ -47,7 +47,7 @@ String  sortKey;
   virtual void     displayID() { }
           void     dsplyID();
 
-  virtual void     output(ArchiveB& ar) { }
+  virtual void     output(Archive& ar) { }
 
   virtual bool     setKey() {return false;}
   virtual void     sort()   { }
@@ -88,7 +88,7 @@ String line;
 
 //  void     display()        {notePad << line << nCrlf;}
 
-  void     output(ArchiveB& ar) {ar   << line << aCrlf;}
+  void     output(Archive& ar) {ar   << line << aCrlf;}
 
 private:
 
@@ -141,7 +141,7 @@ XMLleaf  end;                                   // EndTag   ("</tagName>") of el
 
   XMLtree* getElement(int i);
 
-  void     output(ArchiveB& ar);
+  void     output(Archive& ar);
 
 private:
 
@@ -170,7 +170,7 @@ String xmlVersion;
 
   void     clear() {root.clear();   cur = &root;   root.typ = NilTag;   root.tag = _T("Header");}
 
-  void     load(ArchiveB& ar);
+  void     load(Archive& ar);
 
   XMLtree* getCurrent()   {return cur;}
 
@@ -196,7 +196,7 @@ String xmlVersion;
 
   void     display()           {root.display();}
 
-  void     output(ArchiveB& ar) {root.output(ar);}
+  void     output(Archive& ar) {root.output(ar);}
   };
 
 

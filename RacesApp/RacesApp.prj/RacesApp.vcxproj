@@ -256,9 +256,6 @@
     <ProjectReference Include="..\..\Library\Dialog\Dialog.vcxproj">
       <Project>{d0fdd57b-5315-4e31-b0c9-fcfb7a0285f6}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Library\Library\Library.vcxproj">
-      <Project>{AC3A6086-6231-4418-BBB3-78A9BAFE585D}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
