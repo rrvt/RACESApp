@@ -8,21 +8,34 @@
 #include "MbrTbl.h"
 
 
+bool MemberList::isPresent(TCchar* callSign) {return mbrTbl.find(callSign) != 0;}
 
 
 void MemberList::create() {
 MbrIter  iter(mbrTbl);
 MbrRcd*  rcd;
 
-  data.clear();
+  data.clear();   maxNonResp = 0;
 
-  for (rcd = iter(); rcd; rcd = iter++) add(rcd);
+  for (rcd = iter(); rcd; rcd = iter++) {updateNonResp(rcd); add(rcd);}
   }
 
 
-bool MemberList::isPresent(TCchar* callSign) {
-  return mbrTbl.find(callSign) != 0;
+String MemberList::nextNonResp() {String s;   s.format(_T("~%04i*"), ++maxNonResp);   return s;}
+
+
+void MemberList::updateNonResp(MbrRcd* rcd) {
+String s;
+int    x;
+uint   pos;
+
+  if (!asnTbl.isNonResp(rcd->assgnPrefID)) return;
+
+  s = rcd->callSign;   s.trim();
+
+  if (s[0] == _T('~')) {x = s.substr(1, 4).stoi(pos);   if (x > maxNonResp) maxNonResp = x;}
   }
+
 
 
 MbrInfo* MemberList::add(MbrRcd* rcd) {

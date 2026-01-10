@@ -9,12 +9,13 @@
 
 
 
-static TCchar* keys[5] = {_T("P"),
-                          _T("E"),
-                          _T("G"),
-                          _T("A"),
-                          _T("L")
-                          };
+static TCchar* keys[] = {_T("P"),
+                         _T("E"),
+                         _T("G"),
+                         _T("A"),
+                         _T("L"),
+                         _T("N")
+                         };
 
 
 
@@ -26,7 +27,7 @@ AsnRcd*     asnRcd;
 String      key;
 String      dsc;
 int         i;
-int         counts[6];
+int         counts[noElements(keys)+1];
 int         total;
 
   for (i = 0; i < noElements(counts); i++) counts[i] = 0;
@@ -61,7 +62,7 @@ int ResponderCntRpt::getRspClass(AsnRcd* asnRcd) {
 String key;
 int    i;
 
-  if (!asnRcd) return 5;
+  if (!asnRcd) return noElements(keys);
 
   key = asnRcd->aPKey;
 

@@ -23,9 +23,8 @@ int         count;
 
 
 bool ProblemEntriesRpt::isProblem(MbrInfo& info) {
-MbrRcd& rcd     = *info.mbrRcd;   if (!info.curMbr)                        return false;
-AsnRcd* asnRcd  =  info.asnRcd;   //if (!asnRcd || asnRcd->aPKey == _T("O")) return true;
-//LocRcd* locRcd  =  info.locRcd;   if (!locRcd || locRcd->key   == _T("O")) return true;
+MbrRcd& rcd     = *info.mbrRcd;   if (!info.curMbr) return false;
+AsnRcd* asnRcd  =  info.asnRcd;
 
   if (!rcd.badgeOK && asnRcd->aPKey != _T("A")) return true;
   if ( rcd.badgeOK && asnRcd->aPKey == _T("A")) return true;

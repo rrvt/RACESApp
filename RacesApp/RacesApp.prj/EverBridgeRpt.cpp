@@ -416,6 +416,8 @@ String  s;
     else if (key == _T("G")) s += _T("|SJS RACES 3 General");
     else if (key == _T("L")) s += _T("|SJS RACES 4 Last Resort");
     else if (key == _T("A")) s += _T("|SJS RACES 5 No Dispatch");
+    else if (key == _T("N")) s += _T("|SJS RACES 6 Non-Responder");
+    else                     s += _T("|SJS RACES 7 Other");
     }
 
   if (rcd.isOfficer) s += _T("|SJS RACES 0 Officers");

@@ -16,6 +16,7 @@
 #include "MemberList.h"
 #include "MessageBox.h"
 #include "MsAccess.h"
+#include "PathDlgDsc.h"
 #include "PrepEntRcd.h"
 #include "Utility.h"
 #include "SaveRcdDlg.h"
@@ -903,10 +904,14 @@ Cstring         cs;
 MbrRcd          rcd;
 String          s;
 
+  callSignCtl.GetWindowText(cs);
+  if (mbrAvailability.isNonResp() && cs.isEmpty())
+                                  {cs = memberList.nextNonResp();   callSignCtl.SetWindowText(cs);}
+
   if (isCallSignEmpty(cs)) {messageBox(_T("Please add a call sign to the record"));  return false;}
 
   if (memberList.isPresent(cs))
-              {s.format(_T("%s is already in the database"), cs);   messageBox(s);   return false;}
+            {s.format(_T("%s is already in the database"), cs);   messageBox(s);   return false;}
 
   curMbr.clear();   clrLabels();
 
@@ -940,7 +945,7 @@ String          s;
      skillCertsCtl.GetWindowText(cs);    rcd.skillCertifications = cs;
         eocCertCtl.GetWindowText(cs);    rcd.eOC_Certifications  = cs;
         picPathCtl.GetWindowText(cs);    rcd.image               = cs;
-        mbrPic.set(rcd.image);           //mbrPic.set();
+        mbrPic.set(rcd.image);
                                          rcd.updateDate          = utl.getTodayCmpr();
 
   if (rcd.mbrEntityID                   ||   !rcd.callSign.isEmpty()            ||
@@ -974,13 +979,14 @@ CtyRcd*    ctyRcd;
   if (setField(curMbr.rcd->statusID,       mbrStatus.getID()))                   curMbr.rcdDirty();
   if (setField(curMbr.rcd->assgnPrefID,    mbrAvailability.getID()))             curMbr.rcdDirty();
   if (setField(curMbr.rcd->locationPrefID, mbrGeography.getID()))                curMbr.rcdDirty();
-  if (setField(curMbr.rcd->callSign,       utl.get(callSignCtl)))                    curMbr.rcdDirty();
-  if (setField(curMbr.rcd->fCCExpiration,  compressDate(utl.get(csExpDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->startDate,      compressDate(utl.get(startDateCtl))))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->dSWDate,        compressDate(utl.get(dswDateCtl))))       curMbr.rcdDirty();
-  if (setField(curMbr.rcd->badgeExpDate,   compressDate(utl.get(badgeExpDateCtl))))  curMbr.rcdDirty();
-  if (setField(curMbr.rcd->responder,      compressDate(utl.get(responderDateCtl)))) curMbr.rcdDirty();
-
+  if (setField(curMbr.rcd->callSign,       utl.get(callSignCtl)))                curMbr.rcdDirty();
+  if (setField(curMbr.rcd->fCCExpiration,  compressDate(utl.get(csExpDateCtl)))) curMbr.rcdDirty();
+  if (setField(curMbr.rcd->startDate,      compressDate(utl.get(startDateCtl)))) curMbr.rcdDirty();
+  if (setField(curMbr.rcd->dSWDate,        compressDate(utl.get(dswDateCtl))))   curMbr.rcdDirty();
+  if (setField(curMbr.rcd->badgeExpDate,   compressDate(utl.get(badgeExpDateCtl))))
+                                                                                 curMbr.rcdDirty();
+  if (setField(curMbr.rcd->responder,      compressDate(utl.get(responderDateCtl))))
+                                                                                 curMbr.rcdDirty();
   mbr.setFirstName(utl.get(firstNameCtl));
   mbr.setMiddleInit(utl.get(midInitialCtl));
   mbr.setLastName(utl.get(lastNameCtl));
@@ -1048,8 +1054,8 @@ CtyRcd*    ctyRcd;
   if (setField(curMbr.rcd->comments, utl.get(commentsCtl)))               curMbr.rcdDirty();
   if (setField(curMbr.rcd->skillCertifications, utl.get(skillCertsCtl)))  curMbr.rcdDirty();
   if (setField(curMbr.rcd->eOC_Certifications, utl.get(eocCertCtl)))      curMbr.rcdDirty();
-  if (setField(curMbr.rcd->badgeOK,       badgeOKCtl.GetCheck()))     curMbr.rcdDirty();
-  if (setField(curMbr.rcd->image, utl.get(picPathCtl)))               curMbr.rcdDirty();
+  if (setField(curMbr.rcd->badgeOK,       badgeOKCtl.GetCheck()))         curMbr.rcdDirty();
+  if (setField(curMbr.rcd->image, utl.get(picPathCtl)))                   curMbr.rcdDirty();
 
   curMbr.rcd->updateDate = utl.getTodayCmpr();
   }

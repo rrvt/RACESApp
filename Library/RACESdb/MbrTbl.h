@@ -77,9 +77,7 @@ String image;
   bool operator>  (long id) {return this->id >  id;}
 
   // Needed for Linear Search with one or more arguments
-  bool contains(TCchar* callSign) {
-    return this->callSign == callSign;
-    }
+  bool contains(TCchar* callSign) {return this->callSign == callSign;}
 
 private:
 

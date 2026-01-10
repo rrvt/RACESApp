@@ -41,12 +41,13 @@ int         priority;
 
 
 
-static TCchar* keys[5] = {_T("P"),
-                          _T("E"),
-                          _T("G"),
-                          _T("A"),
-                          _T("L")
-                          };
+static TCchar* keys[] = {_T("P"),
+                         _T("E"),
+                         _T("G"),
+                         _T("A"),
+                         _T("L"),
+                         _T("N")
+                         };
 
 
 int PriorityList::getPriority(AsnRcd* asnRcd) {

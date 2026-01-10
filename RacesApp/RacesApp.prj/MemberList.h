@@ -9,10 +9,10 @@
 class AsnRcd;
 
 
-typedef DatumPtrT<MbrInfo, String> MbrInfoP;
 
 
 class MemberList;
+typedef DatumPtrT<MbrInfo, String> MbrInfoP;
 typedef IterT<MemberList, MbrInfo> MbrListIter;
 
 
@@ -20,16 +20,19 @@ class MemberList {
 
 ExpandableP<MbrInfo, String, MbrInfoP, 2> data;
 
+int maxNonResp{0};
+
 public:
 
            MemberList() { }
           ~MemberList() { }
 
   bool     isEmpty() {return nData() == 0;}
+  bool     isPresent(TCchar* callSign);
 
   void     create();
-
-  bool     isPresent(TCchar* callSign);
+  void     updateNonResp(MbrRcd* rcd);
+  String   nextNonResp();
 
   MbrInfo* add(MbrRcd* mbrRcd);
 

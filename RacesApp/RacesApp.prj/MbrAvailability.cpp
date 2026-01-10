@@ -9,13 +9,14 @@
 
 static const int DefaultAvail = 4;
 
-static TCchar* AvailList[6][2] = {{_T("P"), _T("Primary")},
-                                  {_T("E"), _T("Secondary")},
-                                  {_T("G"), _T("May Respond")},
-                                  {_T("L"), _T("Last Resort")},
-                                  {_T("O"), _T("Other")},
-                                  {_T("A"), _T("ARES Only")}
-                                  };
+static TCchar* AvailList[][2] = {{_T("P"), _T("Primary")},
+                                 {_T("E"), _T("Secondary")},
+                                 {_T("G"), _T("May Respond")},
+                                 {_T("L"), _T("Last Resort")},
+                                 {_T("A"), _T("ARES Only")},
+                                 {_T("N"), _T("Non-Responder")},
+                                 {_T("O"), _T("Other")}
+                                 };
 
 
 void MbrAvailability::load() {
@@ -74,5 +75,17 @@ AsnRcd* rcd;
   for (rcd = iter(); rcd; rcd = iter++) if (rcd->aPKey == abbr) return rcd->getId();
 
   return 0;
+  }
+
+
+String MbrAvailability::getAbbr() {
+int k;
+int i;
+
+  k = listCtl.GetCurSel();
+
+  i = 0 <= k && k < noElements(AvailList) ? listCtl.GetItemData(k) : 0;
+
+  return AvailList[i][0];
   }
 

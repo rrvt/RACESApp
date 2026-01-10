@@ -84,7 +84,7 @@ bool    avail           = addrAvail(r, addrRcd);
     }
   else csv << Comma;
 
-  s =  rcd.responder.trim().isEmpty() ? _T("non-Responder") : _T("Responder");
+  s =  rcd.responder.trim().isEmpty() ? _T("Non-Responder") : _T("Responder");
   s += rcd.dSWDate.trim().isEmpty()   ? _T(" - No DSW")     : _T(" - DSW");
   csv << s << Comma;
 
@@ -95,6 +95,7 @@ bool    avail           = addrAvail(r, addrRcd);
     else if (s == _T("G")) s = _T("General");
     else if (s == _T("L")) s = _T("Last Call");
     else if (s == _T("A")) s = _T("ARES Only");
+    else if (s == _T("N")) s = _T("Non-Responder");
     else                   s = asnRcd->txt;
     csv << s << Comma;
     }

@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 1/10/26
+
+Added "Non-Responder" option to Priority or Availability field.
+
 ### Update 10/21/25
 
 Factored library into three parts, Library, Dialog, DocView.

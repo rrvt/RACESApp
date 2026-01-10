@@ -13,6 +13,7 @@
 #include "GetPathDlg.h"
 #include "GoogleRpt.h"
 #include "MbrIDs.h"
+#include "PathDlgDsc.h"
 #include "ProblemEntriesRpt.h"
 #include "ResponderCntRpt.h"
 

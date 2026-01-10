@@ -18,9 +18,12 @@ public:
   void set(MbrRcd* rcd);
   void setDefault();
   int  isDefault();
+  bool isNonResp() {return getAbbr() == _T("N");}
   int  getID();
 
 private:
+
+  String getAbbr();
 
   MbrAvailability() : listCtl(*(CComboBox*)0) { }
   };
