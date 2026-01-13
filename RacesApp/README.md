@@ -63,6 +63,10 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 1/12/26
+
+Updated RACESdb Library using CodeGen.
+
 ### Update 1/10/26
 
 Added "Non-Responder" option to Priority or Availability field.

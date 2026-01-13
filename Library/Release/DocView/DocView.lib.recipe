@@ -5,7 +5,7 @@
   <SatelliteDlls />
   <NonRecipeFileRefs>
     <NonRecipeFileRef>
-      <FullPath>D:\Sources\Media\Media.hlp\MediaHlp.vcxproj</FullPath>
+      <FullPath>D:\Sources\CodeGen\CodeGen.hlp\CodeGen.hlp.vcxproj</FullPath>
     </NonRecipeFileRef>
   </NonRecipeFileRefs>
 </Project>
