@@ -315,7 +315,7 @@ PathDlgDsc dsc(_T("Database"), 0, _T("accdb"), _T("*.accdb"));
 
   saveCurrentDB();
 
-  if (!getOpenDlg(dsc, path)) return;
+  if (!getOpenDlg(dsc, path)) {messageBox(_T("getOpenDlg failed"));   return;}
 
   iniFile.writeString(GlobalSect, getDbPathKey(), path);
 
@@ -336,15 +336,15 @@ void RacesAppDlg::loadDatabase() {
 
   dbLoaded = database.load(path);
 
-  if (dbLoaded) {
-    dbPath = path;   mbrPic.setRootPath(path);
+  if (!dbLoaded) {messageBox(_T("database.load failed")); return;}
 
-    memberList.create();   mbrStatus.load();   mbrAvailability.load();
+  dbPath = path;   mbrPic.setRootPath(path);
 
-    mbrGeography.load();   addrList.load();    zipList.load();
+  memberList.create();   mbrStatus.load();   mbrAvailability.load();
 
-    onLoadCurMbrs();       setPath(dbPath);    initScreen();
-    }
+  mbrGeography.load();   addrList.load();    zipList.load();
+
+  onLoadCurMbrs();       setPath(dbPath);    initScreen();
   }
 
 
@@ -1062,13 +1062,20 @@ CtyRcd*    ctyRcd;
 
 
 void RacesAppDlg::setTitle() {
-String title;
+String  title;
+String& id = curMbr.getIdent();
 
-  title = curMbr.getIdent();
+  title = _T("RACES App(");
 
-  if (title.isEmpty()) title = _T("RACES Record");
+#ifdef __x64
+  title += _T("x64");
+#else
+  title += _T("x86");
+#endif
 
-  SetWindowText(title);
+  title += _T(") -- ");
+
+  title += id.isEmpty() ? _T("RACES Record") : id.str();   SetWindowText(title);
   }
 
 

@@ -38,7 +38,7 @@ int i;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(StatusList) ? listCtl.GetItemData(k) : -1;
+  i = 0 <= k && k < noElements(StatusList) ? (int) listCtl.GetItemData(k) : -1;
 
   return i == DefaultSts;
   }
@@ -66,7 +66,7 @@ StsRcd* rcd;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(StatusList) ? listCtl.GetItemData(k) : 0;
+  i = 0 <= k && k < noElements(StatusList) ? (int) listCtl.GetItemData(k) : 0;
 
   abbr = StatusList[i][0];
 

@@ -63,6 +63,14 @@ Execute the msi file to install the app.
 
 ## Updates
 
+### Update 2/2/26
+
+The Microsoft Access Runtime may only be loaded into my laptop as a 64 bit application since the
+OS is 64 bit.  This was a dilemma as I have only used the compiler in 32 bit (or Win32) mode.  Many
+changes in the library due to incompatible sizes (usally easily fixed with casts) but the wix
+installer gave many more problems.  Nevertheless, compiling the app in 64 bit mode solved the issue
+with the runtime.
+
 ### Update 1/12/26
 
 Updated RACESdb Library using CodeGen.
@@ -184,4 +192,6 @@ Contact:  romeo romeo victor tango alpha tango sam whisky delta echo dot charlie
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
 

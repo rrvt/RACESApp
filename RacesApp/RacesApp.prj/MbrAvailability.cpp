@@ -52,7 +52,7 @@ int i;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(AvailList) ? listCtl.GetItemData(k) : -1;
+  i = 0 <= k && k < noElements(AvailList) ? (int) listCtl.GetItemData(k) : -1;
 
   return i == DefaultAvail;
   }
@@ -68,7 +68,7 @@ AsnRcd* rcd;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(AvailList) ? listCtl.GetItemData(k) : 0;
+  i = 0 <= k && k < noElements(AvailList) ? (int) listCtl.GetItemData(k) : 0;
 
   abbr = AvailList[i][0];
 
@@ -84,7 +84,7 @@ int i;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(AvailList) ? listCtl.GetItemData(k) : 0;
+  i = 0 <= k && k < noElements(AvailList) ? (int) listCtl.GetItemData(k) : 0;
 
   return AvailList[i][0];
   }

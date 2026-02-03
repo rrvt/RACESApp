@@ -51,7 +51,7 @@ int i;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(Geography) ? listCtl.GetItemData(k) : -1;
+  i = 0 <= k && k < noElements(Geography) ? (int) listCtl.GetItemData(k) : -1;
 
   return i == DefaultGeo;
   }
@@ -67,7 +67,7 @@ LocRcd* rcd;
 
   k = listCtl.GetCurSel();
 
-  i = 0 <= k && k < noElements(Geography) ? listCtl.GetItemData(k) : 0;
+  i = 0 <= k && k < noElements(Geography) ? (int) listCtl.GetItemData(k) : 0;
 
   abbr = Geography[i][0];
 

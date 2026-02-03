@@ -1,0 +1,23 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+    <Package ...>
+        <!-- 1. Define the Property that tells the UI where to install -->
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+        <!-- 2. Reference the UI and the error/progress texts -->
+        <UI Id="My_InstallDir.ui">
+            <ui:WixUI Id="WixUI_InstallDir" />
+            <!-- Optional: Include standard error/progress messages -->
+            <UIRef Id="WixUI_ErrorProgressText" />
+        </UI>
+
+        <StandardDirectory Id="ProgramFilesFolder">
+            <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer) !(bind.Property.ProductName)" />
+        </StandardDirectory>
+
+        <Feature Id="Main" Title="Main Feature" Level="1">
+            <ComponentGroupRef Id="ExampleComponents" />
+        </Feature>
+    </Package>
+</Wix>
