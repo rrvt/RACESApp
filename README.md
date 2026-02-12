@@ -32,36 +32,47 @@ exits.  Answer yes and the app will update the file with the changes made within
 
 ## Getting Started
 
-This version was created with Visual Studion 2022 (VS22).  It was compiled with the following properties:
-  - Windows SDK Version: 10.0.xxxxx (latest)
-  - Platfor Toolset: visual Studio 2022 (latest)
-  - MFC: Use MFC in a Shared DLL
-  - Character Set:  Use Unicode Character Set
-  - Precompiled Header:  Not Using Precompiled Headers
-  - Linker/Additional Dependencies:  Htmlhelp.lib
+The application is built with Visual Studio 2022 (VS22).  It was compiled with the following
+properties:
 
-The HTML Help Workshop (HHW), Version 4.74.8702.0 (the last one produced) was used to prepare the help
-file (WixApp.chm).  It is
+  o Windows Latest SDK Version
+  o Platfor Toolset: visual Studio 2022
+  o MFC: Use MFC in a Shared DLL
+  o Character Set:  Use Unicode Character Set
+  o Built for the 64 bit (x64) platform because ODBC is now only available in the x64 platform
+  o Additional Include Directories:
+    * $(ProjectDir)
+    * $(SolutionDir)..\..\Library\Library.prj\
+    * $(SolutionDir)..\..\Library\DocView\
+  o  Precompiled Header:  Not Using Precompiled Headers
+  o  Linker/Additional Dependencies:  Htmlhelp.lib
+
+The HTML Help Workshop (HHW), Version 4.74.8702.0 was used to prepare the help file (WixApp.chm).  It is
 copied into the Release directory.  I used Dreamweaver (DW) to do most of the content production of the
 help files that the HTML Help Workshop produces (i.e. HHW is used to produce the pages/files needed
 and DW is used to fill in the content).
 
-Wix is used to create the &lt;AppName&gt;.msi file.  WixApp (one of my applications, see git) was used
-to produce the product.wxs file.
+The Installer requires the Wix, HeatWave and NuGet-Tools Extensions to VS22.  WixApp (one of my
+applications, see git) was used to produce the product.wxs file.
 
-Note:  In order to avoid hickups during the compilation/link process make sure the VS22 dependencies are
-set so the projects are produced in the proper order.
+### Prerequisites
 
-## Prerequisites
-
-Windows 7 or above.  visual Studio 2022 or above.  The WiX Toolset must be installed in Visual Studio.
-The "HTML Help Workshop" (google it) must be installed on the PC.
+The WiX, HeatWave, NuGet-Tools Toolsets must be installed in Visual Studio.
+The "HTML Help Workshop" (google it) must be installed.  Visual Studio 2022 or later.
 
 ### Installing
 
 Execute the msi file to install the app.
 
 ## Updates
+
+### Update 2/10/26
+
+Build for the 64 bit platform.  Upgraded Wix to HeatWave version 4.
+Prior to this version a Win32 platform was used since the 2010 Access Runtime supported both 32 bit
+and 64 bit drivers.  But try as I did, I could not get the 2010 32 bit Access Runtime to install on
+my laptop.  The solution was to build for the 64 bit platform and load the 2016 Access Runtime
+(64 bit).
 
 ### Update 2/2/26
 

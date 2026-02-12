@@ -312,6 +312,9 @@
     <None Include="..\Data\One.csv">
       <Filter>App Reports</Filter>
     </None>
+    <None Include="Installdir.txt">
+      <Filter>App Reports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ShortToolbar.bmp">

@@ -69,18 +69,18 @@
     </NMakeOutput>
     <NMakePreprocessorDefinitions>
     </NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm TgtFolder=$(Configuration).$(platform)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd  TgtFolder=$(Configuration).$(platform)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln  TgtFolder=$(Configuration).$(platform)</NMakeCleanCommandLine>
     <OutDir>$(ProjectDir)..\$(Configuration).$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)..\$(Configuration).$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <NMakeOutput />
     <NMakePreprocessorDefinitions />
-    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm TgtFolder=$(Configuration).$(platform)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd  TgtFolder=$(Configuration).$(platform)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln  TgtFolder=$(Configuration).$(platform)</NMakeCleanCommandLine>
     <OutDir>$(ProjectDir)..\$(Configuration).$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)..\$(Configuration).$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -89,18 +89,18 @@
     </NMakeOutput>
     <NMakePreprocessorDefinitions>
     </NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm TgtFolder=$(Configuration).$(platform)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd  TgtFolder=$(Configuration).$(platform)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln  TgtFolder=$(Configuration).$(platform)</NMakeCleanCommandLine>
     <OutDir>$(ProjectDir)..\$(Configuration).$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)..\$(Configuration).$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <NMakeOutput />
     <NMakePreprocessorDefinitions />
-    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>nmake $(Configuration).$(Platform)/RacesApp.chm TgtFolder=$(Configuration).$(platform)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake $(Configuration).$(Platform)/Rebuild.rbd  TgtFolder=$(Configuration).$(platform)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake $(Configuration).$(Platform)/Clean.cln  TgtFolder=$(Configuration).$(platform)</NMakeCleanCommandLine>
     <OutDir>$(ProjectDir)..\$(Configuration).$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)..\$(Configuration).$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>

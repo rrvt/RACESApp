@@ -27,7 +27,7 @@ EntTbl     entTbl;
 LocTbl     locTbl;
 MbrTbl     mbrTbl;
 StsTbl     stsTbl;
-MemberList memberList;
+MemberList memberList;                      // List
 AddrList   addrList;                        // The one Address List sorted by address1
 Utilities  utl;
 

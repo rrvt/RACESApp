@@ -3,13 +3,16 @@
   xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
   >
 <!--  xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"-->
+<!--  <SummaryInformation Manufacturer="Bob -.- K6RWY" Description="Installs Races Interface App" />-->
 
 <Package UpgradeCode="774B9194-531B-468A-8ED6-22E303A47832" Language="1033"
   Manufacturer="Bob -- K6RWY" Name="Races Interface App"
   Version="!(bind.fileVersion.Races_App.cmp)" InstallerVersion="200"
   >
 
-  <SummaryInformation Manufacturer="Bob -- K6RWY" Description="Installs Races Interface App" />
+  <SummaryInformation Manufacturer="Bob -- K6RWY" Description="Installs Races Interface App"
+    Comments="Copyright (c) Bob -- K6RWY"
+    />
 
   <MajorUpgrade Schedule="afterInstallInitialize"
     AllowDowngrades="no" IgnoreRemoveFailure="no" AllowSameVersionUpgrades="no"

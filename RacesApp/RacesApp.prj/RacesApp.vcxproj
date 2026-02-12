@@ -103,13 +103,13 @@
       <PreprocessorDefinitions>
         WIN32;_WINDOWS;_DEBUG;DsplyHistoryXXX;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
-      <PrecompiledHeaderFile/>
+      <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Dialog\;$(SolutionDir)..\..\Library\Library\;$(SolutionDir)..\..\Library\Extras\;$(SolutionDir)..\..\Library\AccessDB\;$(SolutionDir)..\..\Library\RACESdb\;$(SolutionDir)..\..\Library\DocView\</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <BasicRuntimeChecks/>
+      <BasicRuntimeChecks />
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PrecompiledHeaderOutputFile/>
+      <PrecompiledHeaderOutputFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <SupportJustMyCode>false</SupportJustMyCode>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -121,6 +121,7 @@
       <AdditionalDependencies>Htmlhelp.lib;Library.lib;RACESdb.lib;AccessDB.lib</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>$(Solutiondir)..\..\Library\$(Configuration).$(Platform)\</AdditionalLibraryDirectories>
+      <TargetMachine>NotSet</TargetMachine>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -187,12 +188,12 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile/>
+      <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Dialog\;$(SolutionDir)..\..\Library\Library\;$(SolutionDir)..\..\Library\Extras\;$(SolutionDir)..\..\Library\AccessDB\;$(SolutionDir)..\..\Library\RACESdb\;$(SolutionDir)..\..\Library\DocView\</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <DebugInformationFormat/>
-      <BasicRuntimeChecks/>
-      <PrecompiledHeaderOutputFile/>
+      <DebugInformationFormat />
+      <BasicRuntimeChecks />
+      <PrecompiledHeaderOutputFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -203,7 +204,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalDependencies>Htmlhelp.lib;Library.lib;RACESdb.lib;AccessDB.lib</AdditionalDependencies>
-      <ProgramDatabaseFile/>
+      <ProgramDatabaseFile />
       <AdditionalLibraryDirectories>$(Solutiondir)..\..\Library\$(Configuration).$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -370,7 +371,7 @@
     <None Include="..\Data\Two.csv" />
     <None Include="C:\Users\rrvt\AppData\Roaming\RacesApp\RacesApp.ini" />
     <None Include="res\RacesApp.rc2" />
-  <None Include="Installdir.txt" />
+    <None Include="Installdir.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bitmap1.bmp" />
