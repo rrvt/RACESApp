@@ -1,0 +1,12 @@
+BuiltTargetOutput	D:\Sources\RacesApp\RacesApp.wix\obj\x86\Release\RacesApp.msi
+Input	C:\Program Files (x86)\WixApp\banner.bmp
+Input	C:\Program Files (x86)\WixApp\dialog.bmp
+Input	C:\Users\rrvt\.nuget\packages\wixtoolset.ui.wixext\6.0.2\wixext6\WixToolset.UI.wixext.dll
+Input	D:\Sources\RacesApp\RacesApp\..\RacesApp.prj\res\RacesApp.ico
+Input	D:\Sources\RacesApp\Release.Win32\\RacesApp.chm
+Input	D:\Sources\RacesApp\Release.Win32\\RacesApp.exe
+Intermediate	D:\Sources\RacesApp\RacesApp.wix\obj\x86\Release\#cab1.cab
+Intermediate	D:\Sources\RacesApp\RacesApp.wix\obj\x86\Release\WixToolset.UI.wixext_KvfpSCZDHIoa8Dc2qWRaJwGpqBs\wix-ir\exclamic.ico
+Intermediate	D:\Sources\RacesApp\RacesApp.wix\obj\x86\Release\WixToolset.UI.wixext_KvfpSCZDHIoa8Dc2qWRaJwGpqBs\wix-ir\info.ico
+Intermediate	D:\Sources\RacesApp\RacesApp.wix\obj\x86\Release\WixToolset.UI.wixext_KvfpSCZDHIoa8Dc2qWRaJwGpqBs\wix-ir\new.ico
+Intermediate	D:\Sources\RacesApp\RacesApp.wix\obj\x86\Release\WixToolset.UI.wixext_KvfpSCZDHIoa8Dc2qWRaJwGpqBs\wix-ir\up.ico

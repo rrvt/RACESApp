@@ -11,6 +11,7 @@ Clean.cln    :
 
 
 $(TgtFolder)/RacesApp.chm : RacesApp.chm
+  if not exist "$(MAKEDIR)\..\$(TgtFolder)" mkdir "$(MAKEDIR)\..\$(TgtFolder)"
   copy $(MAKEDIR)\RacesApp.chm  $(MAKEDIR)\..\$(TgtFolder)\RacesApp.chm
 
 

@@ -275,7 +275,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\Library\;$(ProjectDir)..\DocView\</AdditionalIncludeDirectories>
-      <DebugInformationFormat />
+      <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PrecompiledHeaderFile />
@@ -322,8 +322,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\Library\;$(ProjectDir)..\DocView\</AdditionalIncludeDirectories>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PrecompiledHeaderFile>
@@ -393,10 +392,5 @@
     <ClCompile Include="Sockets.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="ThDisplay.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DocView\DocView.vcxproj">
-      <Project>{d0fdd57b-5315-4e31-b0c9-fcfb7a0285f6}</Project>
-    </ProjectReference>
   </ItemGroup>
 </Project>

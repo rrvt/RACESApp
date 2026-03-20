@@ -1258,10 +1258,10 @@ LRESULT RacesAppDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar(
 void RacesAppDlg::setupToolBar() {
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
-  toolBar.setWthPercent(ID_ReportMenu, 75);
-  toolBar.addMenu(      ID_ReportMenu,  IDR_ReportMenu, _T("Reports"));
-  toolBar.setWidth(     ID_ReportMenu);
-  toolBar.setHeight(    ID_ReportMenu);
+  toolBar.setCboWthPrct(ID_ReportMenu, 75);
+  toolBar.setCboItems(  ID_ReportMenu,  IDR_ReportMenu);
+  toolBar.setCboCaption(ID_ReportMenu, _T("Reports"));
+  toolBar.setCboHeight( ID_ReportMenu);
 
   toolBar.setSeparator(15);
 

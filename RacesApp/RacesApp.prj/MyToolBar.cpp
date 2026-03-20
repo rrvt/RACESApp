@@ -10,7 +10,7 @@ static int NoOfButtons        =  6;
 
 
 
-MyToolBar::MyToolBar() : rptMenu(ID_ReportMenu), button(ID_SaveMember)
+MyToolBar::MyToolBar() : rptMenu(createCboBox(ID_ReportMenu)), button(ID_SaveMember)
                         {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
 
 
@@ -21,38 +21,25 @@ bool MyToolBar::addButton( uint id, TCchar* caption) {
   }
 
 
-bool MyToolBar::addMenu(uint id, int idr, TCchar* caption) {
-  if (id == rptMenu.getId())  return add(rptMenu,  id, idr, caption);
-
-  return false;
-  }
+//bool MyToolBar::setCboItems(uint id, int idr) {return setCboItems(id, idr);}
 
 
-bool MyToolBar::addMenu(uint id, CbxItem cbxItem[], int n, TCchar* caption) {
-  if (id == rptMenu.getId())   return add(rptMenu,  id, cbxItem, n, caption);
-
-  return false;
-  }
+//bool MyToolBar::setCboItems(uint id, CbxItem cbxItem[], int n) {return setCboItems(id, cbxItem, n);}
 
 
-void MyToolBar::setWthPercent(uint id, int prcnt) {
-  if (id == rptMenu.getId()) {ToolBarBase::setWthPercent(rptMenu,     prcnt);   return;}
-  }
+void MyToolBar::setCboCaption(uint id, TCchar* txt)
+                             {if (id == rptMenu.getId()) ToolBarBase::setCboCaption(rptMenu, txt);}
 
 
-void MyToolBar::setWidth(uint id) {
-  if (id == rptMenu.getId()) {ToolBarBase::setWidth(rptMenu);      return;}
-  Invalidate();
-  }
+void MyToolBar::setCboWthPrct(uint id, int percent)
+                         {if (id == rptMenu.getId()) ToolBarBase::setCboWthPrct(rptMenu, percent);}
 
 
-void MyToolBar::setHeight( uint id) {
-  if (id == rptMenu.getId()) ToolBarBase::setHeight(rptMenu);
-  }
+
+void MyToolBar::setCboHeight(uint id)
+  {if (id == rptMenu.getId()) ToolBarBase::setCboHeight(rptMenu);}
 
 
-void MyToolBar::dispatch(uint id) {
-  if (id == rptMenu.getId()) ToolBarBase::dispatch(rptMenu);
-  }
+void MyToolBar::dispatch(uint id) {ToolBarBase::dispatch(rptMenu);}
 
 

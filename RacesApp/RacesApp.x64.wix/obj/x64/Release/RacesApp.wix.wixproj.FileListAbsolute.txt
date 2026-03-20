@@ -1,0 +1,4 @@
+D:\Sources\RacesApp\Release.x64\RacesApp.msi
+D:\Sources\RacesApp\RacesApp.wix\obj\x64\Release\RacesApp.wix.wixproj.CoreCompileInputs.cache
+D:\Sources\RacesApp\RacesApp.wix\obj\x64\Release\RacesApp.msi
+D:\Sources\RacesApp\RacesApp.wix\obj\x64\Release\RacesApp.wix.wixproj.BindTracking-neutral.txt

@@ -36,7 +36,7 @@ The application is built with Visual Studio 2022 (VS22).  It was compiled with t
 properties:
 
   o Windows Latest SDK Version
-  o Platfor Toolset: visual Studio 2022
+  o Platform Toolset: visual Studio 2022
   o MFC: Use MFC in a Shared DLL
   o Character Set:  Use Unicode Character Set
   o Built for the 64 bit (x64) platform because ODBC is now only available in the x64 platform
@@ -65,6 +65,10 @@ The "HTML Help Workshop" (google it) must be installed.  Visual Studio 2022 or l
 Execute the msi file to install the app.
 
 ## Updates
+
+### Update 3/19/26
+
+Normalize MyToolBar.   Added x64 platform.  Lots of changes in the library.
 
 ### Update 2/10/26
 
